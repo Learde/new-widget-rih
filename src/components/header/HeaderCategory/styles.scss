@@ -1,0 +1,65 @@
+.vue-treeselect {
+    &__control {
+        min-height: 35px;
+        width: 100%;
+
+        border-radius: 8px;
+        border: 1px solid var(--widget-border-color);
+
+        box-shadow: var(--widget-box-shadow-input);
+    }
+
+    &__multi-value-item {
+        border-radius: 4px;
+        color: var(--widget-primary);
+        background-color: var(--widget-primary-light);
+    }
+
+    &:not(&--disabled) 
+    &__multi-value-item:not(&__multi-value-item-disabled):hover
+    &__multi-value-item:not(&__multi-value-item-new) 
+    &__multi-value-item:not(&__multi-value-item-new):hover {
+        background-color: var(--widget-primary-light);
+    }
+    
+    &--single &__option--selected {
+        background-color: var(--widget-primary-light);
+    }
+    
+    &--single &__option--selected:hover {
+        background-color: var(--widget-primary-light);
+    }
+    
+    &__label-container:hover &__checkbox--unchecked {
+        border-color: var(--widget-primary);
+        background: #fff;
+    }
+    
+    &__checkbox--indeterminate {
+        border-color: var(--widget-primary);
+        background: var(--widget-primary);
+    }
+    
+    &__label-container:hover &__checkbox--indeterminate {
+        border-color: var(--widget-primary);
+        background: var(--widget-primary);
+    }
+    
+    &__checkbox--checked {
+        border-color: var(--widget-primary);
+        background: var(--widget-primary);
+    }
+    
+    &__label-container:hover &__checkbox--checked {
+        border-color: var(--widget-primary);
+        background: var(--widget-primary);
+    }
+    
+    &__value-remove {
+        color: var(--widget-primary);
+    }
+    
+    &--has-value &__multi-value {
+        margin-bottom: 0 !important;
+    }
+}
