@@ -1,12 +1,24 @@
 <template>
-    <div class="rih-widget" id="rih-widget"></div>
+    <div class="rih-widget" id="rih-widget">
+        <button @click="goInv">К инвентарю</button>
+        <button @click="goLst">К списку</button>
+        <component :is="current.component"></component>
+    </div>
 </template>
 
 <script setup>
-// import { ref } from "vue";
-// import RihComp from "./components/RihComp.vue";
+import { storeToRefs } from "pinia";
+import { useRouterStore } from "@/stores";
+const router = useRouterStore();
+const { current } = storeToRefs(router);
+const { changeRoute } = router;
 
-// const msg = ref("message");
+const goInv = () => {
+    changeRoute("inventoryPage");
+};
+const goLst = () => {
+    changeRoute("inventoryList");
+};
 </script>
 
 <style lang="scss">
