@@ -1,8 +1,8 @@
-import { defineCustomElement } from 'vue'
+import { defineCustomElement } from "vue";
 // import { createPinia } from "pinia";
-import App from "./App.ce.vue";
+import WidgetApp from "./WidgetApp.ce.vue";
 
-const MyVueElement = defineCustomElement(App);
+const MyVueElement = defineCustomElement(WidgetApp);
 
 // app.use(createPinia());
 // app.mount("#app");

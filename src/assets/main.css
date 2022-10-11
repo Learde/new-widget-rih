@@ -1,5 +1,6 @@
+@import "./reset.css";
 @import "./base.css";
 
 .rih-widget {
-  padding: 100px;
+  width: 100%;
 }
