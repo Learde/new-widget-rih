@@ -1,4 +1,5 @@
 import httpInstance from "@/api/config";
+import { token } from "@/api/config";
 
 const makeHttpRequest = ({
     url = "/",
@@ -7,6 +8,8 @@ const makeHttpRequest = ({
     data = {},
     headers = {},
 }) => {
+    if (token) params.token = token;
+
     return httpInstance.request({
         url,
         method,

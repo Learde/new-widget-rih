@@ -13,6 +13,7 @@ export const useRouterStore = defineStore("router", () => {
         const route = Object.values(routes).find(
             (value) => value.name === name
         );
+        console.log(route);
         if (route) this.current = route;
     }
 

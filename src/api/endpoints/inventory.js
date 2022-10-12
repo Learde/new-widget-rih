@@ -8,6 +8,7 @@ const getInventories = ({
     point_id = [],
     limit = DEFAULT_LIMIT,
     offset = DEFAULT_OFFSET,
+    include = "",
 }) => {
     return makeHttpRequest({
         url: "v1/inventory/items",
@@ -17,6 +18,7 @@ const getInventories = ({
             point_id,
             limit,
             offset,
+            include,
         },
     });
 };

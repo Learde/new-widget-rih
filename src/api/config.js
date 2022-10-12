@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = window.BASE_URL ?? "https://api.rentinhand.ru/";
+let token = null;
 
 const httpInstance = axios.create({
     baseURL: BASE_URL,
@@ -25,5 +26,9 @@ const setBaseUrl = (url) => {
     httpInstance.defaults.baseURL = url;
 };
 
+const setToken = (t) => {
+    token = t;
+};
+
 export default httpInstance;
-export { setHeaders, addHeaders, setBaseUrl };
+export { setHeaders, addHeaders, setBaseUrl, setToken, token };
