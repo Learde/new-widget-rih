@@ -7,6 +7,7 @@
             class="inv-card__image"
             :style="{
                 'background-image': `url('${MEDIA + image}')`,
+                'background-size': imageSize,
             }"
             @click="$emit('pick', id, false)"
         ></div>
@@ -14,29 +15,36 @@
         <div class="inv-card__info">
             <span class="inv-card__price" v-if="prices">
                 от {{ price
-                }}<i
-                    class="fa-solid fa-ruble-sign"
-                    style="font-size: 0.8em"
-                ></i>
+                }}<icon-ruble-sign
+                    class="inv-card__icon"
+                    color="#a7a7a7"
+                    width="0.9em"
+                    height="0.9em"
+                />
                 /
                 {{ humanizeDurationISO(period) }}
             </span>
         </div>
         <div class="inv-card__more" @click="$emit('pick', id, false)">
             <span class="inv-card__more-text">Подробнее</span>
-            <i class="fa-solid fa-angle-right"></i>
+            <icon-angle-right width="10" height="16" color="#666" />
         </div>
         <div class="inv-card__book" @click="$emit('pick', id, true)">
             <span class="inv-card__book-text">Забронировать</span>
-            <i class="fa-solid fa-angle-right"></i>
+            <icon-angle-right
+                width="10"
+                height="16"
+                color="var(--widget-primary)"
+            />
         </div>
     </article>
 </template>
 
 <script setup>
-import { MEDIA } from "@/stores/urls/urls";
-import { getMinimumPriceFromArray } from "@/helpers";
-import { humanizeDurationISO } from "@/helpers";
+import { MEDIA, imageSize } from "@/stores";
+import { getMinimumPriceFromArray, humanizeDurationISO } from "@/helpers";
+import IconRubleSign from "@/icons/IconRubleSign.vue";
+import IconAngleRight from "@/icons/IconAngleRight.vue";
 
 const props = defineProps({
     id: [String, Number],

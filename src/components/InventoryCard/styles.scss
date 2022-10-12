@@ -66,9 +66,7 @@
 
   &__category {
     color: #aaa;
-    position: absolute;
-    top: 20px;
-    left: 25px;
+    padding: 0 25px;
 
     @media (max-width: 500px) {
       left: 15px;
@@ -119,6 +117,11 @@
     }
   }
 
+  &__icon {
+    position: relative;
+    top: 0.15em;
+  }
+
   &__additional {
     margin-right: 8px;
     margin-bottom: 4px;
@@ -157,14 +160,13 @@
       font-size: 11px;
     }
 
-    & i {
-      position: relative;
-      right: 0;
+    & svg {
+      transform: translateX(0);
       transition: all 0.5s ease;
     }
 
-    &:hover i {
-      right: 8px;
+    &:hover svg {
+      transform: translateX(-8px);
     }
   }
 
