@@ -1,4 +1,4 @@
-import InventoryList from "@/views/InventoryList.vue";
+import InventoryList from "@/views/InventoryList/InventoryList.vue";
 import InventoryPage from "@/views/InventoryPage.vue";
 
 export default {

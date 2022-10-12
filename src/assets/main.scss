@@ -1,8 +1,6 @@
 @import "@/assets/reset.css";
-@import "@/assets/base.css";
+@import "@/assets/variables.scss";
+
+@import "@/views/InventoryList/styles.scss";
 
 @import "@/components/InventoryCard/styles.scss";
-
-.rih-widget {
-  width: 100%;
-}

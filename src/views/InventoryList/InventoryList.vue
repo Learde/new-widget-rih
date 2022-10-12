@@ -1,17 +1,14 @@
 <template>
     <div class="inv-list">
-        Inventory List
-        <div>
-            <inventory-card
-                v-for="inv in inventories"
-                :key="inv.id"
-                :title="inv.title"
-                :id="inv.id"
-                :category="inv?.category?.title"
-                :prices="inv.prices"
-                :image="inv.avatar"
-            />
-        </div>
+        <inventory-card
+            v-for="inv in inventories"
+            :key="inv.id"
+            :title="inv.title"
+            :id="inv.id"
+            :category="inv?.category?.title"
+            :prices="inv.prices"
+            :image="inv.avatar"
+        />
     </div>
 </template>
 

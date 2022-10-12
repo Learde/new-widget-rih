@@ -9,7 +9,7 @@
 
 <script setup>
 import { setToken } from "@/api";
-import { defineProps } from "vue";
+import { pushFontToHead } from "@/helpers";
 import { storeToRefs } from "pinia";
 import { useRouterStore } from "@/stores";
 
@@ -29,13 +29,26 @@ const goInv = () => {
 const goLst = () => {
     changeRoute("inventoryList");
 };
+
+// Добавление шрифта Manrope к странице
+pushFontToHead();
 </script>
 
 <style lang="scss">
 @import "assets/main";
-
 .rih-widget {
     width: 100%;
     padding: 30px 50px;
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: "Manrope", sans-serif;
+    }
+
+    *::placeholder {
+        color: #333 !important;
+        opacity: 0.5 !important;
+    }
 }
 </style>
