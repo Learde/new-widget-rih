@@ -1,5 +1,5 @@
-import httpInstance from "@/api/config";
-import { token } from "@/api/config";
+import httpInstance from "./config";
+import { token } from "./config";
 
 const makeHttpRequest = ({
     url = "/",

@@ -1,0 +1,25 @@
+.base-button {
+  min-height: 35px;
+  height: 35px;
+  color: #fff;
+  background-color: var(--widget-primary);
+  border: none;
+  text-align: center;
+  border-radius: 8px;
+  transition: 0.1s;
+  min-width: 130px;
+
+  &--long {
+    min-width: 180px;
+  }
+
+  &:hover {
+    background-color: var(--widget-primary-hover);
+    cursor: pointer;
+  }
+
+  &[disabled] {
+    background-color: var(--widget-primary-hover);
+    cursor: default;
+  }
+}

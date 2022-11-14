@@ -9,17 +9,21 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@riophae/vue-treeselect": "^0.4.0",
+    "@vuepic/vue-datepicker": "^3.5.2",
     "axios": "^0.27.2",
     "humanize-duration": "^3.27.3",
+    "lodash": "^4.17.21",
     "luxon": "^3.0.4",
     "moment": "^2.29.4",
     "pinia": "^2.0.17",
     "vue": "^3.2.37",
     "vue-date-pick": "^1.4.1",
-    "vue-select": "^3.20.0"
+    "vue-select": "^4.0.0-beta.5",
+    "vue3-treeselect": "^0.1.10"
   },
   "devDependencies": {
+    "@iconify-prerendered/vue-fa6-regular": "^0.13.1658815514",
+    "@iconify-prerendered/vue-fa6-solid": "^0.13.1662097839",
     "@rushstack/eslint-patch": "^1.1.4",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vue/eslint-config-prettier": "^7.0.0",

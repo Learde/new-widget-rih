@@ -13,7 +13,7 @@ const getMinimumPriceFromArray = (prices) => {
         const minPrice = price?.values
             ?.slice()
             ?.sort((a, b) => +a.value > +b.value)?.[0];
-        if (min > +minPrice.value) {
+        if (minPrice !== undefined && min > +minPrice.value) {
             min = +minPrice.value;
             period = minPrice.period;
         }

@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { setToken } from "@/api";
+import { setToken } from "@/packages/api";
 import { pushFontToHead } from "@/helpers";
 import { storeToRefs } from "pinia";
 import { useRouterStore } from "@/stores";
@@ -38,7 +38,6 @@ pushFontToHead();
 @import "assets/main";
 .rih-widget {
     width: 100%;
-    padding: 30px 50px;
     box-sizing: border-box;
 
     * {

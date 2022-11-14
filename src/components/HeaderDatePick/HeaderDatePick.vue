@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import HeaderGroupTemplate from "../HeaderGroupTemplate/HeaderGroupTemplate.vue";
+import HeaderGroupTemplate from "../HeaderFormGroup/HeaderFormGroup.vue";
 import config from "./config";
 
 defineProps({

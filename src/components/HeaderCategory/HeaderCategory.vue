@@ -26,7 +26,7 @@
 </template>
 <script setup>
 import { computed } from "vue";
-import HeaderGroupTemplate from "@/components/header/HeaderGroupTemplate/HeaderGroupTemplate.vue";
+import HeaderGroupTemplate from "@/components/HeaderFormGroup/HeaderFormGroup.vue";
 
 import { config } from "./config";
 import { normalizer } from "./helpers";

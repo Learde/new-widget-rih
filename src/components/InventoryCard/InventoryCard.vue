@@ -27,14 +27,14 @@
         </div>
         <div class="inv-card__more" @click="$emit('pick', id, false)">
             <span class="inv-card__more-text">Подробнее</span>
-            <icon-angle-right width="10" height="16" color="#666" />
+            <icon-angle-right width="10" height="16" style="color: #666" />
         </div>
         <div class="inv-card__book" @click="$emit('pick', id, true)">
             <span class="inv-card__book-text">Забронировать</span>
             <icon-angle-right
                 width="10"
                 height="16"
-                color="var(--widget-primary)"
+                style="color: var(--widget-primary)"
             />
         </div>
     </article>
@@ -43,8 +43,7 @@
 <script setup>
 import { MEDIA, imageSize } from "@/stores";
 import { getMinimumPriceFromArray, humanizeDurationISO } from "@/helpers";
-import IconRubleSign from "@/icons/IconRubleSign.vue";
-import IconAngleRight from "@/icons/IconAngleRight.vue";
+import { IconAngleRight, IconRubleSign } from "@/icons";
 
 const props = defineProps({
     id: [String, Number],
@@ -56,6 +55,8 @@ const props = defineProps({
     prices: Array,
     image: String,
 });
+
+defineEmits(["pick"]);
 
 const [price, period] = getMinimumPriceFromArray(props.prices);
 </script>

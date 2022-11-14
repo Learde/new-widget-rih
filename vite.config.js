@@ -9,6 +9,12 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
+            "@api": fileURLToPath(
+                new URL("./src/packages/api", import.meta.url)
+            ),
+            "@uikit": fileURLToPath(
+                new URL("./src/packages/uikit", import.meta.url)
+            ),
         },
     },
 });

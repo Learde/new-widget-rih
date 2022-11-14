@@ -1,4 +1,4 @@
-import { makeHttpRequest } from "@/api";
+import { makeHttpRequest } from "..";
 
 const DEFAULT_LIMIT = 9;
 const DEFAULT_OFFSET = 0;
@@ -9,7 +9,7 @@ const getInventories = ({
     limit = DEFAULT_LIMIT,
     offset = DEFAULT_OFFSET,
     include = "",
-}) => {
+} = {}) => {
     return makeHttpRequest({
         url: "v1/inventory/items",
         method: "POST",

@@ -3,19 +3,13 @@ import { createPinia, setActivePinia } from "pinia";
 setActivePinia(createPinia());
 
 //router.js
-import { useRouterStore } from "@/stores/router/router";
-
-export { useRouterStore };
+export { useRouterStore } from "@/stores/router/router";
 
 //urls.js
-import { MEDIA, setMedia } from "@/stores/urls/urls";
-
-export { MEDIA, setMedia };
+export { MEDIA, setMedia } from "@/stores/urls/urls";
 
 //inventoryConfig.js
-import {
+export {
     imageSize,
     setImageCover,
 } from "@/stores/inventoryConfig/inventoryConfig";
-
-export { imageSize, setImageCover };

@@ -1,8 +1,8 @@
-.rih-form-group {
+.form-group {
     width: 100%;
     margin-right: 40px;
 
-    &__input {
+    & > input {
         min-height: 35px;
         width: 100%;
     }

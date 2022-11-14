@@ -82,6 +82,7 @@
     padding: 0 25px;
     font-weight: 700;
     font-size: 18px;
+    margin-bottom: auto;
 
     @media (max-width: 500px) {
       padding: 0 15px;
@@ -174,7 +175,6 @@
     color: #666;
     border-top: 2px solid #fafafa;
     border-bottom: 2px solid #fafafa;
-    margin-top: auto;
   }
 
   &__book {
