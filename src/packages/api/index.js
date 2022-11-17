@@ -7,3 +7,6 @@ export { getInventories } from "./endpoints/inventory.js";
 
 // Category
 export { getCategories } from "./endpoints/category.js";
+
+// Points
+export { getPoints } from "./endpoints/point.js";

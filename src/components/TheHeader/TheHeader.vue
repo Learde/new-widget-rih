@@ -1,7 +1,18 @@
+<script setup>
+import BaseButton from "@/components/BaseButton/BaseButton.vue";
+import FilterCategory from "./filters/FilterCategory/FilterCategory.vue";
+import FilterPoint from "./filters/FilterPoint/FilterPoint.vue";
+// import HeaderCategory from "../HeaderCategory/HeaderCategory.vue";
+// import HeaderPoint from "../HeaderPoint/HeaderPoint.vue";
+//
+// import { isPastDate, isFutureDate } from "../HeaderDatePick/methods";
+</script>
+
 <template>
     <header class="header">
         <div class="header__filters">
             <FilterCategory />
+            <FilterPoint />
         </div>
         <!--        <HeaderCategory />-->
         <!--        <HeaderPoint />-->
@@ -15,12 +26,3 @@
         <BaseButton>Показать</BaseButton>
     </header>
 </template>
-
-<script setup>
-import BaseButton from "@/components/BaseButton/BaseButton.vue";
-import FilterCategory from "./filters/FilterCategory/FilterCategory.vue";
-// import HeaderCategory from "../HeaderCategory/HeaderCategory.vue";
-// import HeaderPoint from "../HeaderPoint/HeaderPoint.vue";
-//
-// import { isPastDate, isFutureDate } from "../HeaderDatePick/methods";
-</script>

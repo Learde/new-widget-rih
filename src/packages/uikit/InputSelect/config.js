@@ -1,4 +1,4 @@
-const props = {
+export default {
     modelValue: [Array, Object],
     options: {
         type: Array,
@@ -29,5 +29,3 @@ const props = {
         default: "Выберите из списка",
     },
 };
-
-export default props;

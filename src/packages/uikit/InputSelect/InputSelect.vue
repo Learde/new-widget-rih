@@ -17,10 +17,11 @@
 </template>
 
 <script setup>
+// Source: https://vue-select.org/
 import VueSelect from "vue-select";
-import props from "./config";
+import importedProps from "./config";
 
 defineEmits(["update:modelValue"]);
 
-defineProps(props);
+const props = defineProps({ ...importedProps });
 </script>

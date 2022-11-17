@@ -1,14 +1,8 @@
 //pushToHead.js
-import { pushFontToHead } from "@/helpers/pushToHead";
-
-export { pushFontToHead };
+export { pushFontToHead } from "@/helpers/pushToHead";
 
 //datetime.js
-import { humanizeDurationISO } from "@/helpers/datetime";
-
-export { humanizeDurationISO };
+export { humanizeDurationISO } from "@/helpers/datetime";
 
 //prices.js
-import { getMinimumPriceFromArray } from "@/helpers/prices";
-
-export { getMinimumPriceFromArray };
+export { getMinimumPriceFromArray } from "@/helpers/prices";

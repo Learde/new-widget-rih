@@ -1,12 +1,3 @@
-<template>
-    <div class="rih-widget" id="rih-widget">
-        <button @click="goInv">К инвентарю</button>
-        <button @click="goLst">К списку</button>
-
-        <component :is="current.component"></component>
-    </div>
-</template>
-
 <script setup>
 import { setToken } from "@/packages/api";
 import { pushFontToHead } from "@/helpers";
@@ -33,6 +24,15 @@ const goLst = () => {
 // Добавление шрифта Manrope к странице
 pushFontToHead();
 </script>
+
+<template>
+    <div class="rih-widget" id="rih-widget">
+        <button @click="goInv">К инвентарю</button>
+        <button @click="goLst">К списку</button>
+
+        <component :is="current.component"></component>
+    </div>
+</template>
 
 <style lang="scss">
 @import "assets/main";

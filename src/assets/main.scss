@@ -4,11 +4,15 @@
 
 // LIBRARIES
 @import "vue3-treeselect/dist/vue3-treeselect.css";
+@import "vue-select/dist/vue-select.css";
 
-// VIEWS
-@import "@/views/InventoryList/styles.scss";
+// UIKIT
+@import "@uikit/index.scss";
 
 // COMPONENTS
 @import "@/components/InventoryCard/styles.scss";
 @import "@/components/BaseButton/styles.scss";
 @import "@/components/BaseLoading/styles.scss";
+
+// VIEWS
+@import "@/views/InventoryList/styles.scss";
