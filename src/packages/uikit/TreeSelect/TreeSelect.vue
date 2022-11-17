@@ -1,3 +1,13 @@
+<script setup>
+//Source: https://github.com/megafetis/vue3-treeselect/
+import VueTreeSelect from "vue3-treeselect";
+import importedProps from "./props.js";
+
+defineEmits(["update:modelValue"]);
+
+const props = defineProps({ ...importedProps });
+</script>
+
 <template>
     <VueTreeSelect
         @input="(newValue) => $emit('update:modelValue', newValue)"
@@ -25,13 +35,3 @@
         </template>
     </VueTreeSelect>
 </template>
-
-<script setup>
-//Source: https://github.com/megafetis/vue3-treeselect/
-import VueTreeSelect from "vue3-treeselect";
-import importedProps from "./config";
-
-defineEmits(["update:modelValue"]);
-
-const props = defineProps({ ...importedProps });
-</script>

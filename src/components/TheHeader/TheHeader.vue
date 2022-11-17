@@ -1,10 +1,9 @@
 <script setup>
 import BaseButton from "@/components/BaseButton/BaseButton.vue";
-import FilterCategory from "./filters/FilterCategory/FilterCategory.vue";
-import FilterPoint from "./filters/FilterPoint/FilterPoint.vue";
-// import HeaderCategory from "../HeaderCategory/HeaderCategory.vue";
-// import HeaderPoint from "../HeaderPoint/HeaderPoint.vue";
-//
+import FilterCategory from "./filters/FilterCategory.vue";
+import FilterPoint from "./filters/FilterPoint.vue";
+import FilterDate from "./filters/FilterDate.vue";
+
 // import { isPastDate, isFutureDate } from "../HeaderDatePick/methods";
 </script>
 
@@ -13,6 +12,8 @@ import FilterPoint from "./filters/FilterPoint/FilterPoint.vue";
         <div class="header__filters">
             <FilterCategory />
             <FilterPoint />
+            <FilterDate> Дата начала </FilterDate>
+            <FilterDate> Дата конца </FilterDate>
         </div>
         <!--        <HeaderCategory />-->
         <!--        <HeaderPoint />-->

@@ -5,19 +5,19 @@ export default {
     options: Array,
     placeholder: {
         type: String,
-        default: "Выберите категорию",
+        default: "Выберите из списка",
     },
     noResultsText: {
         type: String,
-        default: "Нет подходящих категорий",
+        default: "Нет подходящих данных",
     },
     noChildrenText: {
         type: String,
-        default: "Отсутствуют дочерние категории",
+        default: "Отсутствуют дочерние элементы",
     },
     noOptionsText: {
         type: String,
-        default: "Категории отсутствуют",
+        default: "Данные отсутствуют",
     },
     clearAllText: {
         type: String,

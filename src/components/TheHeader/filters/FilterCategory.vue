@@ -3,11 +3,11 @@ import { computed, onMounted, ref } from "vue";
 import { HeaderFormGroup, TreeSelect } from "@uikit";
 import { getCategories } from "@api";
 
+const emit = defineEmits(["update:modelValue"]);
+
 const props = defineProps({
     modelValue: Object,
 });
-
-const emit = defineEmits(["update:modelValue"]);
 
 const categories = computed({
     get() {

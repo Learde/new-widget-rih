@@ -18,7 +18,7 @@ export default {
     },
     multiple: {
         type: Boolean,
-        default: false,
+        default: true,
     },
     closeOnSelect: {
         type: Boolean,

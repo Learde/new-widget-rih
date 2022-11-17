@@ -1,18 +1,15 @@
 .vs {
-  &__dropdown-toggle {
-    min-height: 35px;
-    width: 100%;
-  }
-
   &__selected {
     margin-bottom: 4px;
     border-radius: 4px;
     font-size: 12px;
+    height: 27px;
   }
 
   &__deselect {
     fill: var(--widget-primary);
     border-left: 1px solid #fff;
+    padding: 5px 0px 5px 3px;
 
     & svg {
       transform: scale(0.6);
@@ -24,6 +21,8 @@
   }
 
   &__dropdown-toggle {
+    min-height: 35px;
+    width: 100%;
     padding: 0 1px;
     box-shadow: var(--widget-box-shadow-input);
     background-color: #fff;
@@ -49,6 +48,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 5px 0 !important;
+    font-size: 14px !important;
   }
 
   &__dropdown-option {
@@ -85,8 +85,7 @@
   --vs-dropdown-box-shadow: 0px 3px 6px 0px var(--vs-colors--darkest);
   --vs-dropdown-option-bg: #000;
   --vs-dropdown-option-color: var(--vs-dropdown-color);
-  --vs-dropdown-option-padding: 3px 20px;
-  --vs-dropdown-option--active-color: #fff;
+  --vs-dropdown-option-padding: 5.9px 20px;
   --vs-dropdown-option--deselect-bg: #fb5858;
   --vs-dropdown-option--deselect-color: #fff;
   --vs-transition-timing-function: cubic-bezier(1, .5, .8, 1);
@@ -100,7 +99,8 @@
   --vs-border-color: var(--widget-border-color);
   --vs-selected-bg: var(--widget-primary-light);
   --vs-selected-border-color: transparent;
-  --vs-dropdown-option--active-bg: var(--widget-primary);
+  --vs-dropdown-option--active-bg: #F5F5F5;
   --vs-selected-color: var(--widget-primary);
   --vs-font-size: var(--widget-input-fz);
+  --vs-dropdown-option--active-color: var(--vs-dropdown-option-color);
 }

@@ -3,11 +3,11 @@ import { computed, onMounted, ref } from "vue";
 import { HeaderFormGroup, InputSelect } from "@uikit";
 import { getPoints } from "@api";
 
+const emit = defineEmits(["update:modelValue"]);
+
 const props = defineProps({
     modelValue: Object,
 });
-
-const emit = defineEmits(["update:modelValue"]);
 
 const points = computed({
     get() {
