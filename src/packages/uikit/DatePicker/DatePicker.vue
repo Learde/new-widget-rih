@@ -1,13 +1,22 @@
 <script setup>
 // Source: https://vue3datepicker.com
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import VueDatepicker from "@vuepic/vue-datepicker";
 import importedProps from "./props.js";
 
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({
     ...importedProps,
+});
+
+const date = computed({
+    get() {
+        return props.modelValue;
+    },
+    set(value) {
+        emit("update:modelValue", value);
+    },
 });
 
 const teleportElement = ref(null);
@@ -24,6 +33,6 @@ onMounted(() => {
         class="datepicker"
         :teleport="teleportElement"
         v-bind="props"
-        @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
+        v-model="date"
     ></VueDatepicker>
 </template>

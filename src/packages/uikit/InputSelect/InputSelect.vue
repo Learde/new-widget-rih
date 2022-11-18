@@ -2,17 +2,26 @@
 // Source: https://vue-select.org/
 import VueSelect from "vue-select";
 import importedProps from "./props.js";
+import { stringEscape } from "@helpers";
+import { computed } from "vue";
 
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({ ...importedProps });
+
+const values = computed({
+    get() {
+        return props.modelValue;
+    },
+    set(value) {
+        emit("update:modelValue", value);
+    },
+});
+const stringLength = 20;
 </script>
 
 <template>
-    <vue-select
-        v-bind="props"
-        @update:modelValue="(newValue) => $emit('update:modelValue', newValue)"
-    >
+    <vue-select v-bind="props" v-model="values">
         <template #open-indicator> &#160; </template>
         <template #option="option">
             <slot name="option" :option="option">
@@ -21,7 +30,7 @@ const props = defineProps({ ...importedProps });
         </template>
         <template #selected-option="option">
             <slot name="selected-option" :option="option">
-                {{ option.title }}
+                {{ stringEscape(option.title, stringLength) }}
             </slot>
         </template>
     </vue-select>

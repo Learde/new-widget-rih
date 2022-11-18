@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { getInventories } from "@api";
+import { mapInventoryFilter } from "@helpers";
 import InventoryCard from "@/components/InventoryCard/InventoryCard.vue";
 import BaseLoading from "@/components/BaseLoading/BaseLoading.vue";
 import TheHeader from "@/components/TheHeader/TheHeader.vue";
@@ -8,10 +9,14 @@ import TheHeader from "@/components/TheHeader/TheHeader.vue";
 const inventories = ref([]);
 const loading = ref(true);
 
-onMounted(async () => {
+const reloadInventories = async (filter = {}) => {
     try {
+        loading.value = true;
         inventories.value = (
-            await getInventories({ include: "option,category,point" })
+            await getInventories({
+                ...mapInventoryFilter(filter),
+                include: "option,category,point",
+            })
         ).data?.array;
     } catch (e) {
         // TODO: сообщение об ошибке
@@ -19,12 +24,16 @@ onMounted(async () => {
     } finally {
         loading.value = false;
     }
+};
+
+onMounted(() => {
+    reloadInventories();
 });
 </script>
 
 <template>
     <div class="inv-list">
-        <TheHeader />
+        <TheHeader @reload="reloadInventories" />
         <div class="inv-list__list">
             <BaseLoading v-if="loading" />
             <template v-else>

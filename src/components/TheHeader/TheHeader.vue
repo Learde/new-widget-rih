@@ -1,8 +1,23 @@
 <script setup>
+import { ref } from "vue";
+
 import BaseButton from "@/components/BaseButton/BaseButton.vue";
 import FilterCategory from "./filters/FilterCategory.vue";
 import FilterPoint from "./filters/FilterPoint.vue";
 import FilterDate from "./filters/FilterDate.vue";
+
+const emit = defineEmits(["reload"]);
+
+const filter = ref({
+    categoryIds: null,
+    pointIds: null,
+    dateStart: null,
+    dateEnd: null,
+});
+
+const emitReload = () => {
+    emit("reload", filter.value);
+};
 
 // import { isPastDate, isFutureDate } from "../HeaderDatePick/methods";
 </script>
@@ -10,11 +25,13 @@ import FilterDate from "./filters/FilterDate.vue";
 <template>
     <header class="header">
         <div class="header__filters">
-            <FilterCategory />
-            <FilterPoint />
-            <FilterDate> Дата начала </FilterDate>
-            <FilterDate> Дата конца </FilterDate>
+            <FilterCategory v-model="filter.categoryIds" />
+            <FilterPoint v-model="filter.pointIds" />
+            <FilterDate v-model="filter.dateStart"> Дата начала </FilterDate>
+            <FilterDate v-model="filter.dateEnd"> Дата конца </FilterDate>
         </div>
-        <BaseButton>Показать</BaseButton>
+        <BaseButton class="header__show-btn" @click="emitReload"
+            >Показать</BaseButton
+        >
     </header>
 </template>

@@ -15,6 +15,9 @@ export default defineConfig({
             "@uikit": fileURLToPath(
                 new URL("./src/packages/uikit", import.meta.url)
             ),
+            "@helpers": fileURLToPath(
+                new URL("./src/helpers", import.meta.url)
+            ),
         },
     },
 });

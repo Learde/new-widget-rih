@@ -6,7 +6,7 @@ export default {
     },
     reduce: {
         type: Function,
-        default: null,
+        default: (elem) => elem.id,
     },
     filterable: {
         type: Boolean,

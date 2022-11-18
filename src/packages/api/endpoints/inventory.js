@@ -5,6 +5,10 @@ const DEFAULT_POINT_ID = [];
 const DEFAULT_LIMIT = 9;
 const DEFAULT_OFFSET = 0;
 const DEFAULT_INCLUDE = "";
+const DEFAULT_FREE_PERIOD = {
+    time_start: null,
+    time_end: null,
+};
 
 const DEFAULT_PARAMS = {
     category_id: DEFAULT_CATEGORY_ID,
@@ -12,6 +16,7 @@ const DEFAULT_PARAMS = {
     limit: DEFAULT_LIMIT,
     offset: DEFAULT_OFFSET,
     include: DEFAULT_INCLUDE,
+    free_period: DEFAULT_FREE_PERIOD,
 };
 
 const getInventories = ({
@@ -20,6 +25,7 @@ const getInventories = ({
     limit,
     offset,
     include,
+    free_period,
 } = DEFAULT_PARAMS) => {
     return makeHttpRequest({
         url: "v1/inventory/items",
@@ -30,6 +36,7 @@ const getInventories = ({
             limit,
             offset,
             include,
+            free_period,
         },
     });
 };

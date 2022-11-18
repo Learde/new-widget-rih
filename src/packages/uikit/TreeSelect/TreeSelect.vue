@@ -1,18 +1,27 @@
 <script setup>
 //Source: https://github.com/megafetis/vue3-treeselect/
-import VueTreeSelect from "vue3-treeselect";
+import VueTreeSelect from "@bosquig/vue3-treeselect";
 import importedProps from "./props.js";
+import { stringEscape } from "@helpers";
+import { computed } from "vue";
 
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({ ...importedProps });
+
+const nodes = computed({
+    get() {
+        return props.modelValue;
+    },
+    set(value) {
+        emit("update:modelValue", value);
+    },
+});
+const stringLength = 20;
 </script>
 
 <template>
-    <VueTreeSelect
-        @input="(newValue) => $emit('update:modelValue', newValue)"
-        v-bind="props"
-    >
+    <VueTreeSelect v-model="nodes" v-bind="props">
         <template #option-label="{ node, shouldShowCount, count }">
             <slot
                 name="option-label"
@@ -28,9 +37,7 @@ const props = defineProps({ ...importedProps });
         </template>
         <template #value-label="{ node }">
             <slot name="value-label" :node="node">
-                <div>
-                    {{ node.raw.title }}
-                </div>
+                <div>{{ stringEscape(node.raw.title, stringLength) }}</div>
             </slot>
         </template>
     </VueTreeSelect>
