@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 
-import BaseButton from "@/components/BaseButton/BaseButton.vue";
+import { BaseButton } from "@uikit";
 import FilterCategory from "./filters/FilterCategory.vue";
 import FilterPoint from "./filters/FilterPoint.vue";
 import FilterDate from "./filters/FilterDate.vue";

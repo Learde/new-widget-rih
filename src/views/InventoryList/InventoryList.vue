@@ -3,8 +3,8 @@ import { ref, onMounted } from "vue";
 import { getInventories } from "@api";
 import { mapInventoryFilter } from "@helpers";
 import InventoryCard from "@/components/InventoryCard/InventoryCard.vue";
-import BaseLoading from "@/components/BaseLoading/BaseLoading.vue";
 import TheHeader from "@/components/TheHeader/TheHeader.vue";
+import { BaseLoading } from "@uikit";
 
 const inventories = ref([]);
 const loading = ref(true);
