@@ -1,4 +1,5 @@
 <script setup>
+// Source: https://vue3datepicker.com
 import { onMounted, ref } from "vue";
 import VueDatepicker from "@vuepic/vue-datepicker";
 import importedProps from "./props.js";

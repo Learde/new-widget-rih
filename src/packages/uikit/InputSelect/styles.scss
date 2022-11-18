@@ -85,11 +85,11 @@
   --vs-dropdown-box-shadow: 0px 3px 6px 0px var(--vs-colors--darkest);
   --vs-dropdown-option-bg: #000;
   --vs-dropdown-option-color: var(--vs-dropdown-color);
-  --vs-dropdown-option-padding: 5.9px 20px;
+  --vs-dropdown-option-padding: 5.9px 11px;
   --vs-dropdown-option--deselect-bg: #fb5858;
   --vs-dropdown-option--deselect-color: #fff;
   --vs-transition-timing-function: cubic-bezier(1, .5, .8, 1);
-  --vs-transition-duration: .15s;
+  --vs-transition-duration: 0s;
   --vs-disabled-bg: var(--vs-state-disabled-bg);
   --vs-disabled-color: var(--vs-state-disabled-color);
   --vs-disabled-cursor: var(--vs-state-disabled-cursor);

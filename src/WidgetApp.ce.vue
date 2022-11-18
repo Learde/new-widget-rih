@@ -27,8 +27,8 @@ pushFontToHead();
 
 <template>
     <div class="rih-widget" id="rih-widget">
-        <button @click="goInv">К инвентарю</button>
-        <button @click="goLst">К списку</button>
+        <!--        <button @click="goInv">К инвентарю</button>-->
+        <!--        <button @click="goLst">К списку</button>-->
 
         <component :is="current.component"></component>
     </div>

@@ -15,15 +15,6 @@ import FilterDate from "./filters/FilterDate.vue";
             <FilterDate> Дата начала </FilterDate>
             <FilterDate> Дата конца </FilterDate>
         </div>
-        <!--        <HeaderCategory />-->
-        <!--        <HeaderPoint />-->
-        <!--        <HeaderDatePick :disable-date-fn="isPastDate">-->
-        <!--            <template #label>Даты аренды</template>-->
-        <!--            <template #additionalLabel>с</template>-->
-        <!--        </HeaderDatePick>-->
-        <!--        <HeaderDatePick :disable-date-fn="isFutureDate">-->
-        <!--            <template #additionalLabel>по</template>-->
-        <!--        </HeaderDatePick>-->
         <BaseButton>Показать</BaseButton>
     </header>
 </template>
