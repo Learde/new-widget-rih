@@ -1,10 +1,12 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
+import { calculateRent } from "@api";
+import { formatDateJs } from "@helpers";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "@/components/InventoryBooking/components/RentInformation/RentInformation.vue";
 
-defineProps({
+const props = defineProps({
     inventory: Object,
 });
 
@@ -14,7 +16,43 @@ const datetime = ref([
 ]);
 const startDate = computed(() => datetime.value[0]);
 const endDate = computed(() => datetime.value[1]);
-const sumRent = 0;
+const calculating = ref(true);
+const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
+const sumRent = ref(0);
+
+const recalc = async () => {
+    try {
+        calculating.value = true;
+        const calculatedRent = (
+            await calculateRent({
+                inventory: props.inventory,
+                inventoryId: props.inventory.id,
+                price: props.inventory.prices[0],
+                priceId: props.inventory.prices[0].id,
+                timeStart: formatDateJs(startDate.value, format),
+                timeEnd: formatDateJs(endDate.value, format),
+                closePoint: props.inventory?.point,
+                closePointId: props.inventory?.point?.id,
+                openPoint: props.inventory?.point,
+                openPointId: props.inventory?.point?.id,
+            })
+        )?.data.array?.[0];
+        sumRent.value = calculatedRent.sum_total;
+    } catch (e) {
+        //TODO: вывести ошибку
+        console.log(e);
+    } finally {
+        calculating.value = false;
+    }
+};
+
+watch(datetime, () => {
+    recalc();
+});
+
+onMounted(() => {
+    recalc();
+});
 </script>
 
 <template>
@@ -74,6 +112,7 @@ const sumRent = 0;
                     :category-title="inventory.category?.title"
                     :avatar="inventory.avatar"
                     :sum-rent="sumRent"
+                    :loading="calculating"
                 />
                 <div class="rih-booking__error-wrapper" v-if="disableBooking">
                     <span class="rih-booking__error">

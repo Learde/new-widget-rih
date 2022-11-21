@@ -7,6 +7,7 @@ export {
     formatDateJs,
     humanizeDurationMillis,
     differenceDatesJs,
+    dateJsToISO,
 } from "./datetime.js";
 
 // prices.js

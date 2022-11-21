@@ -10,3 +10,6 @@ export { getCategories } from "./endpoints/category.js";
 
 // Points
 export { getPoints } from "./endpoints/point.js";
+
+// Calc
+export { calculateRent } from "./endpoints/calc.js";

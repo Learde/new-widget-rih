@@ -14,6 +14,10 @@ const props = defineProps({
         type: [Number, String],
         default: null,
     },
+    loading: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const titleLength = 20;
@@ -61,10 +65,6 @@ const categoryTitleLength = 20;
         >
             Забронировать
         </BaseButton>
-        <BaseLoading
-            v-if="calculating || booking"
-            background
-            little
-        ></BaseLoading>
+        <BaseLoading v-if="loading" background little></BaseLoading>
     </div>
 </template>
