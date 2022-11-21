@@ -2,6 +2,7 @@
 
 .rih-booking {
   padding: 30px 50px;
+  background-color: var(--widget-background);
   min-height: 100vh;
   &__total {
     margin-top: 40px;
@@ -65,7 +66,7 @@
   }
 
   &__heading {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     text-align: center;
     margin-top: 10px;
