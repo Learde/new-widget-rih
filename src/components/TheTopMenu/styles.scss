@@ -1,0 +1,9 @@
+.top-menu {
+  padding: 10px 50px;
+  &__back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+  }
+}

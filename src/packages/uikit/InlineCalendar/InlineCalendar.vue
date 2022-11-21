@@ -18,20 +18,11 @@ const date = computed({
         emit("update:modelValue", value);
     },
 });
-
-const teleportElement = ref(null);
-onMounted(() => {
-    // TODO: поменять rih-widget на нестатическое значение, чтобы случайно не поломался календарь
-    teleportElement.value = document
-        .getElementById("rih-widget")
-        .shadowRoot.getElementById("rih-widget");
-});
 </script>
 
 <template>
     <VueDatepicker
         class="inline-calendar"
-        :teleport="teleportElement"
         v-bind="props"
         v-model="date"
     ></VueDatepicker>

@@ -6,7 +6,7 @@ import InventoryInfo from "@/components/InventoryInfo/InventoryInfo.vue";
 import InventoryBooking from "@/components/InventoryBooking/InventoryBooking.vue";
 
 const props = defineProps({
-    inventoryId: [String, Number],
+    inventoryId: { type: [String, Number], default: 79429 },
     scrollToBooking: {
         type: Boolean,
         default: false,

@@ -1,6 +1,5 @@
 <script setup>
 import { MEDIA, imageSize, useRouterStore } from "@stores";
-import routes from "@stores/router/routes.js";
 import {
     getMinimumPriceFromArray,
     humanizeDurationISO,
@@ -43,9 +42,7 @@ const titleLength = 35;
                 'background-image': `url('${MEDIA + image}')`,
                 'background-size': imageSize,
             }"
-            @click="
-                changeRoute(routes.INVENTORY_PAGE.name, { inventoryId: id })
-            "
+            @click="changeRoute('inventoryPage', { inventoryId: id })"
         ></div>
         <h3 class="inv-card__heading">
             {{ stringEscape(title, titleLength) }}
@@ -65,9 +62,7 @@ const titleLength = 35;
         </div>
         <div
             class="inv-card__more"
-            @click="
-                changeRoute(routes.INVENTORY_PAGE.name, { inventoryId: id })
-            "
+            @click="changeRoute('inventoryPage', { inventoryId: id })"
         >
             <span class="inv-card__more-text">Подробнее</span>
             <icon-angle-right width="10" height="12" style="color: #666" />
@@ -75,7 +70,7 @@ const titleLength = 35;
         <div
             class="inv-card__book"
             @click="
-                changeRoute(routes.INVENTORY_PAGE.name, {
+                changeRoute('inventoryPage', {
                     inventoryId: id,
                     scrollToBooking: true,
                 })

@@ -4,6 +4,7 @@ import routes from "./routes";
 
 export const useRouterStore = defineStore("router", () => {
     const current = shallowRef(routes.INVENTORY_LIST);
+    const history = shallowRef([]);
 
     /**
      * Change active component by name
@@ -15,12 +16,19 @@ export const useRouterStore = defineStore("router", () => {
             (value) => value.name === name
         );
 
+        if (!route) return;
+
         // Add parameters to route
         if (params !== null) route.params = params;
         else if (route.params) delete route.params;
 
-        if (route) this.current = route;
+        this.history.push(this.current);
+        this.current = route;
     }
 
-    return { current, changeRoute };
+    function rollbackRoute() {
+        this.current = routes.INVENTORY_LIST;
+    }
+
+    return { current, history, changeRoute, rollbackRoute };
 });

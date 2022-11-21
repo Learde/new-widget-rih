@@ -3,6 +3,7 @@ import { setToken } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
 import { useRouterStore } from "@stores";
+import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 
 const props = defineProps({
     token: String,
@@ -29,7 +30,7 @@ pushFontToHead();
     <div class="rih-widget" id="rih-widget">
         <!--        <button @click="goInv">К инвентарю</button>-->
         <!--        <button @click="goLst">К списку</button>-->
-
+        <TheTopMenu />
         <component :is="current.component" v-bind="current.params"></component>
     </div>
 </template>
