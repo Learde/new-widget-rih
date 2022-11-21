@@ -2,7 +2,12 @@
 export { pushFontToHead } from "./pushToHead.js";
 
 // datetime.js
-export { humanizeDurationISO } from "./datetime.js";
+export {
+    humanizeDurationISO,
+    formatDateJs,
+    humanizeDurationMillis,
+    differenceDatesJs,
+} from "./datetime.js";
 
 // prices.js
 export { getMinimumPriceFromArray } from "./prices.js";

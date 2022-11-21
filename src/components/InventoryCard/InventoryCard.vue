@@ -1,11 +1,12 @@
 <script setup>
-import { MEDIA, imageSize } from "@/stores";
+import { MEDIA, imageSize, useRouterStore } from "@stores";
+import routes from "@stores/router/routes.js";
 import {
     getMinimumPriceFromArray,
     humanizeDurationISO,
     stringEscape,
-} from "@/helpers";
-import { IconAngleRight, IconRubleSign } from "@/icons";
+} from "@helpers";
+import { IconAngleRight, IconRubleSign } from "@icons";
 
 const props = defineProps({
     id: [String, Number],
@@ -19,6 +20,9 @@ const props = defineProps({
 });
 
 defineEmits(["pick"]);
+
+const router = useRouterStore();
+const { changeRoute } = router;
 
 const [price, period] = getMinimumPriceFromArray(props.prices);
 const categoryLength = 25;
@@ -39,7 +43,9 @@ const titleLength = 35;
                 'background-image': `url('${MEDIA + image}')`,
                 'background-size': imageSize,
             }"
-            @click="$emit('pick', id, false)"
+            @click="
+                changeRoute(routes.INVENTORY_PAGE.name, { inventoryId: id })
+            "
         ></div>
         <h3 class="inv-card__heading">
             {{ stringEscape(title, titleLength) }}
@@ -57,11 +63,24 @@ const titleLength = 35;
                 {{ humanizeDurationISO(period) }}
             </span>
         </div>
-        <div class="inv-card__more" @click="$emit('pick', id, false)">
+        <div
+            class="inv-card__more"
+            @click="
+                changeRoute(routes.INVENTORY_PAGE.name, { inventoryId: id })
+            "
+        >
             <span class="inv-card__more-text">Подробнее</span>
             <icon-angle-right width="10" height="12" style="color: #666" />
         </div>
-        <div class="inv-card__book" @click="$emit('pick', id, true)">
+        <div
+            class="inv-card__book"
+            @click="
+                changeRoute(routes.INVENTORY_PAGE.name, {
+                    inventoryId: id,
+                    scrollToBooking: true,
+                })
+            "
+        >
             <span class="inv-card__book-text">Забронировать</span>
             <icon-angle-right
                 width="8"

@@ -1,4 +1,4 @@
-import { Duration } from "luxon";
+import { Duration, DateTime } from "luxon";
 import humanizeDuration from "humanize-duration";
 
 const humanizeSettings = {
@@ -7,7 +7,7 @@ const humanizeSettings = {
         ru: {
             w: () => "неделя",
             d: () => "сутки",
-            h: () => "час",
+            h: () => "часов",
             m: () => "минут",
         },
     },
@@ -19,6 +19,22 @@ const humanizeDurationISO = (isoDuration) => {
     const millis = Duration.fromISO(isoDuration).toMillis();
     return humanizeDuration(millis, humanizeSettings);
 };
+
+const humanizeDurationMillis = (millisDuration) => {
+    return humanizeDuration(millisDuration, humanizeSettings);
+};
+
+const formatDateJs = (date, format = "dd.MM.yyyy HH:mm") => {
+    return DateTime.fromJSDate(date).toFormat(format);
+};
+
+const differenceDatesJs = (date1, date2) => {
+    return date2 - date1;
+};
+
+// const humanizeDurationDate = (dateDuration) => {
+//     const millis = Duration.from
+// }
 
 // isPastDate(date) {
 //     if (this.filter.dateEnd !== "" && this.filter.dateEnd !== null) {
@@ -48,4 +64,9 @@ const humanizeDurationISO = (isoDuration) => {
 //     }
 // },
 
-export { humanizeDurationISO };
+export {
+    humanizeDurationISO,
+    formatDateJs,
+    differenceDatesJs,
+    humanizeDurationMillis,
+};

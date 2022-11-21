@@ -1,8 +1,8 @@
 <script setup>
-import { setToken } from "@/packages/api";
-import { pushFontToHead } from "@/helpers";
+import { setToken } from "@api";
+import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
-import { useRouterStore } from "@/stores";
+import { useRouterStore } from "@stores";
 
 const props = defineProps({
     token: String,
@@ -30,7 +30,7 @@ pushFontToHead();
         <!--        <button @click="goInv">К инвентарю</button>-->
         <!--        <button @click="goLst">К списку</button>-->
 
-        <component :is="current.component"></component>
+        <component :is="current.component" v-bind="current.params"></component>
     </div>
 </template>
 

@@ -1,0 +1,170 @@
+@import "./components/RentDatetimePicker/styles.scss";
+
+.rih-booking {
+  padding: 30px 50px;
+  min-height: 100vh;
+  &__total {
+    margin-top: 40px;
+    & > span:last-child {
+      margin-bottom: 0;
+    }
+
+    & > span {
+      display: block;
+      margin-bottom: 7px;
+    }
+  }
+
+  &__promo {
+    margin-top: 30px;
+  }
+
+  &__promo-row {
+    display: flex;
+  }
+
+  &__promo-input {
+    border-radius: 8px;
+    border: 1px solid var(--widget-border-color);
+    box-shadow: var(--widget-box-shadow-input);
+    margin-right: 15px;
+    max-width: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__range {
+    margin-top: 36px;
+  }
+
+  &__wrapper {
+    margin-top: 40px;
+    display: flex;
+
+    @media (max-width: 800px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__time,
+  &__info {
+    width: 50%;
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+  }
+
+  &__time {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__calendar {
+    display: inline-block;
+  }
+
+  &__heading {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  &__error-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__error {
+    margin-top: 10px;
+    color: var(--widget-red);
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  &__success {
+    margin-top: 10px;
+    color: var(--widget-green);
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+.rih-range {
+  &__badge {
+    border: 1.5px solid #ccc;
+    border-radius: 7px;
+    padding: 5px 20px;
+    display: inline-block;
+    margin-left: 3px;
+
+    &--mr {
+      margin-right: 7px;
+    }
+  }
+}
+
+.rih-booking-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--widget-background-second);
+  padding: 15px;
+  box-shadow: var(--widget-box-shadow-box-1);
+  border-radius: 15px;
+  margin-top: 60px;
+  position: relative;
+
+  &__inventory {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 1100px) {
+      display: none;
+    }
+
+    @media (max-width: 800px) {
+      display: flex;
+    }
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  &__img {
+    width: 60px;
+    height: auto;
+  }
+
+  &__info {
+    margin-left: 10px;
+    & span {
+      display: block;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
+  &__category {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--widget-primary);
+    letter-spacing: 1.1px;
+    font-weight: 700;
+  }
+
+  &__total {
+    font-size: 14px;
+    font-weight: 700;
+
+    @media (max-width: 400px) {
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.time-picker {
+  &__calendar {
+    font-size: 14px;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, .15);
+  }
+
+  &__input {
+    min-height: 35px;
+    width: 100%;
+
+    border-radius: 8px;
+    border: unset;
+
+    box-shadow: var(--widget-box-shadow-calendar);
+
+    font-size: var(--widget-input-fz);
+    outline: none !important;
+
+    &::placeholder {
+      color: #333 !important;
+      opacity: 0.5 !important;
+    }
+  }
+}
+
+.dp__theme_light {
+  --dp-primary-color: var(--widget-primary);
+  --dp-icon-color: var(--widget-primary);
+}

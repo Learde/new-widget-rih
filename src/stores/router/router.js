@@ -8,12 +8,17 @@ export const useRouterStore = defineStore("router", () => {
     /**
      * Change active component by name
      * @param name - name of the route (@/stores/router/routes.js)
+     * @param params - additional params for route
      */
-    function changeRoute(name) {
+    function changeRoute(name, params = null) {
         const route = Object.values(routes).find(
             (value) => value.name === name
         );
-        console.log(route);
+
+        // Add parameters to route
+        if (params !== null) route.params = params;
+        else if (route.params) delete route.params;
+
         if (route) this.current = route;
     }
 

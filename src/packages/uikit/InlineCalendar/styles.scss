@@ -1,0 +1,185 @@
+/*& td.in-range {
+  background-color: var(--widget-primary-light) !important;
+}
+
+& td.active.in-range.start-date {
+  background-color: var(--widget-primary-light);
+}
+
+& td.active.in-range.end-date {
+  background-color: var(--widget-primary-light);
+}
+
+& td.active.in-range.start-date,
+& td.active.in-range.end-date {
+  position: relative;
+  color: #fff;
+  z-index: 10;
+}
+
+& td.active.in-range.start-date {
+  border-top-left-radius: 100%;
+  border-bottom-left-radius: 100%;
+}
+
+& td.active.in-range.end-date {
+  border-bottom-right-radius: 100%;
+  border-top-right-radius: 100%;
+}
+
+& td.active.in-range.start-date::before,
+& td.active.in-range.end-date::before {
+  content: "";
+  background-color: #f1f1f1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 100%;
+  z-index: -1;
+}
+
+& td.active.in-range.start-date::before {
+  background-color: #4f4f4f;
+}
+
+& td.active.in-range.end-date::before {
+  background-color: var(--widget-primary);
+}
+
+& .daterangepicker th.month {
+  width: auto !important;
+  font-size: 14px;
+}
+
+& .calendar-table td,
+& .calendar-table th {
+  height: 38px;
+  width: 38px;
+  min-width: 38px;
+  font-size: 15px;
+
+  &.partially:not(&.in-range) {
+    background-color: var(--widget-primary-lightest);
+    border-radius: 0;
+  }
+
+  &.disabled {
+    border-radius: 0;
+    background-color: #eee;
+  }
+
+  &.rounded-left:not(&.in-range) {
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+  }
+
+  &.rounded-right:not(&.in-range) {
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+  }
+
+  &.rounded-left.rounded-right:not(&.in-range) {
+    border-radius: 0;
+  }
+}
+
+& .drp-calendar {
+  padding: 0 !important;
+}
+
+& .calendar-table {
+  padding: 0 !important;
+}
+*/
+.inline-calendar {
+  &__calendar {
+    font-size: 14px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    box-shadow: var(--widget-box-shadow-calendar);
+    padding: 15px;
+  }
+
+  &__input {
+    min-height: 35px;
+    width: 100%;
+
+    border-radius: 8px;
+    border: unset;
+
+    box-shadow: var(--widget-box-shadow-calendar);
+
+    font-size: var(--widget-input-fz);
+    outline: none !important;
+
+    &::placeholder {
+      color: #333 !important;
+      opacity: 0.5 !important;
+    }
+  }
+
+  &__cell {
+    &.dp__range_between {
+      background-color: var(--widget-primary-lightest);
+    }
+
+    &.dp__range_start,
+    &.dp__date_hover_start:hover,
+    &.dp__date_hover:hover {
+      border-top-left-radius: 100%;
+      border-bottom-left-radius: 100%;
+    }
+
+    &.dp__range_end,
+    &.dp__date_hover_end:hover,
+    &.dp__date_hover:hover {
+      border-top-right-radius: 100%;
+      border-bottom-right-radius: 100%;
+    }
+
+    &.dp__date_hover_end:hover,
+    &.dp__date_hover_start:hover,
+    &.dp__date_hover:hover {
+      background-color: var(--widget-primary-lightest);
+    }
+
+    &.dp__range_start,
+    &.dp__range_end {
+      background-color: var(--widget-primary-lightest);
+      position: relative;
+      color: #fff;
+      z-index: 10;
+    }
+
+    &.dp__range_start::before,
+    &.dp__range_end::before {
+      content: "";
+      background-color: #f1f1f1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      z-index: -1;
+    }
+
+    &.dp__range_start::before {
+      background-color: #4f4f4f;
+    }
+
+    &.dp__range_end::before {
+      background-color: var(--widget-primary);
+    }
+  }
+
+
+}
+
+.dp__theme_light {
+  --dp-primary-color: var(--widget-primary);
+  --dp-icon-color: var(--widget-primary);
+}

@@ -18,6 +18,12 @@ export default defineConfig({
             "@helpers": fileURLToPath(
                 new URL("./src/helpers", import.meta.url)
             ),
+            "@stores": fileURLToPath(new URL("./src/stores", import.meta.url)),
+            "@icons": fileURLToPath(new URL("./src/icons", import.meta.url)),
+            "@views": fileURLToPath(new URL("./src/views", import.meta.url)),
+            "@packages": fileURLToPath(
+                new URL("./src/packages", import.meta.url)
+            ),
         },
     },
 });
