@@ -3,6 +3,12 @@ export default {
         type: Boolean,
         default: true,
     },
+    filters: {
+        type: Object,
+        default() {
+            return {};
+        },
+    },
     minutesGridIncrement: {
         type: Number,
         default: 1,

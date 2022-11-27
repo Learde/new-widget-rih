@@ -1,5 +1,9 @@
 export default {
     modelValue: [Array, Object],
+    enableTimePicker: {
+        type: Boolean,
+        default: true,
+    },
     options: {
         type: Array,
         default: null,

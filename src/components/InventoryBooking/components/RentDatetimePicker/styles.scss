@@ -1,6 +1,7 @@
 .rent-datetime {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   &__label {
     font-size: 14px;
@@ -17,4 +18,12 @@
   & > div {
     width: 50%;
   }
+}
+
+.rih-time-picker {
+  width: 285px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+  margin-bottom: 10px;
 }
