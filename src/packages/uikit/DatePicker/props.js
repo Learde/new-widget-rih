@@ -8,6 +8,10 @@ export default {
         default: "datepicker__calendar",
     },
     modelValue: [String, Date, Array, Object, Number],
+    enableTimePicker: {
+        type: Boolean,
+        default: true,
+    },
     locale: {
         type: String,
         default: "ru",

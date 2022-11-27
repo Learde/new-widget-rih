@@ -1,0 +1,30 @@
+.base-checkbox {
+  display: inline-flex;
+  flex-direction: row;
+  column-gap: 8px;
+  align-items: center;
+
+  &__field {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--widget-border-color);
+    border-radius: 4px;
+
+    & svg {
+      width: 14px;
+      height: 14px;
+      color: var(--widget-green);
+      opacity: 0;
+    }
+
+    &--checked {
+      & svg {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,6 +1,24 @@
 <script setup>
-import { BaseModal, BaseButton, PhoneNumberInput } from "@uikit";
-import { ref } from "vue";
+import {
+    BaseModal,
+    BaseButton,
+    BaseCheckbox,
+    PhoneNumberInput,
+    DatePicker,
+} from "@uikit";
+import InventoryBookingBadge from "../InventoryBookingBadge/InventoryBookingBadge.vue";
+import { generalProps } from "@stores";
+import { formatDateJs } from "@helpers";
+import { ref, computed } from "vue";
+
+defineProps({
+    startDate: [Date, String],
+    endDate: [Date, String],
+    inventory: Object,
+    sumRent: [Number, String],
+});
+
+const { passport, payable } = generalProps;
 
 const modal = ref(null);
 const show = () => {
@@ -13,6 +31,29 @@ const toggle = () => {
     modal.value.toggle();
 };
 
+const agreePersonalData = ref(false);
+const name = ref(null);
+const surname = ref(null);
+const phone = ref(null);
+const passportSeries = ref(null);
+const passportNumber = ref(null);
+const passportTake = ref(null);
+const passportTakeDate = ref(null);
+const passportCode = ref(null);
+
+const disableButton = computed(() => {
+    const baseDataFilled =
+        name.value && surname.value && phone.value && agreePersonalData.value;
+    if (!baseDataFilled) return true;
+    if (!passport) return false;
+    const passportDataFilled =
+        passportSeries.value &&
+        passportNumber.value &&
+        passportTake.value &&
+        passportTakeDate.value;
+    return !passportDataFilled;
+});
+
 defineExpose({ show, hide, toggle });
 </script>
 
@@ -22,9 +63,9 @@ defineExpose({ show, hide, toggle });
             <h3 class="modal-booking__heading">Забронировать</h3>
             <form
                 class="modal-booking__form"
-                :class="{ 'modal-booking__form--flex': needPassport }"
+                :class="{ 'modal-booking__form--flex': passport }"
             >
-                <div :class="{ 'modal-booking__form-half': needPassport }">
+                <div :class="{ 'modal-booking__form-half': passport }">
                     <div class="modal-booking__form-group">
                         <input
                             class="modal-booking__input"
@@ -42,21 +83,9 @@ defineExpose({ show, hide, toggle });
                         />
                     </div>
                     <div class="modal-booking__form-group">
-                        <PhoneNumberInput />
-                        <!--                        <vue-phone-number-input-->
-                        <!--                            class="rih-phone-number-input"-->
-                        <!--                            :preferred-countries="preferredCountries"-->
-                        <!--                            :translations="{-->
-                        <!--                                phoneNumberLabel: 'Телефон *',-->
-                        <!--                            }"-->
-                        <!--                            :color="colors.primary"-->
-                        <!--                            valid-color="#1ab394"-->
-                        <!--                            error-color="#ce352c"-->
-                        <!--                            @update="changeNumber"-->
-                        <!--                            v-model="phone"-->
-                        <!--                        ></vue-phone-number-input>-->
+                        <PhoneNumberInput v-model="phone" />
                     </div>
-                    <div class="modal-booking__form-group" v-if="needPassport">
+                    <div class="modal-booking__form-group" v-if="passport">
                         <input
                             class="modal-booking__input"
                             type="text"
@@ -65,7 +94,7 @@ defineExpose({ show, hide, toggle });
                         />
                     </div>
                 </div>
-                <div class="modal-booking__form-half" v-if="needPassport">
+                <div class="modal-booking__form-half" v-if="passport">
                     <div class="modal-booking__form-group">
                         <input
                             class="modal-booking__input"
@@ -83,19 +112,13 @@ defineExpose({ show, hide, toggle });
                         />
                     </div>
                     <div class="modal-booking__form-group">
-                        <!--                        <date-pick-->
-                        <!--                            v-model="passportTakeDate"-->
-                        <!--                            :input-attributes="{-->
-                        <!--                                placeholder: 'Дата получения паспорта *',-->
-                        <!--                            }"-->
-                        <!--                            :format="'YYYY-MM-DD'"-->
-                        <!--                            class="modal-booking__date"-->
-                        <!--                            next-month-caption="Следующий месяц"-->
-                        <!--                            prev-month-caption="Предыдущий месяц"-->
-                        <!--                            set-time-caption="Время:"-->
-                        <!--                            :weekdays="weekdays"-->
-                        <!--                            :months="months"-->
-                        <!--                        ></date-pick>-->
+                        <DatePicker
+                            v-model="passportTakeDate"
+                            placeholder="Дата получения паспорта *"
+                            :enable-time-picker="false"
+                            :close-on-auto-apply="true"
+                        />
+                        <!-- :format="'YYYY-MM-DD'"-->
                     </div>
                     <div class="modal-booking__form-group">
                         <input
@@ -109,75 +132,38 @@ defineExpose({ show, hide, toggle });
             </form>
             <div class="modal-booking__rent">
                 <span>
-                    <!--                    Аренда с <b>{{ format(timeStart) }}</b> по-->
-                    <!--                    <b>{{ format(timeEnd) }}</b>-->
+                    Аренда с
+                    <b>{{ formatDateJs(startDate, "dd.MM.yyyy T") }}</b> по
+                    <b>{{ formatDateJs(endDate, "dd.MM.yyyy T") }}</b>
                 </span>
             </div>
 
             <div class="modal-booking__personal-data">
-                <!--                <p-check-->
-                <!--                    class="p-curve p-svg p-jelly"-->
-                <!--                    name="check"-->
-                <!--                    color="success"-->
-                <!--                    v-model="personalData"-->
-                <!--                >-->
-                <!--                    <svg slot="extra" class="svg svg-icon" viewBox="0 0 20 20">-->
-                <!--                        <path-->
-                <!--                            d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"-->
-                <!--                            style="stroke: white; fill: white"-->
-                <!--                        ></path>-->
-                <!--                    </svg>-->
-                <!--                    Согласие на обработку персональных данных *-->
-                <!--                </p-check>-->
+                <BaseCheckbox v-model="agreePersonalData">
+                    Согласие на обработку персональных данных
+                </BaseCheckbox>
             </div>
 
             <div class="modal-booking__footer">
-                <!--                <div-->
-                <!--                    class="rih-booking-form__inventory modal-booking__inventory"-->
-                <!--                >-->
-                <!--                    <img-->
-                <!--                        class="rih-booking-form__img"-->
-                <!--                        :src="MEDIA + pickedInventory.avatar"-->
-                <!--                        :alt="pickedInventory.title"-->
-                <!--                    />-->
-                <!--                    <div class="rih-booking-form__info">-->
-                <!--                        <span class="rih-booking-form__title">-->
-                <!--                            {{ pickedInventory.title | cutString }}-->
-                <!--                        </span>-->
-                <!--                        <span-->
-                <!--                            v-if="pickedInventory.category"-->
-                <!--                            class="rih-booking-form__category"-->
-                <!--                        >-->
-                <!--                            {{ pickedInventory.category.title }}-->
-                <!--                        </span>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <span class="modal-booking__price"
-                    >К оплате: {{ sumRent }} руб.
-                </span>
-
-                <button
-                    v-if="payable"
-                    class="rih-button rih-button--long"
-                    :disabled="disableButton"
-                    @click="addRent"
+                <InventoryBookingBadge
+                    class="modal-booking__badge"
+                    :title="inventory.title"
+                    :category-title="inventory.category?.title"
+                    :avatar="inventory.avatar"
+                    :sum-rent="sumRent"
+                    no-shadow
+                    left-align
                 >
-                    Оплатить
-                </button>
-                <button
-                    v-else
-                    class="rih-button rih-button--long"
-                    :disabled="disableButton"
-                    @click="addRent"
-                >
-                    Забронировать
-                </button>
+                    <template #button>
+                        <BaseButton :disabled="disableButton" @click="addRent">
+                            {{ payable ? "Оплатить" : "Забронировать" }}
+                        </BaseButton>
+                    </template>
+                </InventoryBookingBadge>
             </div>
             <div class="modal-booking__error" v-if="disableButton">
                 <span>*Заполните все обязательные поля</span>
             </div>
-            <BaseButton> Забронировать </BaseButton>
         </div>
     </BaseModal>
 </template>

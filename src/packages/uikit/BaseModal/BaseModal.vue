@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { IconXmark } from "@icons";
-const open = ref(true);
+const open = ref(false);
 const show = () => {
     open.value = true;
 };

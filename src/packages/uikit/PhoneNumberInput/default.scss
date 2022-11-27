@@ -2,6 +2,7 @@
 
 .m-phone-number-input {
   box-shadow: var(--widget-box-shadow-input);
+  border-radius: 8px;
 }
 
 .m-phone-number-input__country-flag {
@@ -865,7 +866,7 @@ html.--backdrop-present {
 }
 
 .maz-left-4 {
-  left: 1rem;
+  left: 10px;
 }
 
 .maz-top-1 {
@@ -2182,7 +2183,7 @@ html.--backdrop-present {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  left: 1rem;
+  left: 10px;
   line-height: 1.5rem;
   display: -webkit-box;
   display: -ms-flexbox;

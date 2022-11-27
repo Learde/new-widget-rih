@@ -20,6 +20,14 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    noShadow: {
+        type: Boolean,
+        default: false,
+    },
+    leftAlign: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const titleLength = 20;
@@ -27,7 +35,13 @@ const categoryTitleLength = 20;
 </script>
 
 <template>
-    <div class="booking-badge">
+    <div
+        class="booking-badge"
+        :class="{
+            'booking-badge--no-shadow': noShadow,
+            'booking-badge--left-align': leftAlign,
+        }"
+    >
         <div class="booking-badge__inventory">
             <img
                 class="booking-badge__img"

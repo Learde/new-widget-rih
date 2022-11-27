@@ -127,7 +127,13 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <ModalBooking ref="modal" />
+        <ModalBooking
+            ref="modal"
+            :start-date="startDate"
+            :end-date="endDate"
+            :inventory="inventory"
+            :sum-rent="sumRent"
+        />
         <!--        <rih-modal-->
         <!--            v-if="showModal"-->
         <!--            @close="showModal = false"-->

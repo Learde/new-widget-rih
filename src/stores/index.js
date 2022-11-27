@@ -13,3 +13,7 @@ export {
     imageSize,
     setImageCover,
 } from "@stores/inventoryConfig/inventoryConfig";
+
+//generalProps.js
+export { generalProps } from "./generalProps/generalProps.js";
+export { initGeneralPropsStore } from "./generalProps/helpers.js";

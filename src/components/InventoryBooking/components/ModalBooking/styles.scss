@@ -1,0 +1,97 @@
+.modal-booking {
+  &__heading {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  &__form-group {
+    width: 100%;
+    margin: 0 auto 14px;
+  }
+
+  &__input {
+    font-size: var(--widget-input-fz);
+    outline: none !important;
+    border-radius: 8px;
+    border: 1px solid var(--widget-border-color);
+    box-shadow: var(--widget-box-shadow-input);
+    padding: 0 10px;
+    min-height: 36px;
+    width: 100%;
+  }
+
+  &__rent {
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+    & b {
+      font-weight: 700;
+    }
+  }
+
+  &__badge {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  &__personal-data {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  &__price {
+    margin-right: auto;
+    margin-left: 30px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &__inventory {
+    display: flex;
+
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+
+  &__form {
+    &--flex {
+      display: flex;
+      column-gap: 20px;
+
+      @media (max-width: 550px) {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  &__form-half {
+    width: 50%;
+
+    @media (max-width: 550px) {
+      width: 100%;
+    }
+  }
+
+  &__center-text {
+    text-align: center;
+  }
+
+  &__error {
+    text-align: right;
+    width: 100%;
+    color: var(--widget-red);
+    font-size: 14px;
+  }
+}
+

@@ -9,6 +9,19 @@
   margin-top: 60px;
   position: relative;
 
+  &--no-shadow {
+    box-shadow: none !important;
+  }
+
+  &--left-align {
+    justify-content: flex-start;
+    column-gap: 15px;
+
+    & button {
+      margin-left: auto;
+    }
+  }
+
   &__inventory {
     display: flex;
     align-items: center;
