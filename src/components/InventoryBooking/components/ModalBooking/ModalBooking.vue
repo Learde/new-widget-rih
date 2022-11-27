@@ -6,12 +6,16 @@ import {
     PhoneNumberInput,
     DatePicker,
 } from "@uikit";
+import { checkOrCreateClient } from "@api";
 import InventoryBookingBadge from "../InventoryBookingBadge/InventoryBookingBadge.vue";
 import { generalProps } from "@stores";
 import { formatDateJs } from "@helpers";
 import { ref, computed } from "vue";
+import BaseLoading from "@uikit/BaseLoading/BaseLoading.vue";
 
-defineProps({
+const emit = defineEmits(["create-rent", "error"]);
+
+const props = defineProps({
     startDate: [Date, String],
     endDate: [Date, String],
     inventory: Object,
@@ -30,6 +34,8 @@ const hide = () => {
 const toggle = () => {
     modal.value.toggle();
 };
+
+const saving = ref(false);
 
 const agreePersonalData = ref(false);
 const name = ref(null);
@@ -53,6 +59,40 @@ const disableButton = computed(() => {
         passportTakeDate.value;
     return !passportDataFilled;
 });
+
+const getClient = async () => {
+    try {
+        saving.value = true;
+        let client = (
+            await checkOrCreateClient({
+                name: name.value,
+                surname: surname.value,
+                phone: phone.value,
+                passportCode: passportCode.value,
+                passportNumber: passportNumber.value,
+                passportSerial: passportSeries.value,
+                passportTake: passportTake.value,
+                passportTakeDate: formatDateJs(
+                    passportTakeDate.value,
+                    "yyyy-MM-dd"
+                ),
+            })
+        ).data;
+
+        if (client.error !== undefined) {
+            emit("error", client.error);
+            hide();
+        }
+
+        if (client) {
+            client = { ...client, ...client.human };
+            emit("create-rent", client);
+        }
+    } catch (e) {
+        emit("error", e);
+        hide();
+    }
+};
 
 defineExpose({ show, hide, toggle });
 </script>
@@ -155,7 +195,10 @@ defineExpose({ show, hide, toggle });
                     left-align
                 >
                     <template #button>
-                        <BaseButton :disabled="disableButton" @click="addRent">
+                        <BaseButton
+                            :disabled="disableButton"
+                            @click="getClient"
+                        >
                             {{ payable ? "Оплатить" : "Забронировать" }}
                         </BaseButton>
                     </template>
@@ -165,5 +208,6 @@ defineExpose({ show, hide, toggle });
                 <span>*Заполните все обязательные поля</span>
             </div>
         </div>
+        <BaseLoading v-if="saving" background />
     </BaseModal>
 </template>

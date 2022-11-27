@@ -1,14 +1,18 @@
 <script setup>
-import { setToken } from "@api";
+import { setBaseUrl, setToken } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
-import { useRouterStore, initGeneralPropsStore } from "@stores";
+import { useRouterStore, initGeneralPropsStore, setMedia } from "@stores";
 import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 
 const props = defineProps({ ...importedProps });
 
 setToken(props.token);
+if (props.devServer) {
+    setBaseUrl("https://api-dev.rentinhand.ru/");
+    setMedia("https://media-dev.rentinhand.ru");
+}
 initGeneralPropsStore(props);
 
 const router = useRouterStore();

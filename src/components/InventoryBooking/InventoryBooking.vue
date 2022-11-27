@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed, watch, onMounted } from "vue";
-import { calculateRent } from "@api";
+import { calculateRent, createRent } from "@api";
 import { formatDateJs } from "@helpers";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
 import ModalBooking from "./components/ModalBooking/ModalBooking.vue";
+import ModalSuccess from "../ModalSuccess/ModalSuccess.vue";
+import ModalError from "../ModalError/ModalError.vue";
 
 const props = defineProps({
     inventory: Object,
@@ -20,14 +22,17 @@ const endDate = computed(() => datetime.value[1]);
 
 const calculating = ref(true);
 const sumRent = ref(0);
+const calculatedRent = ref(null);
 const modal = ref(null);
+const modalSuccess = ref(null);
+const modalError = ref(null);
 
 const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 
 const recalc = async () => {
     try {
         calculating.value = true;
-        const calculatedRent = (
+        calculatedRent.value = (
             await calculateRent({
                 inventory: props.inventory,
                 inventoryId: props.inventory.id,
@@ -41,12 +46,30 @@ const recalc = async () => {
                 openPointId: props.inventory?.point?.id,
             })
         )?.data.array?.[0];
-        sumRent.value = calculatedRent.sum_total;
+        sumRent.value = calculatedRent.value.sum_total;
     } catch (e) {
         //TODO: вывести ошибку
         console.log(e);
     } finally {
         calculating.value = false;
+    }
+};
+
+const tryCreateRent = async (client) => {
+    try {
+        if (calculatedRent.value) {
+            calculatedRent.value.client = client;
+            calculatedRent.value.human_id = client.id;
+            const payload = (await createRent(calculatedRent.value)).data;
+            if (payload.error !== undefined) {
+                modalError.value.show(payload.error);
+            }
+            modal.value.hide();
+            modalSuccess.value.show();
+        }
+    } catch (e) {
+        console.log(e);
+        modalError.value.show(e);
     }
 };
 
@@ -133,16 +156,10 @@ onMounted(() => {
             :end-date="endDate"
             :inventory="inventory"
             :sum-rent="sumRent"
+            @error="(error) => modalError.show(error)"
+            @create-rent="tryCreateRent"
         />
-        <!--        <rih-modal-->
-        <!--            v-if="showModal"-->
-        <!--            @close="showModal = false"-->
-        <!--            :picked-inventory="inventory"-->
-        <!--            :calculated-rent="calculatedRent"-->
-        <!--            :sum-rent="sumRent"-->
-        <!--            :time-start="timeStart"-->
-        <!--            :time-end="timeEnd"-->
-        <!--            :saved-modal-data="savedModalData"-->
-        <!--        ></rih-modal>-->
+        <ModalSuccess ref="modalSuccess" />
+        <ModalError ref="modalError" />
     </div>
 </template>

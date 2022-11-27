@@ -1,6 +1,14 @@
 <script setup>
 import { ref } from "vue";
 import { IconXmark } from "@icons";
+
+defineProps({
+    contentWidth: {
+        type: [String, Number],
+        default: "600",
+    },
+});
+
 const open = ref(false);
 const show = () => {
     open.value = true;
@@ -18,7 +26,11 @@ defineExpose({ show, hide, toggle });
 
 <template>
     <div class="modal" v-if="open" @click="hide">
-        <div class="modal__content" @click.stop>
+        <div
+            class="modal__content"
+            :style="{ width: contentWidth + 'px' }"
+            @click.stop
+        >
             <IconXmark class="modal__cross" @click="hide" />
             <slot />
         </div>

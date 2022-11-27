@@ -28,6 +28,11 @@ const formatDateJs = (date, format = "dd.MM.yyyy HH:mm") => {
     return DateTime.fromJSDate(date).toFormat(format);
 };
 
+const formatDateISO = (date, format = "dd.MM.yyyy HH:mm") => {
+    console.log(date);
+    return DateTime.fromISO(date).toFormat(format);
+};
+
 const dateJsToISO = (date) => {
     return DateTime.fromJSDate(date).toISO();
 };
@@ -74,4 +79,5 @@ export {
     differenceDatesJs,
     humanizeDurationMillis,
     dateJsToISO,
+    formatDateISO,
 };
