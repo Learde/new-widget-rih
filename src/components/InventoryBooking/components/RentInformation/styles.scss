@@ -1,0 +1,29 @@
+.rent-range {
+  &__badge {
+    border: 1.5px solid #ccc;
+    border-radius: 7px;
+    padding: 5px 20px;
+    display: inline-block;
+    margin-left: 3px;
+
+    &--mr {
+      margin-right: 7px;
+    }
+
+    &--mb {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__total {
+    margin-top: 40px;
+    & > span:last-child {
+      margin-bottom: 0;
+    }
+
+    & > span {
+      display: block;
+      margin-bottom: 7px;
+    }
+  }
+}

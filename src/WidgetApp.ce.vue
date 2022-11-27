@@ -3,24 +3,15 @@ import { setToken } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
 import { useRouterStore } from "@stores";
+import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 
-const props = defineProps({
-    token: String,
-});
+const props = defineProps({ ...importedProps });
 
 setToken(props.token);
 
 const router = useRouterStore();
 const { current } = storeToRefs(router);
-const { changeRoute } = router;
-
-const goInv = () => {
-    changeRoute("inventoryPage");
-};
-const goLst = () => {
-    changeRoute("inventoryList");
-};
 
 // Добавление шрифта Manrope к странице
 pushFontToHead();
@@ -28,8 +19,6 @@ pushFontToHead();
 
 <template>
     <div class="rih-widget" id="rih-widget">
-        <!--        <button @click="goInv">К инвентарю</button>-->
-        <!--        <button @click="goLst">К списку</button>-->
         <TheTopMenu />
         <component :is="current.component" v-bind="current.params"></component>
     </div>

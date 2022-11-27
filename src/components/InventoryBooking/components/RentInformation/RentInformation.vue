@@ -19,18 +19,15 @@ defineProps({
 </script>
 
 <template>
-    <div class="rih-booking__range rih-range">
+    <div class="rent-range">
         с&nbsp;
-        <span
-            class="rih-range__badge rih-range__badge--mr"
-            style="margin-bottom: 5px"
-        >
+        <span class="rent-range__badge rent-range__badge--mr">
             {{ formatDateJs(startDate) }}
         </span>
         по&nbsp;
-        <span class="rih-range__badge">{{ formatDateJs(endDate) }}</span>
+        <span class="rent-range__badge">{{ formatDateJs(endDate) }}</span>
     </div>
-    <div class="rih-booking__total">
+    <div class="rent-range__total">
         <span v-if="pointTitle"> Пункт проката: {{ pointTitle }} </span>
         <span>
             Длительность аренды:

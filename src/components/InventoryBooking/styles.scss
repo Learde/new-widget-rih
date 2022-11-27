@@ -1,20 +1,11 @@
+@import "./components/InventoryBookingBadge/styles.scss";
 @import "./components/RentDatetimePicker/styles.scss";
+@import "./components/RentInformation/styles.scss";
 
-.rih-booking {
+.booking {
   padding: 30px 50px;
   background-color: var(--widget-background);
   min-height: 100vh;
-  &__total {
-    margin-top: 40px;
-    & > span:last-child {
-      margin-bottom: 0;
-    }
-
-    & > span {
-      display: block;
-      margin-bottom: 7px;
-    }
-  }
 
   &__promo {
     margin-top: 30px;
@@ -89,83 +80,5 @@
     color: var(--widget-green);
     font-size: 14px;
     line-height: 1.2;
-  }
-}
-
-.rih-range {
-  &__badge {
-    border: 1.5px solid #ccc;
-    border-radius: 7px;
-    padding: 5px 20px;
-    display: inline-block;
-    margin-left: 3px;
-
-    &--mr {
-      margin-right: 7px;
-    }
-  }
-}
-
-.rih-booking-form {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--widget-background-second);
-  padding: 15px;
-  box-shadow: var(--widget-box-shadow-box-1);
-  border-radius: 15px;
-  margin-top: 60px;
-  position: relative;
-
-  &__inventory {
-    display: flex;
-    align-items: center;
-
-    @media (max-width: 1100px) {
-      display: none;
-    }
-
-    @media (max-width: 800px) {
-      display: flex;
-    }
-
-    @media (max-width: 600px) {
-      display: none;
-    }
-  }
-
-  &__img {
-    width: 60px;
-    height: auto;
-  }
-
-  &__info {
-    margin-left: 10px;
-    & span {
-      display: block;
-    }
-  }
-
-  &__title {
-    font-weight: 700;
-    font-size: 12px;
-    margin-bottom: 3px;
-  }
-
-  &__category {
-    font-size: 11px;
-    text-transform: uppercase;
-    color: var(--widget-primary);
-    letter-spacing: 1.1px;
-    font-weight: 700;
-  }
-
-  &__total {
-    font-size: 14px;
-    font-weight: 700;
-
-    @media (max-width: 400px) {
-      font-size: 12px;
-    }
   }
 }

@@ -4,7 +4,8 @@ import { calculateRent } from "@api";
 import { formatDateJs } from "@helpers";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
-import RentInformation from "@/components/InventoryBooking/components/RentInformation/RentInformation.vue";
+import RentInformation from "./components/RentInformation/RentInformation.vue";
+import ModalBooking from "./components/ModalBooking/ModalBooking.vue";
 
 const props = defineProps({
     inventory: Object,
@@ -16,9 +17,12 @@ const datetime = ref([
 ]);
 const startDate = computed(() => datetime.value[0]);
 const endDate = computed(() => datetime.value[1]);
+
 const calculating = ref(true);
-const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 const sumRent = ref(0);
+const modal = ref(null);
+
+const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 
 const recalc = async () => {
     try {
@@ -56,11 +60,11 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="rih-booking" id="rih-booking">
-        <h2 class="rih-booking__heading">Расчет аренды</h2>
-        <div class="rih-booking__wrapper">
-            <RentDatetimePicker class="rih-booking__time" v-model="datetime" />
-            <div class="rih-booking__info">
+    <div class="booking" id="booking">
+        <h2 class="booking__heading">Расчет аренды</h2>
+        <div class="booking__wrapper">
+            <RentDatetimePicker class="booking__time" v-model="datetime" />
+            <div class="booking__info">
                 <RentInformation
                     :sum-rent="sumRent"
                     :start-date="startDate"
@@ -113,15 +117,17 @@ onMounted(() => {
                     :avatar="inventory.avatar"
                     :sum-rent="sumRent"
                     :loading="calculating"
+                    @open-modal="modal.show()"
                 />
-                <div class="rih-booking__error-wrapper" v-if="disableBooking">
-                    <span class="rih-booking__error">
+                <div class="booking__error-wrapper" v-if="disableBooking">
+                    <span class="booking__error">
                         *Выбранный промежуток недоступен для аренды<br />
                         Выберите другие даты
                     </span>
                 </div>
             </div>
         </div>
+        <ModalBooking ref="modal" />
         <!--        <rih-modal-->
         <!--            v-if="showModal"-->
         <!--            @close="showModal = false"-->
