@@ -2,12 +2,14 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { calculateRent, createRent } from "@api";
 import { formatDateJs } from "@helpers";
+import { generalProps } from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
 import ModalBooking from "./components/ModalBooking/ModalBooking.vue";
 import ModalSuccess from "../ModalSuccess/ModalSuccess.vue";
 import ModalError from "../ModalError/ModalError.vue";
+import PromocodeInput from "../PromocodeInput/PromocodeInput.vue";
 
 const props = defineProps({
     inventory: Object,
@@ -18,6 +20,8 @@ const datetime = ref([
     new Date(new Date().setDate(new Date().getDate() + 1)),
 ]);
 
+const { promocode, cart } = generalProps;
+
 const startDate = computed(() => datetime.value[0]);
 const endDate = computed(() => datetime.value[1]);
 
@@ -27,6 +31,7 @@ const calculatedRent = ref(null);
 const modal = ref(null);
 const modalSuccess = ref(null);
 const modalError = ref(null);
+const selectedPromo = ref(null);
 
 const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 
@@ -45,6 +50,8 @@ const recalc = async () => {
                 closePointId: props.inventory?.point?.id,
                 openPoint: props.inventory?.point,
                 openPointId: props.inventory?.point?.id,
+                discount: selectedPromo.value,
+                discountId: selectedPromo.value?.id,
             })
         )?.data.array?.[0];
         sumRent.value = calculatedRent.value.sum_total;
@@ -83,6 +90,12 @@ onMounted(() => {
 });
 
 const disableBooking = ref(false);
+
+const changePromo = (promo) => {
+    selectedPromo.value = promo;
+    console.log(promo);
+    recalc();
+};
 </script>
 
 <template>
@@ -102,46 +115,11 @@ const disableBooking = ref(false);
                     :end-date="endDate"
                     :point-title="inventory.point?.title"
                 />
-                <!--                <div-->
-                <!--                    class="rih-booking__promo"-->
-                <!--                    v-if="needPromocode && !needCart"-->
-                <!--                >-->
-                <!--                    <div class="rih-booking__promo-row">-->
-                <!--                        <input-->
-                <!--                            class="rih-booking__promo-input rih-form-group__input"-->
-                <!--                            placeholder="Введите промокод"-->
-                <!--                            v-model="promocode"-->
-                <!--                            :disabled="promocodeSubmited"-->
-                <!--                        />-->
-                <!--                        <button-->
-                <!--                            class="rih-button rih-button&#45;&#45;long"-->
-                <!--                            @click="checkPromo"-->
-                <!--                            v-if="!promocodeSubmited"-->
-                <!--                        >-->
-                <!--                            Применить-->
-                <!--                        </button>-->
-                <!--                        <button-->
-                <!--                            class="rih-button rih-button&#45;&#45;long"-->
-                <!--                            @click="deletePromo"-->
-                <!--                            v-else-->
-                <!--                        >-->
-                <!--                            Отменить-->
-                <!--                        </button>-->
-                <!--                    </div>-->
-                <!--                    <p class="rih-booking__error" v-if="promocodeError">-->
-                <!--                        {{ promocodeError }}-->
-                <!--                    </p>-->
-                <!--                    <p class="rih-booking__success" v-if="promocodeSubmited">-->
-                <!--                        Промокод на скидку в {{ promocodeObject.value }}-->
-                <!--                        <span v-if="promocodeObject.discount_type_id === 1"-->
-                <!--                            ><i class="fa-solid fa-ruble-sign"></i-->
-                <!--                        ></span>-->
-                <!--                        <span v-else-if="promocodeObject.discount_type_id === 2"-->
-                <!--                            >%</span-->
-                <!--                        >-->
-                <!--                        применен-->
-                <!--                    </p>-->
-                <!--                </div>-->
+                <PromocodeInput
+                    v-if="!cart && promocode"
+                    @input="changePromo"
+                    class="booking__promocode"
+                />
                 <InventoryBookingBadge
                     :title="inventory.title"
                     :category-title="inventory.category?.title"

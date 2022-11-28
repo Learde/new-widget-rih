@@ -2,6 +2,6 @@ import { defineCustomElement } from "vue";
 
 import WidgetApp from "./WidgetApp.ce.vue";
 
-const MyVueElement = defineCustomElement(WidgetApp);
+const RihWidget = defineCustomElement(WidgetApp);
 
-customElements.define("my-vue-element", MyVueElement);
+customElements.define("rih-widget", RihWidget);

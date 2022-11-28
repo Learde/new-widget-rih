@@ -77,7 +77,7 @@ const calculateRent = ({
         payload.open_point_id = openPointId;
     }
     if (discount && discountId) {
-        payload.discount = [
+        payload.discounts = [
             {
                 discount: discount,
                 discount_id: discountId,

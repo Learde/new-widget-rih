@@ -1,0 +1,34 @@
+.promo-input {
+  &__promo-row {
+    display: flex;
+  }
+
+  &__input {
+    border-radius: 8px;
+    border: 1px solid var(--widget-border-color);
+    box-shadow: var(--widget-box-shadow-input);
+    margin-right: 15px;
+    max-width: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__error-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__error {
+    margin-top: 10px;
+    color: var(--widget-red);
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  &__success {
+    margin-top: 10px;
+    color: var(--widget-green);
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
