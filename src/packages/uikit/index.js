@@ -2,6 +2,7 @@ export { default as BaseButton } from "./BaseButton/BaseButton.vue";
 export { default as BaseCheckbox } from "./BaseCheckbox/BaseCheckbox.vue";
 export { default as BaseLoading } from "./BaseLoading/BaseLoading.vue";
 export { default as BaseModal } from "./BaseModal/BaseModal.vue";
+export { default as BasePagination } from "./BasePagination/BasePagination.vue";
 export { default as DatePicker } from "./DatePicker/DatePicker.vue";
 export { default as HeaderFormGroup } from "./HeaderFormGroup/HeaderFormGroup.vue";
 export { default as ImageGallery } from "./ImageGallery/ImageGallery.vue";
