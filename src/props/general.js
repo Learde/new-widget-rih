@@ -32,4 +32,8 @@ export default {
         type: Boolean,
         default: false,
     },
+    gallery: {
+        type: Boolean,
+        default: false,
+    },
 };

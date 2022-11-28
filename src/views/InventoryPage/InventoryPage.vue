@@ -44,6 +44,7 @@ onMounted(() => {
             :avatar="inventory.avatar"
             :category-title="inventory.category?.title"
             :description="inventory.description"
+            :media="inventory.media"
         />
     </div>
     <div class="booking-page" id="booking-page" v-if="!loading">

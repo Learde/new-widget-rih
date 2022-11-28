@@ -1,6 +1,9 @@
 <script setup>
-import { MEDIA } from "@stores";
+import { generalProps, MEDIA } from "@stores";
 import InventoryPrices from "@/components/InventoryPrices/InventoryPrices.vue";
+import { ImageGallery } from "@uikit";
+
+const { gallery } = generalProps;
 
 defineProps({
     title: String,
@@ -17,12 +20,21 @@ defineProps({
         type: String,
         default: null,
     },
+    media: {
+        type: Array,
+        default: null,
+    },
 });
 </script>
 
 <template>
     <div class="inventory-info">
-        <div class="inventory-info__img-wrapper">
+        <ImageGallery
+            class="inventory-info__gallery"
+            :images="media"
+            v-if="gallery"
+        />
+        <div v-else class="inventory-info__img-wrapper">
             <img :src="MEDIA + avatar" :alt="title" />
         </div>
         <div class="inventory-info__description">
