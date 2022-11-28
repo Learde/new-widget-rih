@@ -33,7 +33,6 @@ const formatDateJs = (date, format = "dd.MM.yyyy HH:mm") => {
 };
 
 const formatDateISO = (date, format = "dd.MM.yyyy HH:mm") => {
-    console.log(date);
     return DateTime.fromISO(date).toFormat(format);
 };
 

@@ -87,7 +87,6 @@ const changeMonthYear = async ({ month, year }) => {
             ).data?.cur;
 
             disabledDays.value = disableDates(month);
-            console.log(disabledDays.value);
         }
     } catch (e) {
         console.log(e);
@@ -242,7 +241,6 @@ const getDaysArray = function (s, e) {
 };
 
 const daysInMonth = (month, year) => {
-    console.log(month, new Date(year, month, 0).getDate());
     return new Date(year, month, 0).getDate();
 };
 
@@ -259,7 +257,6 @@ const disableDates = (month) => {
             disabled: false,
         };
     });
-    console.log(dates);
     dates.forEach((date) => {
         const datetime = date.value.getTime();
         date.disabled = bookedDays.value.some((range) => {
@@ -334,7 +331,6 @@ const disableBooking = computed(() => {
 });
 
 watch(disableBooking, () => {
-    console.log("Opa: ", disableBooking.value);
     emit("disable-booking", disableBooking.value);
 });
 </script>

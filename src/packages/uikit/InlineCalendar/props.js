@@ -7,6 +7,10 @@ export default {
         type: Boolean,
         default: true,
     },
+    minDate: {
+        type: [Date, String],
+        default: new Date(),
+    },
     disabledDates: {
         type: Array,
         default: null,
