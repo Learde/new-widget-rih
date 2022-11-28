@@ -14,8 +14,8 @@ const props = defineProps({
 });
 
 const datetime = ref([
-    new Date(new Date().setDate(new Date().getDate() - 1)),
     new Date(),
+    new Date(new Date().setDate(new Date().getDate() + 1)),
 ]);
 const startDate = computed(() => datetime.value[0]);
 const endDate = computed(() => datetime.value[1]);
@@ -86,7 +86,11 @@ onMounted(() => {
     <div class="booking" id="booking">
         <h2 class="booking__heading">Расчет аренды</h2>
         <div class="booking__wrapper">
-            <RentDatetimePicker class="booking__time" v-model="datetime" />
+            <RentDatetimePicker
+                class="booking__time"
+                v-model="datetime"
+                :inventory-id="inventory.id"
+            />
             <div class="booking__info">
                 <RentInformation
                     :sum-rent="sumRent"

@@ -15,7 +15,7 @@ import BaseLoading from "@uikit/BaseLoading/BaseLoading.vue";
 
 const emit = defineEmits(["create-rent", "error"]);
 
-const props = defineProps({
+defineProps({
     startDate: [Date, String],
     endDate: [Date, String],
     inventory: Object,

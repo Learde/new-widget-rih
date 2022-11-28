@@ -4,7 +4,7 @@ import { computed } from "vue";
 import VueDatepicker from "@vuepic/vue-datepicker";
 import importedProps from "./props.js";
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "update-month-year"]);
 
 const props = defineProps({
     ...importedProps,
@@ -25,5 +25,6 @@ const date = computed({
         class="inline-calendar"
         v-bind="props"
         v-model="date"
+        @update-month-year="(param) => emit('update-month-year', param)"
     ></VueDatepicker>
 </template>

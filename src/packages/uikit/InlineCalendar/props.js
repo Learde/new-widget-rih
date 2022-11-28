@@ -7,6 +7,10 @@ export default {
         type: Boolean,
         default: true,
     },
+    disabledDates: {
+        type: Array,
+        default: null,
+    },
     minutesGridIncrement: {
         type: Number,
         default: 1,

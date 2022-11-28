@@ -24,6 +24,10 @@ const humanizeDurationMillis = (millisDuration) => {
     return humanizeDuration(millisDuration, humanizeSettings);
 };
 
+const ISOtoMillis = (date) => {
+    return DateTime.fromISO(date).toMillis();
+};
+
 const formatDateJs = (date, format = "dd.MM.yyyy HH:mm") => {
     return DateTime.fromJSDate(date).toFormat(format);
 };
@@ -80,4 +84,5 @@ export {
     humanizeDurationMillis,
     dateJsToISO,
     formatDateISO,
+    ISOtoMillis,
 };

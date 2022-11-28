@@ -9,6 +9,7 @@ export {
     differenceDatesJs,
     dateJsToISO,
     formatDateISO,
+    ISOtoMillis,
 } from "./datetime.js";
 
 // prices.js
