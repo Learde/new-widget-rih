@@ -1,6 +1,7 @@
 <script setup>
 import { BaseLoading, BaseButton } from "@uikit";
 import { MEDIA } from "@stores";
+import { generalProps } from "@stores";
 import { stringEscape } from "@helpers";
 
 defineEmits(["open-modal"]);
@@ -28,7 +29,13 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    disableBooking: {
+        type: Boolean,
+        default: false,
+    },
 });
+
+const { cart } = generalProps;
 
 const titleLength = 20;
 const categoryTitleLength = 20;
@@ -60,13 +67,8 @@ const categoryTitleLength = 20;
         <span class="booking-badge__total"> К оплате: {{ sumRent }} руб. </span>
         <slot name="button">
             <BaseButton
-                v-if="needCart"
-                :disabled="
-                    timeEnd === null ||
-                    timeStart === null ||
-                    isBooked ||
-                    disableBooking
-                "
+                v-if="cart"
+                :disabled="disableBooking"
                 @click="addInCart()"
             >
                 В корзину
@@ -74,9 +76,7 @@ const categoryTitleLength = 20;
             <BaseButton
                 v-else
                 @click="$emit('open-modal')"
-                :disabled="
-                    timeEnd === null || timeStart === null || disableBooking
-                "
+                :disabled="disableBooking"
             >
                 Забронировать
             </BaseButton>

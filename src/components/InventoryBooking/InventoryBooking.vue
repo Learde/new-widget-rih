@@ -80,6 +80,8 @@ watch(datetime, () => {
 onMounted(() => {
     recalc();
 });
+
+const disableBooking = ref(false);
 </script>
 
 <template>
@@ -90,6 +92,7 @@ onMounted(() => {
                 class="booking__time"
                 v-model="datetime"
                 :inventory-id="inventory.id"
+                @disable-booking="(newValue) => (disableBooking = newValue)"
             />
             <div class="booking__info">
                 <RentInformation
@@ -144,6 +147,7 @@ onMounted(() => {
                     :avatar="inventory.avatar"
                     :sum-rent="sumRent"
                     :loading="calculating"
+                    :disable-booking="disableBooking"
                     @open-modal="modal.show()"
                 />
                 <div class="booking__error-wrapper" v-if="disableBooking">

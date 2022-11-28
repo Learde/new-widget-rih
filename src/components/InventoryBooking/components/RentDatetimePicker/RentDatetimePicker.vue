@@ -4,7 +4,7 @@ import { getRentsOfInventory } from "@api";
 import { ISOtoMillis } from "@helpers";
 import { ref, watch, computed, nextTick } from "vue";
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "disable-booking"]);
 
 const props = defineProps({
     modelValue: Object,
@@ -288,6 +288,55 @@ const disableDates = (month) => {
     });
     return dates.filter((item) => item.disabled).map((item) => item.value);
 };
+
+const disableBooking = computed(() => {
+    if (!Array.isArray(bookedDays.value) || bookedDays.value.length === 0)
+        return false;
+
+    return bookedDays.value.some((range) => {
+        const startMillis = new Date(fullDateStart.value).getTime();
+        const endMillis = new Date(fullDateEnd.value).getTime();
+        const rangeStartMillis = ISOtoMillis(range.time_start);
+        const rangeEndMillis = ISOtoMillis(range.time_end);
+
+        const startBetween =
+            startMillis > rangeStartMillis &&
+            startMillis < rangeEndMillis &&
+            startMillis - rangeStartMillis > 60000 &&
+            rangeEndMillis - startMillis > 60000;
+
+        if (startBetween) return true;
+
+        const endBetween =
+            endMillis > rangeStartMillis &&
+            endMillis < rangeEndMillis &&
+            endMillis - rangeStartMillis > 60000 &&
+            rangeEndMillis - endMillis > 60000;
+
+        if (endBetween) return true;
+
+        const periodStartBetween =
+            rangeStartMillis > startMillis &&
+            rangeStartMillis < endMillis &&
+            rangeStartMillis - startMillis > 60000 &&
+            endMillis - rangeStartMillis > 60000;
+
+        if (periodStartBetween) return true;
+
+        const periodEndBetween =
+            rangeEndMillis > startMillis &&
+            rangeEndMillis < endMillis &&
+            rangeEndMillis - startMillis > 60000 &&
+            endMillis - rangeEndMillis > 60000;
+
+        return periodEndBetween;
+    });
+});
+
+watch(disableBooking, () => {
+    console.log("Opa: ", disableBooking.value);
+    emit("disable-booking", disableBooking.value);
+});
 </script>
 
 <template>
