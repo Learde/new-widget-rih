@@ -10,19 +10,17 @@ const { cart } = storeToRefs(cartStore);
 <template>
     <div class="cart-page">
         <main class="cart-page__main">
-            <template v-if="Object.keys(cart).length > 0">
-                <CartComponent
-                    class="cart-page__component"
-                    v-for="(value, key) in cart"
-                    :inventories="value.inventories"
-                    :start-date="value.startDate"
-                    :end-date="value.endDate"
-                    :key="key"
-                />
-            </template>
-            <template v-else>
-                <h2 class="cart-page__void">Корзина пуста</h2>
-            </template>
+            <CartComponent
+                class="cart-page__component"
+                v-for="(value, key) in cart"
+                :inventories="value.inventories"
+                :start-date="value.startDate"
+                :end-date="value.endDate"
+                :key="key"
+            />
+            <h2 v-if="Object.keys(cart).length === 0" class="cart-page__void">
+                Корзина пуста
+            </h2>
         </main>
     </div>
 </template>
