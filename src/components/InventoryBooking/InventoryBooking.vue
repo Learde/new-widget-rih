@@ -2,7 +2,7 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { calculateRent, createRent } from "@api";
 import { formatDateJs } from "@helpers";
-import { generalProps, useCartStore } from "@stores";
+import { generalProps, useCartStore, useClientStore } from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
@@ -10,6 +10,7 @@ import ModalBooking from "./components/ModalBooking/ModalBooking.vue";
 import ModalSuccess from "../ModalSuccess/ModalSuccess.vue";
 import ModalError from "../ModalError/ModalError.vue";
 import PromocodeInput from "../PromocodeInput/PromocodeInput.vue";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({
     inventory: Object,
@@ -20,7 +21,7 @@ const datetime = ref([
     new Date(new Date().setDate(new Date().getDate() + 1)),
 ]);
 
-const { promocode, cart } = generalProps;
+const { promocode, cart, authorization } = generalProps;
 
 const startDate = computed(() => datetime.value[0]);
 const endDate = computed(() => datetime.value[1]);
@@ -119,6 +120,21 @@ const updateIncludes = () => {
         new Date(endDate.value).getTime()
     );
 };
+
+const handleBooking = () => {
+    if (!authorization) {
+        modal.value.show();
+    } else {
+        const clientStore = useClientStore();
+        const { client, isAuth, authModal } = storeToRefs(clientStore);
+        console.log(client, isAuth);
+        if (isAuth.value) {
+            tryCreateRent({ ...client.value, ...client.value.human });
+        } else {
+            authModal.value.show();
+        }
+    }
+};
 </script>
 
 <template>
@@ -150,7 +166,7 @@ const updateIncludes = () => {
                     :sum-rent="sumRent"
                     :loading="calculating"
                     :disable-booking="disableBooking || inventoryAdded"
-                    @open-modal="modal.show()"
+                    @open-modal="handleBooking"
                     @add="addInCart"
                 />
                 <div class="booking__error-wrapper" v-if="disableBooking">

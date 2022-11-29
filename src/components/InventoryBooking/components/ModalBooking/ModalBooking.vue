@@ -8,9 +8,10 @@ import {
 } from "@uikit";
 import { checkOrCreateClient } from "@api";
 import InventoryBookingBadge from "../InventoryBookingBadge/InventoryBookingBadge.vue";
-import { generalProps } from "@stores";
+import { generalProps, useClientStore } from "@stores";
 import { formatDateJs } from "@helpers";
 import { ref, computed } from "vue";
+import { storeToRefs } from "pinia";
 import BaseLoading from "@uikit/BaseLoading/BaseLoading.vue";
 
 const emit = defineEmits(["create-rent", "error"]);

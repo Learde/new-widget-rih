@@ -1,9 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { setBaseUrl, setToken } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
-import { useRouterStore, initGeneralPropsStore, setMedia } from "@stores";
+import {
+    useRouterStore,
+    initGeneralPropsStore,
+    setMedia,
+    useClientStore,
+    generalProps,
+} from "@stores";
 import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 import TheFixedCart from "@/components/TheCartFixed/TheCartFixed.vue";
@@ -21,7 +27,19 @@ initGeneralPropsStore(props);
 const router = useRouterStore();
 const { current } = storeToRefs(router);
 
+const clientStore = useClientStore();
+const { setClient, setAuthModal } = clientStore;
+
+const { authorization } = generalProps;
+if (authorization && localStorage.getItem("client")) {
+    setClient(JSON.parse(localStorage.getItem("client")));
+}
+
 const modalAuth = ref(null);
+
+onMounted(() => {
+    setAuthModal(modalAuth.value);
+});
 
 // Добавление шрифта Manrope к странице
 pushFontToHead();

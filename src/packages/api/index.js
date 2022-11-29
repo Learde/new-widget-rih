@@ -15,7 +15,11 @@ export { getPoints } from "./endpoints/point.js";
 export { calculateRent, calculateRents } from "./endpoints/calc.js";
 
 // Client
-export { checkOrCreateClient } from "./endpoints/client.js";
+export {
+    checkOrCreateClient,
+    getClientRents,
+    editClient,
+} from "./endpoints/client.js";
 
 // Rent
 export { createRent } from "./endpoints/rent.js";

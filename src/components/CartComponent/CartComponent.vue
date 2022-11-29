@@ -1,14 +1,15 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { BaseButton, BaseLoading } from "@uikit";
 import { formatDateJs } from "@helpers";
-import { generalProps, useCartStore } from "@stores";
+import { generalProps, useCartStore, useClientStore } from "@stores";
 import InventoryBookingBadge from "@/components/InventoryBooking/components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import ModalBooking from "@/components/InventoryBooking/components/ModalBooking/ModalBooking.vue";
 import ModalSuccess from "@/components/ModalSuccess/ModalSuccess.vue";
 import ModalError from "@/components/ModalError/ModalError.vue";
 import PromocodeInput from "@/components/PromocodeInput/PromocodeInput.vue";
 import { calculateRents, createRent } from "@api";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({
     startDate: [Date, Number, String],
@@ -94,6 +95,15 @@ const tryCreateRent = async (client) => {
 const handleBook = () => {
     if (!authorization) {
         modal.value.show();
+    } else {
+        const clientStore = useClientStore();
+        const { client, isAuth, authModal } = storeToRefs(clientStore);
+        console.log(client, isAuth);
+        if (isAuth.value) {
+            tryCreateRent({ ...client.value, ...client.value.human });
+        } else {
+            authModal.value.show();
+        }
     }
 };
 

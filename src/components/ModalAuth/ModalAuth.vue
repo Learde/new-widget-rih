@@ -31,10 +31,12 @@ const type = ref("auth");
                 <AuthForm
                     v-if="type === 'auth'"
                     @change-type="(t) => (type = t)"
+                    @close="hide()"
                 />
                 <RegForm
                     v-else-if="type === 'reg'"
                     @change-type="(t) => (type = t)"
+                    @close="hide()"
                 />
                 <RestorePassword
                     v-else-if="type === 'restore'"
