@@ -18,7 +18,10 @@ const emit = defineEmits(["create-rent", "error"]);
 defineProps({
     startDate: [Date, String],
     endDate: [Date, String],
-    inventory: Object,
+    inventory: {
+        type: Object,
+        default: null,
+    },
     sumRent: [Number, String],
 });
 
@@ -184,8 +187,12 @@ defineExpose({ show, hide, toggle });
                 </BaseCheckbox>
             </div>
 
-            <div class="modal-booking__footer">
+            <div
+                class="modal-booking__footer"
+                :class="{ 'modal-booking__footer--center': inventory === null }"
+            >
                 <InventoryBookingBadge
+                    v-if="inventory !== null"
                     class="modal-booking__badge"
                     :title="inventory.title"
                     :category-title="inventory.category?.title"
@@ -203,6 +210,9 @@ defineExpose({ show, hide, toggle });
                         </BaseButton>
                     </template>
                 </InventoryBookingBadge>
+                <BaseButton v-else :disabled="disableButton" @click="getClient">
+                    {{ payable ? "Оплатить" : "Забронировать" }}
+                </BaseButton>
             </div>
             <div class="modal-booking__error" v-if="disableButton">
                 <span>*Заполните все обязательные поля</span>

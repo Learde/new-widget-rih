@@ -4,9 +4,9 @@ import { MEDIA } from "@stores";
 import { generalProps } from "@stores";
 import { stringEscape } from "@helpers";
 
-defineEmits(["open-modal"]);
+defineEmits(["open-modal", "add"]);
 
-defineProps({
+const props = defineProps({
     avatar: String,
     title: String,
     categoryTitle: {
@@ -25,6 +25,18 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    noPrice: {
+        type: Boolean,
+        default: false,
+    },
+    titleLength: {
+        type: Number,
+        default: 20,
+    },
+    categoryTitleLength: {
+        type: Number,
+        default: 20,
+    },
     leftAlign: {
         type: Boolean,
         default: false,
@@ -36,9 +48,6 @@ defineProps({
 });
 
 const { cart } = generalProps;
-
-const titleLength = 20;
-const categoryTitleLength = 20;
 </script>
 
 <template>
@@ -64,12 +73,14 @@ const categoryTitleLength = 20;
                 </span>
             </div>
         </div>
-        <span class="booking-badge__total"> К оплате: {{ sumRent }} руб. </span>
+        <span v-if="!noPrice" class="booking-badge__total">
+            К оплате: {{ sumRent }} руб.
+        </span>
         <slot name="button">
             <BaseButton
                 v-if="cart"
+                @click="$emit('add')"
                 :disabled="disableBooking"
-                @click="addInCart()"
             >
                 В корзину
             </BaseButton>

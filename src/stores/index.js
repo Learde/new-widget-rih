@@ -17,3 +17,6 @@ export {
 //generalProps.js
 export { generalProps } from "./generalProps/generalProps.js";
 export { initGeneralPropsStore } from "./generalProps/helpers.js";
+
+//cart.js
+export { useCartStore } from "./cart/cart.js";

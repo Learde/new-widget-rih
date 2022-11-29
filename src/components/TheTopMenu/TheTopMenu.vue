@@ -10,7 +10,11 @@ const { rollbackRoute } = router;
 </script>
 
 <template>
-    <div class="top-menu" v-if="current.name !== 'inventoryList'">
+    <div
+        class="top-menu"
+        v-if="current.name !== 'inventoryList'"
+        :class="{ 'top-menu--bg': current.name !== 'inventoryPage' }"
+    >
         <BaseButton class="top-menu__back-btn" @click="rollbackRoute">
             <IconArrowLeftLong /> Назад
         </BaseButton>

@@ -11,6 +11,8 @@
 @import "@uikit/index.scss";
 
 // COMPONENTS
+@import "@/components/TheCartFixed/styles.scss";
+@import "@/components/CartComponent/styles.scss";
 @import "@/components/InventoryCard/styles.scss";
 @import "@/components/TheHeader/styles.scss";
 @import "@/components/InventoryPrices/styles.scss";
@@ -24,7 +26,7 @@
 // VIEWS
 @import "@views/InventoryList/styles.scss";
 @import "@views/InventoryPage/styles.scss";
-
+@import "@views/CartPage/styles.scss";
 
 
 

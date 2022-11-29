@@ -2,7 +2,7 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { calculateRent, createRent } from "@api";
 import { formatDateJs } from "@helpers";
-import { generalProps } from "@stores";
+import { generalProps, useCartStore } from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
@@ -83,18 +83,41 @@ const tryCreateRent = async (client) => {
 
 watch(datetime, () => {
     recalc();
+    updateIncludes();
 });
 
 onMounted(() => {
     recalc();
+    updateIncludes();
 });
 
 const disableBooking = ref(false);
 
 const changePromo = (promo) => {
     selectedPromo.value = promo;
-    console.log(promo);
     recalc();
+};
+
+const cartStore = useCartStore();
+const { addInventory, includesInventory } = cartStore;
+
+const addInCart = () => {
+    addInventory(
+        { ...props.inventory, sumRent: sumRent.value },
+        new Date(startDate.value).getTime(),
+        new Date(endDate.value).getTime()
+    );
+    updateIncludes();
+};
+
+const inventoryAdded = ref(false);
+
+const updateIncludes = () => {
+    inventoryAdded.value = includesInventory(
+        props.inventory,
+        new Date(startDate.value).getTime(),
+        new Date(endDate.value).getTime()
+    );
 };
 </script>
 
@@ -126,8 +149,9 @@ const changePromo = (promo) => {
                     :avatar="inventory.avatar"
                     :sum-rent="sumRent"
                     :loading="calculating"
-                    :disable-booking="disableBooking"
+                    :disable-booking="disableBooking || inventoryAdded"
                     @open-modal="modal.show()"
+                    @add="addInCart"
                 />
                 <div class="booking__error-wrapper" v-if="disableBooking">
                     <span class="booking__error">

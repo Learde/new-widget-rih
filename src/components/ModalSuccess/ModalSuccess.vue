@@ -12,8 +12,11 @@ const hide = () => {
 const toggle = () => {
     modal.value.toggle();
 };
+const open = () => {
+    return modal.value.open;
+};
 
-defineExpose({ show, hide, toggle });
+defineExpose({ show, hide, toggle, open });
 </script>
 
 <template>

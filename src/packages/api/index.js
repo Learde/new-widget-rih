@@ -12,7 +12,7 @@ export { getCategories } from "./endpoints/category.js";
 export { getPoints } from "./endpoints/point.js";
 
 // Calc
-export { calculateRent } from "./endpoints/calc.js";
+export { calculateRent, calculateRents } from "./endpoints/calc.js";
 
 // Client
 export { checkOrCreateClient } from "./endpoints/client.js";

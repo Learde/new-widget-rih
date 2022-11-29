@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 import { useRouterStore, initGeneralPropsStore, setMedia } from "@stores";
 import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
+import TheFixedCart from "@/components/TheCartFixed/TheCartFixed.vue";
 
 const props = defineProps({ ...importedProps });
 
@@ -26,6 +27,7 @@ pushFontToHead();
     <div class="rih-widget" id="rih-widget">
         <TheTopMenu />
         <component :is="current.component" v-bind="current.params"></component>
+        <TheFixedCart />
     </div>
 </template>
 

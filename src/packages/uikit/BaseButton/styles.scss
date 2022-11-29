@@ -2,11 +2,10 @@
   min-height: 36px;
   height: 36px;
   color: #fff;
-  background-color: var(--widget-primary);
   border: none;
   text-align: center;
   border-radius: 8px;
-  transition: 0.1s;
+  transition: 0.2s;
   min-width: 130px;
 
   &--long {
@@ -14,12 +13,32 @@
   }
 
   &:hover {
-    background-color: var(--widget-primary-hover);
     cursor: pointer;
   }
 
   &[disabled] {
-    background-color: var(--widget-primary-hover);
     cursor: default;
+  }
+
+  &--primary {
+    background-color: var(--widget-primary);
+    &:hover {
+      background-color: var(--widget-primary-hover);
+    }
+
+    &[disabled] {
+      background-color: var(--widget-primary-hover);
+    }
+  }
+
+  &--danger {
+    background-color: var(--widget-danger);
+    &:hover {
+      background-color: var(--widget-danger-hover);
+    }
+
+    &[disabled] {
+      background-color: var(--widget-danger-hover);
+    }
   }
 }

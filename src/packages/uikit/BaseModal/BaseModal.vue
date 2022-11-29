@@ -21,7 +21,7 @@ const toggle = () => {
     else show();
 };
 
-defineExpose({ show, hide, toggle });
+defineExpose({ show, hide, toggle, open });
 </script>
 
 <template>

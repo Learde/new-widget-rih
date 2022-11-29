@@ -1,0 +1,11 @@
+.cart-page {
+  background-color: var(--widget-background);
+  padding: 30px 50px;
+
+  &__void {
+    font-size: 28px;
+    text-align: center;
+    font-weight: bold;
+    padding: 40px 0;
+  }
+}

@@ -35,7 +35,7 @@ const reloadInventories = async (filter = {}) => {
 };
 
 const changePage = (page) => {
-    offset.value = page - 1;
+    offset.value = (page - 1) * limit.value;
     reloadInventories();
 };
 
