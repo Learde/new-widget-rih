@@ -25,3 +25,16 @@ export { getRentsOfInventory } from "./endpoints/inventoryDates.js";
 
 // Discount
 export { searchDiscount } from "./endpoints/discount.js";
+
+// Auth
+export { authClient } from "./endpoints/auth.js";
+
+// Registration
+export { registerClient } from "./endpoints/registration.js";
+
+// Restore
+export {
+    restorePassword,
+    restoreCode,
+    restoreChange,
+} from "./endpoints/restore.js";

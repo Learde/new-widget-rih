@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { setBaseUrl, setToken } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
@@ -6,6 +7,7 @@ import { useRouterStore, initGeneralPropsStore, setMedia } from "@stores";
 import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 import TheFixedCart from "@/components/TheCartFixed/TheCartFixed.vue";
+import ModalAuth from "@/components/ModalAuth/ModalAuth.vue";
 
 const props = defineProps({ ...importedProps });
 
@@ -19,15 +21,18 @@ initGeneralPropsStore(props);
 const router = useRouterStore();
 const { current } = storeToRefs(router);
 
+const modalAuth = ref(null);
+
 // Добавление шрифта Manrope к странице
 pushFontToHead();
 </script>
 
 <template>
     <div class="rih-widget" id="rih-widget">
-        <TheTopMenu />
+        <TheTopMenu @open-auth="modalAuth.show()" />
         <component :is="current.component" v-bind="current.params"></component>
         <TheFixedCart />
+        <ModalAuth ref="modalAuth" />
     </div>
 </template>
 

@@ -1,0 +1,64 @@
+.auth-form {
+  & .header {
+    background-color: var(--widget-background);
+    margin-bottom: 0;
+    padding-bottom: 40px;
+  }
+
+  &__heading {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  &__form {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--widget-background-second);
+    padding: 25px 0;
+    border-radius: 10px;
+  }
+
+  &__form-group {
+    width: 100%;
+    margin: 0 auto 14px;
+  }
+
+  &__input {
+    font-size: var(--widget-input-fz);
+    outline: none !important;
+    border-radius: 8px;
+    border: 1px solid var(--widget-border-color);
+    box-shadow: var(--widget-box-shadow-input);
+    padding: 0 10px;
+    min-height: 36px;
+    width: 100%;
+  }
+
+  &__heading {
+    padding: 0;
+    margin: 0 0 30px 0;
+  }
+
+  & button {
+    margin-top: 10px;
+  }
+
+  &__no-account {
+    font-size: 14px;
+    padding: 0;
+    margin: 10px 0 0 0;
+  }
+
+  &__link {
+    color: var(--widget-primary);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  &__error {
+    font-size: 14px;
+    color: var(--widget-red);
+    margin-top: 5px;
+  }
+}

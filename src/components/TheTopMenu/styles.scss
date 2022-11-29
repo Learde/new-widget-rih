@@ -1,10 +1,15 @@
 .top-menu {
   padding: 10px 50px;
+  display: flex;
   &__back-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 5px;
+  }
+
+  &__auth-btn {
+    margin-left: auto;
   }
 
   &--bg {

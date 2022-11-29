@@ -20,3 +20,6 @@ export { initGeneralPropsStore } from "./generalProps/helpers.js";
 
 //cart.js
 export { useCartStore } from "./cart/cart.js";
+
+//client.js
+export { useClientStore } from "./client/client.js";
