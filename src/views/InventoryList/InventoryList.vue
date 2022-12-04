@@ -45,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="inv-list">
+    <div class="inv-list container">
         <TheHeader @reload="reloadInventories" />
         <div class="inv-list__list">
             <BaseLoading v-if="loading" />

@@ -8,7 +8,7 @@ const { cart } = storeToRefs(cartStore);
 </script>
 
 <template>
-    <div class="cart-page">
+    <div class="cart-page container">
         <main class="cart-page__main">
             <CartComponent
                 class="cart-page__component"

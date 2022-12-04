@@ -60,7 +60,7 @@ const defaultEmail = computed(() => {
 </script>
 
 <template>
-    <div class="client-lk">
+    <div class="client-lk container">
         <div class="client-lk__row">
             <div class="client-lk__heading">
                 <h2 class="client-lk__fio">{{ client.fio }}</h2>

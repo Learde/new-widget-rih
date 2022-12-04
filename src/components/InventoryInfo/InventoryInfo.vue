@@ -28,7 +28,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="inventory-info">
+    <div class="inventory-info container">
         <ImageGallery
             class="inventory-info__gallery"
             :images="media"

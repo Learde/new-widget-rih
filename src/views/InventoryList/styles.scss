@@ -1,6 +1,5 @@
 .inv-list {
   background-color: var(--widget-background);
-  padding: 30px 50px;
 
   &__list {
     display: grid;
@@ -10,6 +9,15 @@
     position: relative;
     min-height: 200px;
     text-align: left;
+
+    @media (max-width: 1045px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
   }
 
   &__pagination {

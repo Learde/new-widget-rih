@@ -133,6 +133,7 @@ onMounted(() => {
                     :title-length="40"
                     no-shadow
                     no-price
+                    no-media-queries
                 >
                     <template #button> &#160; </template>
                 </InventoryBookingBadge>
@@ -151,7 +152,7 @@ onMounted(() => {
                 style="margin-top: 0; margin-right: auto"
             />
 
-            <div>
+            <div class="cart-component__footer-row">
                 <span class="cart-component__total"
                     >Итого: {{ price }} руб.</span
                 >

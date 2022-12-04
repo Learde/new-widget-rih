@@ -11,6 +11,10 @@
     max-width: 250px;
     padding-left: 10px;
     padding-right: 10px;
+
+    @media (max-width: 475px) {
+      max-width: 150px;
+    }
   }
 
   &__error-wrapper {

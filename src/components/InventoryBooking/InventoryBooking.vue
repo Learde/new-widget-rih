@@ -138,7 +138,7 @@ const handleBooking = () => {
 </script>
 
 <template>
-    <div class="booking" id="booking">
+    <div class="booking container" id="booking">
         <h2 class="booking__heading">Расчет аренды</h2>
         <div class="booking__wrapper">
             <RentDatetimePicker

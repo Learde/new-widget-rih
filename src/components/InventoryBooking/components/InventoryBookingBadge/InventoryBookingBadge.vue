@@ -29,6 +29,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    noMediaQueries: {
+        type: Boolean,
+        default: false,
+    },
     titleLength: {
         type: Number,
         default: 20,
@@ -56,6 +60,7 @@ const { cart } = generalProps;
         :class="{
             'booking-badge--no-shadow': noShadow,
             'booking-badge--left-align': leftAlign,
+            'booking-badge--no-media-queries': noMediaQueries,
         }"
     >
         <div class="booking-badge__inventory">

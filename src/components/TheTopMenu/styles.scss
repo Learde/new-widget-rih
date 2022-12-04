@@ -1,6 +1,18 @@
 .top-menu {
   padding: 10px 50px 0;
   display: flex;
+
+  @media (max-width: 600px) {
+    padding: 10px 25px 0;
+  }
+
+  @media (max-width: 400px) {
+    padding: 10px 10px 0;
+  }
+  @media (max-width: 330px) {
+    padding: 10px 5px 0;
+  }
+
   &__back-btn {
     display: flex;
     align-items: center;

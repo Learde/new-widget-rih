@@ -4,7 +4,6 @@
 @import "./components/ModalBooking/styles.scss";
 
 .booking {
-  padding: 30px 50px;
   background-color: var(--widget-background);
   min-height: 100vh;
 
@@ -55,6 +54,10 @@
   &__time {
     display: flex;
     justify-content: center;
+
+    @media (max-width: 800px) {
+      margin-bottom: 30px;
+    }
   }
 
   &__calendar {

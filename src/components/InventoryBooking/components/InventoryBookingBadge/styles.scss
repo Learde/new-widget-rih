@@ -73,4 +73,10 @@
       font-size: 12px;
     }
   }
+
+  &--no-media-queries {
+    .booking-badge__inventory {
+      display: flex !important;
+    }
+  }
 }
