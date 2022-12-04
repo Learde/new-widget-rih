@@ -26,7 +26,7 @@ const doRestore = async () => {
             await restoreChange({
                 password: password.value,
                 passwordConfirm: passwordConfirm.value,
-                client: client.value.id,
+                clientId: client.value.id,
             })
         ).data;
         if (data && data.error === undefined) {

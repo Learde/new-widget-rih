@@ -120,9 +120,14 @@ const getUnbookedMinutes = (currentDate) => {
     });
 
     const currentDateTime = currentDate.getTime();
+    const currentHour = currentDate.getHours();
     const todayTime = Date.now();
+    const todayHour = new Date().getHours();
     // < 1 hour
-    if (Math.abs(currentDateTime - todayTime) < 3600000)
+    if (
+        Math.abs(currentDateTime - todayTime) < 3600000 &&
+        currentHour === todayHour
+    )
         for (let i = 0; i < new Date().getMinutes(); i++)
             minutes[i].disable = true;
 

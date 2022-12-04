@@ -15,7 +15,7 @@ const restoreCode = ({ code }) => {
     return makeHttpRequest({
         url: "/v2/widget/client/restore/code/check",
         method: "GET",
-        data: {
+        params: {
             restore_code: code,
         },
     });
@@ -24,7 +24,7 @@ const restoreCode = ({ code }) => {
 const restoreChange = ({ password, passwordConfirm, clientId }) => {
     return makeHttpRequest({
         url: "/v2/widget/client/restore",
-        method: "GET",
+        method: "PUT",
         data: {
             password,
             password_confirmation: passwordConfirm,

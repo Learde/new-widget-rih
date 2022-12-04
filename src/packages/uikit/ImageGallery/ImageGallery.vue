@@ -37,10 +37,11 @@ const slideTo = (val) => {
         </Carousel>
 
         <Carousel
+            v-if="count > 1"
             class="gallery__thumbnails"
             id="thumbnails"
             :items-to-show="5"
-            :wrap-around="true"
+            :wrap-around="false"
             v-model="currentSlide"
             ref="carousel"
         >
