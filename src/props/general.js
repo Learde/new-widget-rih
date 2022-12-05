@@ -36,4 +36,8 @@ export default {
         type: Boolean,
         default: false,
     },
+    roundedCardAvatar: {
+        type: Boolean,
+        default: false,
+    },
 };

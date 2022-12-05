@@ -2,6 +2,7 @@
 import { ref } from "vue";
 
 import { BaseButton } from "@uikit";
+import { filterProps } from "@stores";
 import FilterCategory from "./filters/FilterCategory.vue";
 import FilterPoint from "./filters/FilterPoint.vue";
 import FilterDate from "./filters/FilterDate.vue";
@@ -19,16 +20,26 @@ const emitReload = () => {
     emit("reload", filter.value);
 };
 
+const { hideFilterCategory, hideFilterDate, hideFilterPoint, hideFilters } =
+    filterProps;
+
 // import { isPastDate, isFutureDate } from "../HeaderDatePick/methods";
 </script>
 
 <template>
-    <header class="header">
+    <header class="header" v-if="!hideFilters">
         <div class="header__filters">
-            <FilterCategory v-model="filter.categoryIds" />
-            <FilterPoint v-model="filter.pointIds" />
-            <FilterDate v-model="filter.dateStart"> Дата начала </FilterDate>
-            <FilterDate v-model="filter.dateEnd"> Дата конца </FilterDate>
+            <FilterCategory
+                v-if="!hideFilterCategory"
+                v-model="filter.categoryIds"
+            />
+            <FilterPoint v-if="!hideFilterPoint" v-model="filter.pointIds" />
+            <FilterDate v-if="!hideFilterDate" v-model="filter.dateStart">
+                Дата начала
+            </FilterDate>
+            <FilterDate v-if="!hideFilterDate" v-model="filter.dateEnd">
+                Дата конца
+            </FilterDate>
         </div>
         <BaseButton class="header__show-btn" @click="emitReload"
             >Показать</BaseButton

@@ -9,6 +9,7 @@ const generalProps = {
     mail: null,
     sorting: null,
     gallery: null,
+    roundedCardAvatar: null,
 };
 
 export { generalProps };

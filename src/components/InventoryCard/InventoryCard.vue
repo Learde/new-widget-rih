@@ -1,5 +1,11 @@
 <script setup>
-import { MEDIA, imageSize, useRouterStore } from "@stores";
+import {
+    MEDIA,
+    imageSize,
+    setImageCover,
+    useRouterStore,
+    generalProps,
+} from "@stores";
 import {
     getMinimumPriceFromArray,
     humanizeDurationISO,
@@ -26,6 +32,11 @@ const { changeRoute } = router;
 const [price, period] = getMinimumPriceFromArray(props.prices);
 const categoryLength = 25;
 const titleLength = 35;
+
+const { roundedCardAvatar } = generalProps;
+if (roundedCardAvatar) {
+    setImageCover("cover");
+}
 </script>
 
 <template>
@@ -37,6 +48,7 @@ const titleLength = 35;
             class="inv-card__image"
             :class="{
                 'inv-card__image--mt': !category,
+                'inv-card__image--rounded': roundedCardAvatar,
             }"
             :style="{
                 'background-image': `url('${MEDIA + image}')`,

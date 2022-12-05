@@ -6,6 +6,7 @@ import { storeToRefs } from "pinia";
 import {
     useRouterStore,
     initGeneralPropsStore,
+    initFilterPropsStore,
     setMedia,
     useClientStore,
     generalProps,
@@ -23,6 +24,7 @@ if (props.devServer) {
     setMedia("https://media-dev.rentinhand.ru");
 }
 initGeneralPropsStore(props);
+initFilterPropsStore(props);
 
 const router = useRouterStore();
 const { current } = storeToRefs(router);
