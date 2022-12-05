@@ -28,6 +28,10 @@ export { useClientStore } from "./client/client.js";
 export { generalProps } from "./generalProps/generalProps.js";
 export { initGeneralPropsStore } from "./generalProps/helpers.js";
 
-//generalProps.js
+//filterProps.js
 export { filterProps } from "./filtersProps/filterProps.js";
 export { initFilterPropsStore } from "./filtersProps/helpers.js";
+
+//colorsProps.js
+export { colorsProps } from "./colorsProps/colorsProps.js";
+export { initColorsPropsStore } from "./colorsProps/helpers.js";

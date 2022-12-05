@@ -7,6 +7,7 @@ import {
     useRouterStore,
     initGeneralPropsStore,
     initFilterPropsStore,
+    initColorsPropsStore,
     setMedia,
     useClientStore,
     generalProps,
@@ -41,6 +42,7 @@ const modalAuth = ref(null);
 
 onMounted(() => {
     setAuthModal(modalAuth.value);
+    initColorsPropsStore(props);
 });
 
 // Добавление шрифта Manrope к странице

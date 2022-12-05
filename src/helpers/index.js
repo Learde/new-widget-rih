@@ -20,3 +20,6 @@ export { mapInventoryFilter } from "./mappers.js";
 
 // string.js
 export { stringEscape } from "./string.js";
+
+// colors.js
+export { pSBC } from "./colors.js";

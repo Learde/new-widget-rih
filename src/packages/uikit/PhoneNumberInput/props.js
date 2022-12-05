@@ -10,7 +10,7 @@ export default {
     },
     color: {
         type: String,
-        default: "info",
+        default: "primary",
     },
     translations: {
         type: Object,
