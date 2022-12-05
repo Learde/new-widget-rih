@@ -77,8 +77,7 @@ const tryCreateRent = async (client) => {
             modalSuccess.value.show();
         }
     } catch (e) {
-        console.log(e);
-        modalError.value.show(e);
+        modalError.value.show(e?.response?.data?.error);
     }
 };
 

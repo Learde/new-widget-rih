@@ -13,6 +13,7 @@ export const useClientStore = defineStore("client", () => {
     function setClient(client) {
         this.client = client;
         this.isAuth = client !== null;
+        localStorage.setItem("client", JSON.stringify(client));
     }
 
     function setOnlyClient(client) {

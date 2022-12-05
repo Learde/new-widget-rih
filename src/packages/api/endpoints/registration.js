@@ -17,6 +17,7 @@ const registerClient = ({
             password_confirmation: passwordConfirm,
             name,
             surname,
+            mail: email,
             email,
         },
     });

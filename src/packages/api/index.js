@@ -19,6 +19,7 @@ export {
     checkOrCreateClient,
     getClientRents,
     editClient,
+    getClient,
 } from "./endpoints/client.js";
 
 // Rent

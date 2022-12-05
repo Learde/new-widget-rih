@@ -39,9 +39,23 @@ const getClientRents = ({ clientId }) => {
 const editClient = (clientData, clientId) => {
     return makeHttpRequest({
         url: "/v1/h/client/edit/" + clientId,
-        method: "POST",
+        method: "PUT",
         data: clientData,
     });
 };
 
-export { checkOrCreateClient, getClientRents, editClient };
+const DEFAULT_INCLUDE = "balance,media,attraction,passport,companies,discounts";
+const DEFAULT_WITH = "balance,companies";
+
+const getClient = (clientId) => {
+    return makeHttpRequest({
+        url: "/v1/h/client/item/" + clientId,
+        method: "POST",
+        data: {
+            include: DEFAULT_INCLUDE,
+            with: DEFAULT_WITH,
+        },
+    });
+};
+
+export { checkOrCreateClient, getClientRents, editClient, getClient };

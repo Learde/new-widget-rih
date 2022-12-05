@@ -87,8 +87,7 @@ const tryCreateRent = async (client) => {
             }, 3000);
         }
     } catch (e) {
-        console.log(e);
-        modalError.value.show(e);
+        modalError.value.show(e?.response?.data?.error);
     }
 };
 
@@ -98,7 +97,6 @@ const handleBook = () => {
     } else {
         const clientStore = useClientStore();
         const { client, isAuth, authModal } = storeToRefs(clientStore);
-        console.log(client, isAuth);
         if (isAuth.value) {
             tryCreateRent({ ...client.value, ...client.value.human });
         } else {
