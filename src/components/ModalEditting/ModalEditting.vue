@@ -94,6 +94,8 @@ const doEdit = async () => {
         hide();
     } catch (e) {
         modalError.value.show(e?.response?.data?.error);
+    } finally {
+        saving.value = false;
     }
 };
 </script>
