@@ -107,7 +107,10 @@ defineExpose({ show, hide, toggle });
             <h3 class="modal-booking__heading">Забронировать</h3>
             <form
                 class="modal-booking__form"
-                :class="{ 'modal-booking__form--flex': passport }"
+                :class="{
+                    'modal-booking__form--flex': passport,
+                    'modal-booking__form--single': !passport,
+                }"
             >
                 <div :class="{ 'modal-booking__form-half': passport }">
                     <div class="modal-booking__form-group">
