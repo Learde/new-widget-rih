@@ -32,7 +32,7 @@ export const getRequiredText = (filter, requiredFilters) => {
         requiredFilters.includes("point") &&
         (isNil(filter.pointIds) || filter.pointIds?.length === 0)
     )
-        str += " точку проката,";
+        str += " пункт проката,";
     if (
         requiredFilters.includes("category") &&
         (isNil(filter.categoryIds) || filter.categoryIds?.length === 0)
