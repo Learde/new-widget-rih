@@ -23,3 +23,6 @@ export { stringEscape } from "./string.js";
 
 // colors.js
 export { pSBC } from "./colors.js";
+
+// types.js
+export { isNil } from "./types.js";

@@ -15,4 +15,8 @@ export default {
         type: Boolean,
         default: false,
     },
+    requiredFilters: {
+        type: String,
+        default: null,
+    },
 };
