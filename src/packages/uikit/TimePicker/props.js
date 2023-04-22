@@ -46,4 +46,12 @@ export default {
         type: String,
         default: "Выберите время",
     },
+    minTime: {
+        type: Object,
+        default: null,
+    },
+    maxTime: {
+        type: Object,
+        default: null,
+    },
 };

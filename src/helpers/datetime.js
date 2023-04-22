@@ -44,6 +44,15 @@ const differenceDatesJs = (date1, date2) => {
     return date2 - date1;
 };
 
+const parseTimeString = (time) => {
+    if (typeof time !== "string" || !time) return null;
+    const [hours, minutes] = time.split(":");
+    return {
+        hours: Number(hours),
+        minutes: Number(minutes),
+    };
+};
+
 // const humanizeDurationDate = (dateDuration) => {
 //     const millis = Duration.from
 // }
@@ -84,4 +93,5 @@ export {
     dateJsToISO,
     formatDateISO,
     ISOtoMillis,
+    parseTimeString,
 };

@@ -1,8 +1,9 @@
 <script setup>
 import { InlineCalendar, TimePicker } from "@uikit";
 import { getRentsOfInventory } from "@api";
-import { ISOtoMillis } from "@helpers";
-import { ref, watch, computed, nextTick } from "vue";
+import { ISOtoMillis, parseTimeString } from "@helpers";
+import { bookingProps } from "@stores";
+import { ref, watch, computed, onMounted } from "vue";
 
 const emit = defineEmits(["update:modelValue", "disable-booking"]);
 
@@ -11,9 +12,21 @@ const props = defineProps({
     inventoryId: [Number, String],
 });
 
+const limitTimeStart = parseTimeString(bookingProps.limitTimeStart);
+const limitTimeEnd = parseTimeString(bookingProps.limitTimeEnd);
+
 const date = ref(props.modelValue);
-const timeStart = ref(props.modelValue[0]);
-const timeEnd = ref(props.modelValue[1]);
+
+const getObjectFromDate = (date) => {
+    return {
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+        seconds: date.getSeconds(),
+    };
+};
+
+const timeStart = ref(getObjectFromDate(props.modelValue[0]));
+const timeEnd = ref(getObjectFromDate(props.modelValue[1]));
 
 const fullDateStart = computed(() => {
     const newDate = JSON.parse(JSON.stringify(date.value));
@@ -131,6 +144,24 @@ const getUnbookedMinutes = (currentDate) => {
         for (let i = 0; i < new Date().getMinutes(); i++)
             minutes[i].disable = true;
 
+    if (
+        typeof limitTimeStart?.minutes === "number" &&
+        currentHour === limitTimeStart?.hours
+    ) {
+        for (let i = 0; i < limitTimeStart.minutes; i++) {
+            minutes[i].disable = true;
+        }
+    }
+
+    if (
+        typeof limitTimeEnd?.minutes === "number" &&
+        currentHour === limitTimeEnd?.hours
+    ) {
+        for (let i = limitTimeEnd.minutes + 1; i < 60; i++) {
+            minutes[i].disable = true;
+        }
+    }
+
     if (Array.isArray(bookedDays.value))
         bookedDays.value.some((range) => {
             const rangeStart = ISOtoMillis(range.time_start);
@@ -177,6 +208,18 @@ const getUnbookedHours = (currentDate) => {
     // < 1 day
     if (Math.abs(currentDateTime - todayTime) < 86400000)
         for (let i = 0; i < new Date().getHours(); i++) hours[i].disable = true;
+
+    if (typeof limitTimeStart?.hours === "number") {
+        for (let i = 0; i < limitTimeStart.hours; i++) {
+            hours[i].disable = true;
+        }
+    }
+
+    if (typeof limitTimeEnd?.hours === "number") {
+        for (let i = limitTimeEnd.hours + 1; i < 24; i++) {
+            hours[i].disable = true;
+        }
+    }
 
     if (Array.isArray(bookedDays.value))
         bookedDays.value.some((range) => {

@@ -1,8 +1,13 @@
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, nextTick } from "vue";
 import { calculateRent, createRent } from "@api";
-import { formatDateJs } from "@helpers";
-import { generalProps, useCartStore, useClientStore } from "@stores";
+import { formatDateJs, parseTimeString } from "@helpers";
+import {
+    generalProps,
+    bookingProps,
+    useCartStore,
+    useClientStore,
+} from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
@@ -18,8 +23,11 @@ const props = defineProps({
 
 const datetime = ref([
     new Date(),
-    new Date(new Date().setDate(new Date().getDate() + 1)),
+    new Date(new Date().setUTCDate(new Date().getUTCDate() + 1)),
 ]);
+
+const limitTimeStart = parseTimeString(bookingProps.limitTimeStart);
+const limitTimeEnd = parseTimeString(bookingProps.limitTimeEnd);
 
 const { promocode, cart, authorization } = generalProps;
 
@@ -33,6 +41,7 @@ const modal = ref(null);
 const modalSuccess = ref(null);
 const modalError = ref(null);
 const selectedPromo = ref(null);
+const datetimeKey = ref(42);
 
 const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 
@@ -81,6 +90,64 @@ const tryCreateRent = async (client) => {
     }
 };
 
+const correctLower = (limit, date, index) => {
+    if (
+        limit &&
+        typeof limit.hours === "number" &&
+        typeof limit.minutes === "number"
+    ) {
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        if (
+            limit.hours > hours ||
+            (limit.hours === hours && limit.minutes > minutes)
+        ) {
+            datetime.value[index].setHours(limit.hours, limit.minutes, 0);
+        }
+    }
+};
+
+const correctUpper = () => {
+    if (
+        limitTimeEnd &&
+        typeof limitTimeEnd.hours === "number" &&
+        typeof limitTimeEnd.minutes === "number"
+    ) {
+        const hours = startDate.value.getHours();
+        const minutes = startDate.value.getMinutes();
+
+        if (
+            hours > limitTimeEnd.hours ||
+            (limitTimeEnd.hours === hours && minutes > limitTimeEnd.minutes)
+        ) {
+            datetime.value[0].setUTCDate(datetime.value[0].getUTCDate() + 1);
+            datetime.value[0].setHours(
+                limitTimeStart.hours,
+                limitTimeStart.minutes,
+                0
+            );
+            datetime.value[1].setUTCDate(datetime.value[1].getUTCDate() + 1);
+            datetime.value[1].setHours(
+                limitTimeEnd.hours,
+                limitTimeEnd.minutes,
+                0
+            );
+        }
+    }
+};
+
+const correctCurrentDates = () => {
+    correctLower(limitTimeStart, startDate.value, 0);
+    correctLower(limitTimeStart, endDate.value, 1);
+
+    correctUpper();
+
+    nextTick().then(() => {
+        datetimeKey.value++;
+    });
+};
+
 watch(datetime, () => {
     recalc();
     updateIncludes();
@@ -89,6 +156,7 @@ watch(datetime, () => {
 onMounted(() => {
     recalc();
     updateIncludes();
+    correctCurrentDates();
 });
 
 const disableBooking = ref(false);
@@ -126,7 +194,6 @@ const handleBooking = () => {
     } else {
         const clientStore = useClientStore();
         const { client, isAuth, authModal } = storeToRefs(clientStore);
-        console.log(client, isAuth);
         if (isAuth.value) {
             tryCreateRent({ ...client.value, ...client.value.human });
         } else {
@@ -142,6 +209,7 @@ const handleBooking = () => {
         <div class="booking__wrapper">
             <RentDatetimePicker
                 class="booking__time"
+                :key="datetimeKey"
                 v-model="datetime"
                 :inventory-id="inventory.id"
                 @disable-booking="(newValue) => (disableBooking = newValue)"

@@ -8,6 +8,7 @@ import {
     initGeneralPropsStore,
     initFilterPropsStore,
     initColorsPropsStore,
+    initBookingPropsStore,
     setMedia,
     useClientStore,
     generalProps,
@@ -26,6 +27,7 @@ if (props.devServer) {
 }
 initGeneralPropsStore(props);
 initFilterPropsStore(props);
+initBookingPropsStore(props);
 
 const router = useRouterStore();
 const { current } = storeToRefs(router);

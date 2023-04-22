@@ -35,3 +35,7 @@ export { initFilterPropsStore } from "./filtersProps/helpers.js";
 //colorsProps.js
 export { colorsProps } from "./colorsProps/colorsProps.js";
 export { initColorsPropsStore } from "./colorsProps/helpers.js";
+
+//bookingProps.js
+export { bookingProps } from "./bookingProps/bookingProps.js";
+export { initBookingPropsStore } from "./bookingProps/helpers.js";

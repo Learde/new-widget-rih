@@ -10,6 +10,7 @@ export {
     dateJsToISO,
     formatDateISO,
     ISOtoMillis,
+    parseTimeString,
 } from "./datetime.js";
 
 // prices.js
