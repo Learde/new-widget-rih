@@ -76,10 +76,9 @@ const getClient = async () => {
                 passportNumber: passportNumber.value,
                 passportSerial: passportSeries.value,
                 passportTake: passportTake.value,
-                passportTakeDate: formatDateJs(
-                    passportTakeDate.value,
-                    "yyyy-MM-dd"
-                ),
+                passportTakeDate: passportTakeDate.value
+                    ? formatDateJs(passportTakeDate.value, "yyyy-MM-dd")
+                    : null,
             })
         ).data;
 

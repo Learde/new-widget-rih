@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, watchEffect } from "vue";
+import { computed, onMounted, ref, watchEffect, watch } from "vue";
 import {
     isNil,
     getMonth,
@@ -24,28 +24,49 @@ const props = defineProps({
 });
 
 // Datetime picker
-const currentDate = computed({
+const currentDates = computed({
     get() {
-        return props.modelValue[0];
+        return [props.modelValue[0], props.modelValue[1]];
     },
-    set(value) {
+    set([value1, value2]) {
         const firstDate = new Date(datetimeStart.value.getTime());
         const secondDate = new Date(datetimeEnd.value.getTime());
 
         firstDate.setFullYear(
-            value.getFullYear(),
-            value.getMonth(),
-            value.getDate()
+            value1.getFullYear(),
+            value1.getMonth(),
+            value1.getDate()
         );
         secondDate.setFullYear(
-            value.getFullYear(),
-            value.getMonth(),
-            value.getDate()
+            value2.getFullYear(),
+            value2.getMonth(),
+            value2.getDate()
         );
 
         emit("update:modelValue", [firstDate, secondDate]);
     },
 });
+
+// watch(
+//     () => props.modelValue,
+//     ([value1, value2]) => {
+//         const firstDate = new Date(datetimeStart.value.getTime());
+//         const secondDate = new Date(datetimeEnd.value.getTime());
+//
+//         console.log(value1, firstDate);
+//         console.log(value2, secondDate);
+//
+//         if (
+//             !compareDatesWithDayPrecision(firstDate, value1, isEqual) ||
+//             !compareDatesWithDayPrecision(secondDate, value2, isEqual)
+//         ) {
+//             firstDate.setFullYear(value1.getFullYear());
+//             secondDate.setFullYear(value2.getFullYear());
+//
+//             emit("update:modelValue", [firstDate, secondDate]);
+//         }
+//     }
+// );
 
 const timeStart = computed({
     get() {
@@ -64,11 +85,13 @@ const timeStart = computed({
         const endHours = secondDate.getHours();
         const endMinutes = secondDate.getMinutes();
 
-        if (hours > endHours) {
-            hours = endHours;
-            minutes = endMinutes;
-        } else if (hours === +endHours && minutes > endMinutes) {
-            minutes = endMinutes;
+        if (compareDatesWithDayPrecision(firstDate, secondDate, isEqual)) {
+            if (hours > endHours) {
+                hours = endHours;
+                minutes = endMinutes;
+            } else if (hours === +endHours && minutes > endMinutes) {
+                minutes = endMinutes;
+            }
         }
 
         firstDate.setHours(hours);
@@ -95,11 +118,13 @@ const timeEnd = computed({
         const startHours = firstDate.getHours();
         const startMinutes = firstDate.getMinutes();
 
-        if (startHours > hours) {
-            hours = startHours;
-            minutes = startMinutes;
-        } else if (hours === +startHours && startMinutes > minutes) {
-            minutes = startMinutes;
+        if (compareDatesWithDayPrecision(firstDate, secondDate, isEqual)) {
+            if (startHours > hours) {
+                hours = startHours;
+                minutes = startMinutes;
+            } else if (hours === +startHours && startMinutes > minutes) {
+                minutes = startMinutes;
+            }
         }
 
         secondDate.setHours(hours);
@@ -144,7 +169,6 @@ const getDayClass = (date) => {
     if (isPartialDisabledDay) return "partial-disabled";
     return "";
 };
-
 const changeMonthYear = async ({ month, year }) => {
     try {
         if (month && year) {
@@ -224,14 +248,12 @@ const disableDates = (month) => {
             copyCurrentDate.setMinutes(0);
 
             const isEqualStart = compareDatesWithMinutePrecision(
-                currentDate,
+                copyCurrentDate,
                 rangeStart,
                 isEqual
             );
 
-            if (isEqualStart) {
-                return true;
-            }
+            if (isEqualStart) return true;
 
             copyCurrentDate.setHours(23);
             copyCurrentDate.setMinutes(59);
@@ -266,6 +288,7 @@ const disableDates = (month) => {
 // Booked time
 const limitTimeStart = parseTimeString(bookingProps.limitTimeStart);
 const limitTimeEnd = parseTimeString(bookingProps.limitTimeEnd);
+const limitDays = bookingProps.limitDays;
 const getDisabledMinutes = (currentDate) => {
     const minutes = [...Array(60)].map((_, idx) => {
         return { time: idx, disable: false };
@@ -532,10 +555,10 @@ watchEffect(() => {
         <div>
             <span class="rent-datetime__label">Выберите срок аренды </span>
             <InlineCalendar
-                v-model="currentDate"
+                v-model="currentDates"
                 :enable-time-picker="false"
-                :range="false"
                 :disabled-dates="disabledDays"
+                :max-range="limitDays?.toString()"
                 :day-class="getDayClass"
                 @update-month-year="changeMonthYear"
             />

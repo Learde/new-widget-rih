@@ -8,7 +8,7 @@ import ModalBooking from "@/components/InventoryBooking/components/ModalBooking/
 import ModalSuccess from "@/components/ModalSuccess/ModalSuccess.vue";
 import ModalError from "@/components/ModalError/ModalError.vue";
 import PromocodeInput from "@/components/PromocodeInput/PromocodeInput.vue";
-import { calculateRents, createRent } from "@api";
+import { calculateRents, openRent } from "@api";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({
@@ -73,7 +73,7 @@ const tryCreateRent = async (client) => {
         if (calculatedRent.value) {
             calculatedRent.value.client = client;
             calculatedRent.value.human_id = client.id;
-            const payload = (await createRent(calculatedRent.value)).data;
+            const payload = (await openRent(calculatedRent.value)).data;
             if (payload.error !== undefined) {
                 modalError.value.show(payload.error);
             }

@@ -13,7 +13,7 @@ export default {
     },
     disabledDates: {
         type: Array,
-        default: null,
+        default: () => [],
     },
     minutesGridIncrement: {
         type: Number,
@@ -63,5 +63,13 @@ export default {
     placeholder: {
         type: String,
         default: "Выберите дату",
+    },
+    maxRange: {
+        type: Number,
+        default: null,
+    },
+    monthChangeOnScroll: {
+        type: Boolean,
+        default: false,
     },
 };

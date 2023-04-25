@@ -2,6 +2,8 @@ import { bookingProps } from "./bookingProps.js";
 
 export const initBookingPropsStore = (props) => {
     Object.keys(bookingProps).forEach((key) => {
-        if (props[key] !== undefined) bookingProps[key] = props[key];
+        if (key === "limitDays" && typeof props[key] === "number")
+            bookingProps[key] = props[key] - 2;
+        else if (props[key] !== undefined) bookingProps[key] = props[key];
     });
 };

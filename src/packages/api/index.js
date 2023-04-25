@@ -23,7 +23,7 @@ export {
 } from "./endpoints/client.js";
 
 // Rent
-export { createRent } from "./endpoints/rent.js";
+export { openRent } from "./endpoints/rent.js";
 
 // InventoryDates
 export { getRentsOfInventory } from "./endpoints/inventoryDates.js";

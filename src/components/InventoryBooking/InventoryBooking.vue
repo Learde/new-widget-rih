@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from "vue";
-import { calculateRent, createRent } from "@api";
+import { calculateRent, openRent } from "@api";
 import { formatDateJs, parseTimeString } from "@helpers";
 import {
     generalProps,
@@ -8,7 +8,8 @@ import {
     useCartStore,
     useClientStore,
 } from "@stores";
-import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
+import RentDatetimePicker111 from "./components/RentDatetimePicker/RentDatetimePicker.vue";
+import RentDatetimePickerRange from "./components/RentDatetimePicker/RentDatetimePickerRange.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
 import ModalBooking from "./components/ModalBooking/ModalBooking.vue";
@@ -21,9 +22,14 @@ const props = defineProps({
     inventory: Object,
 });
 
+const limitDays = bookingProps.limitDays;
+const hasRange = limitDays === null || Number(limitDays) >= 0;
+
 const datetime = ref([
     new Date(),
-    new Date(new Date().setUTCDate(new Date().getUTCDate() + 1)),
+    new Date(
+        new Date().setUTCDate(new Date().getUTCDate() + (hasRange ? 1 : 0))
+    ),
 ]);
 
 const limitTimeStart = parseTimeString(bookingProps.limitTimeStart);
@@ -78,7 +84,7 @@ const tryCreateRent = async (client) => {
         if (calculatedRent.value) {
             calculatedRent.value.client = client;
             calculatedRent.value.human_id = client.id;
-            const payload = (await createRent(calculatedRent.value)).data;
+            const payload = (await openRent(calculatedRent.value)).data;
             if (payload.error !== undefined) {
                 modalError.value.show(payload.error);
             }
@@ -149,6 +155,7 @@ const correctCurrentDates = () => {
 };
 
 watch(datetime, () => {
+    console.log(datetime);
     recalc();
     updateIncludes();
 });
@@ -156,7 +163,7 @@ watch(datetime, () => {
 onMounted(() => {
     recalc();
     updateIncludes();
-    correctCurrentDates();
+    //correctCurrentDates();
 });
 
 const disableBooking = ref(false);
@@ -207,7 +214,16 @@ const handleBooking = () => {
     <div class="booking container" id="booking">
         <h2 class="booking__heading">Расчет аренды</h2>
         <div class="booking__wrapper">
-            <RentDatetimePicker
+            <RentDatetimePickerRange
+                v-if="hasRange"
+                class="booking__time"
+                :key="datetimeKey"
+                v-model="datetime"
+                :inventory-id="inventory.id"
+                @disable-booking="(newValue) => (disableBooking = newValue)"
+            />
+            <RentDatetimePicker111
+                v-else
                 class="booking__time"
                 :key="datetimeKey"
                 v-model="datetime"

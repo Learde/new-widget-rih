@@ -3,6 +3,7 @@ const colorsProps = {
     primaryColorHover: null,
     primaryColorLight: null,
     primaryColorLightest: null,
+    primaryColorLightest2: null,
     backgroundColor: null,
     backgroundSecondColor: null,
 };

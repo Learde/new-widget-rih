@@ -9,6 +9,7 @@ const initColorsPropsStore = (props) => {
     colorsProps.primaryColorHover = pSBC(-0.2, colorsProps.primaryColor);
     colorsProps.primaryColorLight = pSBC(0.55, colorsProps.primaryColor);
     colorsProps.primaryColorLightest = pSBC(0.8, colorsProps.primaryColor);
+    colorsProps.primaryColorLightest2 = pSBC(0.88, colorsProps.primaryColor);
 
     const root = document
         .getElementById("rih-widget")
@@ -26,6 +27,10 @@ const initColorsPropsStore = (props) => {
     root.style.setProperty(
         "--widget-primary-lightest",
         colorsProps.primaryColorLightest
+    );
+    root.style.setProperty(
+        "--widget-primary-lightest2",
+        colorsProps.primaryColorLightest2
     );
     root.style.setProperty("--widget-background", colorsProps.backgroundColor);
     root.style.setProperty(

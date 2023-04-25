@@ -1,4 +1,12 @@
 import { Duration, DateTime } from "luxon";
+import {
+    startOfDay,
+    startOfHour,
+    startOfMinute,
+    startOfSecond,
+    startOfMonth,
+    startOfYear,
+} from "date-fns";
 import humanizeDuration from "humanize-duration";
 
 const humanizeSettings = {
@@ -52,6 +60,45 @@ const parseTimeString = (time) => {
         minutes: Number(minutes),
     };
 };
+
+function compareDatesWithPrecision(
+    date1,
+    date2,
+    getDateWithPrecision,
+    compareDates
+) {
+    const roundedDate1 = getDateWithPrecision(date1);
+    const roundedDate2 = getDateWithPrecision(date2);
+    return compareDates(roundedDate1, roundedDate2);
+}
+
+export const compareDatesWithSecondPrecision = (date1, date2, compareDates) => {
+    return compareDatesWithPrecision(date1, date2, startOfSecond, compareDates);
+};
+export const compareDatesWithMinutePrecision = (date1, date2, compareDates) => {
+    return compareDatesWithPrecision(date1, date2, startOfMinute, compareDates);
+};
+export const compareDatesWithHourPrecision = (date1, date2, compareDates) => {
+    return compareDatesWithPrecision(date1, date2, startOfHour, compareDates);
+};
+export const compareDatesWithDayPrecision = (date1, date2, compareDates) => {
+    return compareDatesWithPrecision(date1, date2, startOfDay, compareDates);
+};
+export const compareDatesWithMonthPrecision = (date1, date2, compareDates) => {
+    return compareDatesWithPrecision(date1, date2, startOfMonth, compareDates);
+};
+export const compareDatesWithYearPrecision = (date1, date2, compareDates) => {
+    return compareDatesWithPrecision(date1, date2, startOfYear, compareDates);
+};
+
+export {
+    isAfter,
+    isBefore,
+    isEqual,
+    parseISO,
+    getMonth,
+    getYear,
+} from "date-fns";
 
 // const humanizeDurationDate = (dateDuration) => {
 //     const millis = Duration.from
