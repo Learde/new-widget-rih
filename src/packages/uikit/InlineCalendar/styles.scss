@@ -184,6 +184,11 @@
       border-radius: 100%;
       color: black !important;
     }
+
+    &.dp__range_end, &.dp__range_start, &.dp__active_date {
+      background-color: var(--widget-primary);
+      color: white !important;
+    }
   }
 
 

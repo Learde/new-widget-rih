@@ -1,7 +1,6 @@
 <script setup>
 import { BaseLoading, BaseButton } from "@uikit";
-import { MEDIA } from "@stores";
-import { generalProps } from "@stores";
+import { MEDIA, generalProps, bookingProps } from "@stores";
 import { stringEscape } from "@helpers";
 
 defineEmits(["open-modal", "add"]);
@@ -52,6 +51,7 @@ const props = defineProps({
 });
 
 const { cart } = generalProps;
+const { paymentCoefficient } = bookingProps;
 </script>
 
 <template>
@@ -79,7 +79,13 @@ const { cart } = generalProps;
             </div>
         </div>
         <span v-if="!noPrice" class="booking-badge__total">
-            К оплате: {{ sumRent }} руб.
+            <template v-if="!paymentCoefficient || +paymentCoefficient === 1">
+                К оплате: {{ sumRent }} руб.
+            </template>
+            <template v-else>
+                Предоплата {{ paymentCoefficient * 100 }}%:
+                {{ sumRent * paymentCoefficient }} руб.
+            </template>
         </span>
         <slot name="button">
             <BaseButton
