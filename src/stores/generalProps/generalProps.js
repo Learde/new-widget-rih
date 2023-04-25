@@ -10,6 +10,7 @@ const generalProps = {
     sorting: null,
     gallery: null,
     roundedCardAvatar: null,
+    hiddenCategories: null,
 };
 
 export { generalProps };

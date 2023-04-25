@@ -40,4 +40,8 @@ export default {
         type: Boolean,
         default: false,
     },
+    hiddenCategories: {
+        type: String,
+        default: null,
+    },
 };

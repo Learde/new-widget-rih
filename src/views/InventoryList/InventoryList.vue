@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { getInventories } from "@api";
+import { getInventories, getCategories } from "@api";
 import { mapInventoryFilter } from "@helpers";
-import { filterProps } from "@stores";
+import { filterProps, generalProps } from "@stores";
 import InventoryCard from "@/components/InventoryCard/InventoryCard.vue";
 import TheHeader from "@/components/TheHeader/TheHeader.vue";
 import { BaseLoading, BasePagination } from "@uikit";
@@ -17,6 +17,7 @@ const totalPages = computed(() => Math.ceil(total.value / limit.value));
 const shouldFillFilters = ref(false);
 const requiredFiltersText = ref("");
 const { requiredFilters } = filterProps;
+const { hiddenCategories } = generalProps;
 
 const reloadInventories = async (filter = {}) => {
     try {
@@ -31,6 +32,21 @@ const reloadInventories = async (filter = {}) => {
         } else {
             shouldFillFilters.value = false;
             requiredFiltersText.value = "";
+        }
+
+        if (
+            Array.isArray(hiddenCategories) &&
+            hiddenCategories.length > 0 &&
+            (!Array.isArray(filter.categoryIds) ||
+                filter.categoryIds.length === 0)
+        ) {
+            const categories = (await getCategories()).data?.array;
+            const filteredCategories = categories.filter(
+                (category) => !hiddenCategories.includes(String(category.id))
+            );
+            filter.categoryIds = filteredCategories.map(
+                (category) => category.id
+            );
         }
 
         loading.value = true;
