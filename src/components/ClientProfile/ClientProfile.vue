@@ -20,7 +20,7 @@ const loadClientRents = async () => {
         loading.value = true;
         rents.value = (
             await getClientRents({ clientId: client.value.id })
-        ).data;
+        ).data?.reverse();
     } catch (e) {
         console.log(e);
     } finally {
