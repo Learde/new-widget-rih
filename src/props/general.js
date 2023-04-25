@@ -44,4 +44,12 @@ export default {
         type: String,
         default: null,
     },
+    routeAfterPay: {
+        type: String,
+        default: null,
+    },
+    showModalAfterPay: {
+        type: Boolean,
+        default: false,
+    },
 };

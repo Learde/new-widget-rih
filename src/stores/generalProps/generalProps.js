@@ -11,6 +11,8 @@ const generalProps = {
     gallery: null,
     roundedCardAvatar: null,
     hiddenCategories: null,
+    routeAfterPay: null,
+    showModalAfterPay: null,
 };
 
 export { generalProps };

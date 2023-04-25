@@ -17,6 +17,7 @@ import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 import TheFixedCart from "@/components/TheCartFixed/TheCartFixed.vue";
 import ModalAuth from "@/components/ModalAuth/ModalAuth.vue";
+import ModalSuccess from "@/components/ModalSuccess/ModalSuccess.vue";
 
 const props = defineProps({ ...importedProps });
 
@@ -35,16 +36,31 @@ const { current } = storeToRefs(router);
 const clientStore = useClientStore();
 const { setClient, setAuthModal } = clientStore;
 
-const { authorization } = generalProps;
+const { authorization, routeAfterPay, showModalAfterPay } = generalProps;
 if (authorization && localStorage.getItem("client")) {
     setClient(JSON.parse(localStorage.getItem("client")));
 }
 
 const modalAuth = ref(null);
+const modalSuccess = ref(null);
 
 onMounted(() => {
     setAuthModal(modalAuth.value);
     initColorsPropsStore(props);
+
+    let url = new URL(window.location.href);
+    let hash = url.searchParams.get("SignatureValue");
+    if (hash !== null && hash !== undefined) {
+        console.log(showModalAfterPay, showModalAfterPay === false);
+        if (showModalAfterPay) {
+            modalSuccess.value.show();
+        }
+        window.history.pushState({}, document.title, window.location.pathname);
+
+        if (routeAfterPay) {
+            router.changeRoute(routeAfterPay);
+        }
+    }
 });
 
 // Добавление шрифта Manrope к странице
@@ -57,6 +73,7 @@ pushFontToHead();
         <component :is="current.component" v-bind="current.params"></component>
         <TheFixedCart />
         <ModalAuth ref="modalAuth" />
+        <ModalSuccess ref="modalSuccess" />
     </div>
 </template>
 
