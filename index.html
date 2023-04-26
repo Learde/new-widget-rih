@@ -152,6 +152,12 @@
         <input type="text" value="#ffffff" id="secondback" style="width: 100%">
       </div>
       <button id="update" style="height: 50px; cursor: pointer;">ОБНОВИТЬ ВИДЖЕТ</button>
+      <div>
+        Сгенерированный код для виджета:
+      </div>
+      <div id="code">
+
+      </div>
     </div>
 
     <script>
@@ -284,6 +290,11 @@
         rihWidget.remove();
 
         document.body.prepend(elem);
+
+        const code = document.querySelector("#code");
+        const script = document.createElement("script");
+        script.src = "https://api.rentinhand.ru/v2/widget/js/v2/app";
+        code.insertAdjacentText("beforeend",script.outerHTML + elem.outerHTML);
 
         console.log(elem);
       }
