@@ -32,5 +32,7 @@ export default defineConfig({
                 manualChunks: undefined,
             },
         },
+        outDir: "docs",
     },
+    base: "/new-widget-rih/",
 });
