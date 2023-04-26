@@ -5,32 +5,33 @@
     <link rel="icon" href="/new-widget-rih/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <script type="module" crossorigin src="/new-widget-rih/assets/index.f00c077b.js"></script>
+    <script type="module" crossorigin src="/new-widget-rih/assets/index.5b0d621b.js"></script>
   </head>
   <body>
   <!--  primary-color="#d7d228"
       background-color="#f5f5f5"
       required-filters="point"
       -->
-    <rih-widget
-      id="rih-widget"
-      token="px6eqi9yUgfXFmt2xWfONQbX52FKzSIN"
-      gallery
-      authorization
-      dev-server
-      payable
-      rounded-card-avatar
-      limit-time-start="8:00"
-      limit-time-end="21:00"
-      payment-coefficient="0.5"
-      limit-days="1"
-      hidden-categories="199046"
-      route-after-pay="personalProfile"
-      show-modal-after-pay
-      required-filters="point"
-    ></rih-widget>
+<!--    <rih-widget-->
+<!--      id="rih-widget"-->
+<!--      token="px6eqi9yUgfXFmt2xWfONQbX52FKzSIN"-->
+<!--      gallery-->
+<!--      authorization-->
+<!--      dev-server-->
+<!--      payable-->
+<!--      rounded-card-avatar-->
+<!--      limit-time-start="8:00"-->
+<!--      limit-time-end="21:00"-->
+<!--      payment-coefficient="0.5"-->
+<!--      limit-days="1"-->
+<!--      hidden-categories="199046"-->
+<!--      route-after-pay="personalProfile"-->
+<!--      show-modal-after-pay-->
+<!--      required-filters="point"-->
+<!--    ></rih-widget>-->
 
     <div style="max-width: 500px; display: flex; flex-direction: column; gap: 20px; font-family: Arial;">
+      <button id="update2" style="height: 50px; cursor: pointer;">ОБНОВИТЬ ВИДЖЕТ</button>
       <div style="display: flex; gap: 10px; width: 100%;">
         <label>Токен: </label>
         <input type="text" id="token" value="px6eqi9yUgfXFmt2xWfONQbX52FKzSIN" style="width: 100%">
@@ -163,7 +164,8 @@
 
     <script>
       const btn = document.querySelector("#update");
-      btn.onclick = () => {
+      const btn2 = document.querySelector("#update2");
+      const reloadWidget = () => {
         const elem = document.createElement("rih-widget");
 
         const token = document.querySelector("#token").value;
@@ -288,17 +290,27 @@
         elem.setAttribute("id", "rih-widget");
 
         const rihWidget = document.querySelector("#rih-widget");
-        rihWidget.remove();
+        if (rihWidget) {
+          location.reload();
+        }
 
         document.body.prepend(elem);
 
         const code = document.querySelector("#code");
         const script = document.createElement("script");
         script.src = "https://api.rentinhand.ru/v2/widget/js/v2/app";
+        code.innerHTML = "";
         code.insertAdjacentText("beforeend",script.outerHTML + elem.outerHTML);
+
+        btn.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)"
+        btn2.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)"
+
 
         console.log(elem);
       }
+
+      btn.onclick = reloadWidget;
+      btn2.onclick = reloadWidget;
     </script>
     
   </body>

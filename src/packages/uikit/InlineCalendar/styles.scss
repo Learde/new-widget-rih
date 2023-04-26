@@ -126,20 +126,6 @@
       background-color: var(--widget-primary-lightest);
     }
 
-    &.dp__range_start,
-    &.dp__date_hover_start:hover,
-    &.dp__date_hover:hover {
-      border-top-left-radius: 100%;
-      border-bottom-left-radius: 100%;
-    }
-
-    &.dp__range_end,
-    &.dp__date_hover_end:hover,
-    &.dp__date_hover:hover {
-      border-top-right-radius: 100%;
-      border-bottom-right-radius: 100%;
-    }
-
     &.dp__date_hover_end:hover,
     &.dp__date_hover_start:hover,
     &.dp__date_hover:hover {
@@ -185,7 +171,23 @@
       color: black !important;
     }
 
-    &.dp__range_end, &.dp__range_start, &.dp__active_date {
+    &.dp__range_start.dp__today, &.dp__range_end.dp_today {
+      border-color: var(--widget-primary-lightest);
+    }
+
+    &.dp__range_start,
+    &.dp__date_hover_start:hover,
+    &.dp__date_hover:hover {
+      border-radius: 100% 0 0 100%;
+    }
+
+    &.dp__range_end,
+    &.dp__date_hover_end:hover,
+    &.dp__date_hover:hover {
+      border-radius: 0 100% 100% 0;
+    }
+
+    &.dp__active_date {
       background-color: var(--widget-primary);
       color: white !important;
     }

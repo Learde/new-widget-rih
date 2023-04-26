@@ -25,6 +25,9 @@ setToken(props.token);
 if (props.devServer) {
     setBaseUrl("https://api-dev.rentinhand.ru/");
     setMedia("https://media-dev.rentinhand.ru");
+} else {
+    setBaseUrl("https://api.rentinhand.ru/");
+    setMedia("https://media.rentinhand.ru");
 }
 initGeneralPropsStore(props);
 initFilterPropsStore(props);
@@ -51,7 +54,6 @@ onMounted(() => {
     let url = new URL(window.location.href);
     let hash = url.searchParams.get("SignatureValue");
     if (hash !== null && hash !== undefined) {
-        console.log(showModalAfterPay, showModalAfterPay === false);
         if (showModalAfterPay) {
             modalSuccess.value.show();
         }
