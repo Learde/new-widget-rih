@@ -1,0 +1,80 @@
+.modal-editting {
+  &__heading {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  &__form-group {
+    width: 100%;
+    margin: 0 auto 14px;
+  }
+
+  &__input {
+    font-size: var(--widget-input-fz);
+    outline: none !important;
+    border-radius: 8px;
+    border: 1px solid var(--widget-border-color);
+    box-shadow: var(--widget-box-shadow-input);
+    padding: 0 10px;
+    min-height: 36px;
+    width: 100%;
+  }
+
+  &__actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__personal-data {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  &__form {
+    &--flex {
+      display: flex;
+      column-gap: 20px;
+
+      @media (max-width: 550px) {
+        flex-wrap: wrap;
+      }
+    }
+
+    &--single {
+      width: 60%;
+      margin: 0 auto;
+
+      @media (max-width: 600px) {
+        width: 80%;
+      }
+
+      @media (max-width: 400px) {
+        width: 100%;
+      }
+    }
+  }
+
+  &__form-half {
+    width: 50%;
+
+    @media (max-width: 550px) {
+      width: 100%;
+    }
+  }
+
+  &__center-text {
+    text-align: center;
+  }
+
+  &__error {
+    text-align: right;
+    width: 100%;
+    color: var(--widget-red);
+    font-size: 14px;
+  }
+}
+

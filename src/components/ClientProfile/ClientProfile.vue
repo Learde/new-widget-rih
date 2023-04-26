@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
-import { useClientStore, MEDIA } from "@stores";
+import { useClientStore, MEDIA, generalProps } from "@stores";
 import { IconPencil } from "@icons";
 import { formatDateISO } from "@helpers";
 import { BaseLoading } from "@uikit";
@@ -10,6 +10,7 @@ import ModalEditting from "@/components/ModalEditting/ModalEditting.vue";
 
 const clientStore = useClientStore();
 const { client } = storeToRefs(clientStore);
+const { passport } = generalProps;
 
 const loading = ref(false);
 const rents = ref([]);
@@ -81,6 +82,23 @@ const defaultEmail = computed(() => {
                     :key="contact.value"
                 >
                     Email: {{ contact.value }}
+                </h4>
+            </template>
+            <template v-if="passport">
+                <h4 v-if="client.human?.passport_serial">
+                    Серия паспорта: {{ client.human.passport_serial }}
+                </h4>
+                <h4 v-if="client.human?.passport_number">
+                    Номер паспорта: {{ client.human.passport_number }}
+                </h4>
+                <h4 v-if="client.human?.passport_take">
+                    Где выдан: {{ client.human.passport_take }}
+                </h4>
+                <h4 v-if="client.human?.passport_take_date">
+                    Дата выдачи: {{ client.human.passport_take_date }}
+                </h4>
+                <h4 v-if="client.human?.passport_code">
+                    Код подразделения: {{ client.human.passport_code }}
                 </h4>
             </template>
             <h2 class="client-lk__history">

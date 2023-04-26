@@ -4,6 +4,7 @@ import RegForm from "./forms/RegForm.vue";
 import RestorePassword from "./forms/RestorePassword.vue";
 import RestoreCode from "./forms/RestoreCode.vue";
 import RestoreChange from "./forms/RestoreChange.vue";
+import { generalProps } from "@stores";
 
 import { BaseModal } from "@uikit";
 import { ref } from "vue";
@@ -22,10 +23,14 @@ const toggle = () => {
 defineExpose({ show, hide, toggle });
 
 const type = ref("auth");
+const { passport } = generalProps;
 </script>
 
 <template>
-    <BaseModal ref="modal" :content-width="350">
+    <BaseModal
+        ref="modal"
+        :content-width="passport && type === 'reg' ? 600 : 350"
+    >
         <div class="rih-auth-form">
             <div class="rih-auth-form__form-wrapper">
                 <AuthForm

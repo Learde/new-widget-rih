@@ -1,10 +1,17 @@
 <script setup>
-import { BaseModal, BaseButton, BaseLoading, PhoneNumberInput } from "@uikit";
+import {
+    BaseModal,
+    BaseButton,
+    BaseLoading,
+    PhoneNumberInput,
+    DatePicker,
+} from "@uikit";
 import { editClient, getClient } from "@api";
 import ModalSuccess from "../ModalSuccess/ModalSuccess.vue";
 import ModalError from "../ModalError/ModalError.vue";
 import { ref, computed } from "vue";
-import { useClientStore } from "@stores";
+import { useClientStore, generalProps } from "@stores";
+import { formatDateJs } from "@helpers";
 
 const props = defineProps({
     id: [Number, String],
@@ -21,6 +28,26 @@ const props = defineProps({
         default: null,
     },
     defaultPhone: {
+        type: String,
+        default: null,
+    },
+    defaultPassportSeries: {
+        type: String,
+        default: null,
+    },
+    defaultPassportNumber: {
+        type: String,
+        default: null,
+    },
+    defaultPassportTake: {
+        type: String,
+        default: null,
+    },
+    defaultPassportTakeDate: {
+        type: String,
+        default: null,
+    },
+    defaultPassportCode: {
         type: String,
         default: null,
     },
@@ -43,13 +70,34 @@ const name = ref(props.defaultName);
 const surname = ref(props.defaultSurname);
 const email = ref(props.defaultEmail);
 const phone = ref(props.defaultPhone);
+const passportSeries = ref(props.defaultPassportSeries);
+const passportNumber = ref(props.defaultPhoneNumber);
+const passportTake = ref(props.defaultPassportTake);
+const passportTakeDate = ref(props.defaultPassportTakeDate);
+const passportCode = ref(props.defaultPassportCode);
+
+const { passport } = generalProps;
 
 const clientData = computed(() => {
+    let passportData = {};
+    if (passport) {
+        passportData = {
+            passport_serial: passportSeries.value,
+            passport_number: passportNumber.value,
+            passport_take: passportTake.value,
+            passport_code: passportCode.value,
+            passport_take_date: passportTakeDate.value
+                ? formatDateJs(passportTakeDate.value, "yyyy-MM-dd")
+                : null,
+        };
+    }
+
     const obj = {
         contacts: [],
         human: {
             surname: surname.value,
             name: name.value,
+            ...passportData,
         },
     };
 
@@ -101,37 +149,91 @@ const doEdit = async () => {
 </script>
 
 <template>
-    <BaseModal ref="modal" :content-width="350">
-        <div class="auth-form__form">
-            <h2 class="auth-form__heading">Редактирование</h2>
-            <div class="auth-form__form-group">
-                <input
-                    class="auth-form__input"
-                    type="text"
-                    placeholder="Имя"
-                    v-model="name"
-                />
+    <BaseModal ref="modal">
+        <div class="modal-editting">
+            <h3 class="modal-editting__heading">Редактирование</h3>
+            <form
+                class="modal-editting__form"
+                :class="{
+                    'modal-editting__form--flex': passport,
+                    'modal-editting__form--single': !passport,
+                }"
+            >
+                <div :class="{ 'modal-editting__form-half': passport }">
+                    <div class="modal-editting__form-group">
+                        <input
+                            class="modal-editting__input"
+                            type="text"
+                            placeholder="Имя"
+                            v-model="name"
+                        />
+                    </div>
+                    <div class="modal-editting__form-group">
+                        <input
+                            class="modal-editting__input"
+                            type="text"
+                            placeholder="Фамилия"
+                            v-model="surname"
+                        />
+                    </div>
+                    <div class="modal-editting__form-group">
+                        <input
+                            class="modal-editting__input"
+                            type="email"
+                            placeholder="Email"
+                            v-model="email"
+                        />
+                    </div>
+                    <div class="modal-editting__form-group">
+                        <PhoneNumberInput v-model="phone" />
+                    </div>
+                    <div class="modal-editting__form-group" v-if="passport">
+                        <input
+                            class="modal-editting__input"
+                            type="text"
+                            placeholder="Серия паспорта"
+                            v-model="passportSeries"
+                        />
+                    </div>
+                </div>
+                <div class="modal-editting__form-half" v-if="passport">
+                    <div class="modal-editting__form-group">
+                        <input
+                            class="modal-editting__input"
+                            type="text"
+                            placeholder="Номер паспорта"
+                            v-model="passportNumber"
+                        />
+                    </div>
+                    <div class="modal-editting__form-group">
+                        <input
+                            class="modal-editting__input"
+                            type="text"
+                            placeholder="Кем выдан паспорт"
+                            v-model="passportTake"
+                        />
+                    </div>
+                    <div class="modal-editting__form-group">
+                        <DatePicker
+                            v-model="passportTakeDate"
+                            placeholder="Дата получения паспорта"
+                            :enable-time-picker="false"
+                            :close-on-auto-apply="true"
+                        />
+                    </div>
+                    <div class="modal-editting__form-group">
+                        <input
+                            class="modal-editting__input"
+                            type="text"
+                            placeholder="Код подразделения"
+                            v-model="passportCode"
+                        />
+                    </div>
+                </div>
+            </form>
+            <div class="modal-editting__actions">
+                <BaseButton @click="doEdit">Сохранить</BaseButton>
             </div>
-            <div class="auth-form__form-group">
-                <input
-                    class="auth-form__input"
-                    type="text"
-                    placeholder="Фамилия"
-                    v-model="surname"
-                />
-            </div>
-            <div class="auth-form__form-group">
-                <input
-                    class="auth-form__input"
-                    type="email"
-                    placeholder="Email"
-                    v-model="email"
-                />
-            </div>
-            <div class="auth-form__form-group">
-                <PhoneNumberInput v-model="phone"></PhoneNumberInput>
-            </div>
-            <BaseButton @click="doEdit">Сохранить</BaseButton>
             <BaseLoading v-if="saving" background little />
         </div>
     </BaseModal>

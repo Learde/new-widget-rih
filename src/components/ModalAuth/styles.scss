@@ -17,6 +17,23 @@
     background-color: var(--widget-background-second);
     padding: 25px 0;
     border-radius: 10px;
+    
+    &--flex {
+      display: flex;
+      column-gap: 20px;
+
+      & > div {
+        width: 50%;
+      }
+      
+      @media (max-width: 500px) {
+        display: block;
+
+        & > div {
+          width: 100%;
+        }
+      }
+    }
   }
 
   &__form-group {
