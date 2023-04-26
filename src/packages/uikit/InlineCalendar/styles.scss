@@ -175,15 +175,17 @@
       border-color: var(--widget-primary-lightest);
     }
 
+    &.dp__date_hover {
+      border-radius: 100%;
+    }
+
     &.dp__range_start,
-    &.dp__date_hover_start:hover,
-    &.dp__date_hover:hover {
+    &.dp__date_hover_start:hover {
       border-radius: 100% 0 0 100%;
     }
 
     &.dp__range_end,
-    &.dp__date_hover_end:hover,
-    &.dp__date_hover:hover {
+    &.dp__date_hover_end:hover {
       border-radius: 0 100% 100% 0;
     }
 
@@ -191,6 +193,7 @@
       background-color: var(--widget-primary);
       color: white !important;
     }
+
   }
 
 

@@ -6,7 +6,9 @@ import {
     startOfSecond,
     startOfMonth,
     startOfYear,
+    formatDuration,
 } from "date-fns";
+import ruLocale from "date-fns/locale/ru";
 import humanizeDuration from "humanize-duration";
 
 const humanizeSettings = {
@@ -91,6 +93,10 @@ export const compareDatesWithYearPrecision = (date1, date2, compareDates) => {
     return compareDatesWithPrecision(date1, date2, startOfYear, compareDates);
 };
 
+export const formatDurationRu = (duration, options) => {
+    return formatDuration(duration, { locale: ruLocale, ...options });
+};
+
 export {
     isAfter,
     isBefore,
@@ -98,6 +104,7 @@ export {
     parseISO,
     getMonth,
     getYear,
+    intervalToDuration,
 } from "date-fns";
 
 // const humanizeDurationDate = (dateDuration) => {

@@ -1,10 +1,7 @@
 <script setup>
-import {
-    formatDateJs,
-    humanizeDurationMillis,
-    differenceDatesJs,
-} from "@helpers";
-defineProps({
+import { computed } from "vue";
+import { formatDateJs, intervalToDuration, formatDurationRu } from "@helpers";
+const props = defineProps({
     startDate: Date,
     endDate: Date,
     pointTitle: {
@@ -15,6 +12,17 @@ defineProps({
         type: [String, Number],
         default: null,
     },
+});
+
+const durationRent = computed(() => {
+    return intervalToDuration({
+        start: props.startDate,
+        end: props.endDate,
+    });
+});
+
+const humanizedDuration = computed(() => {
+    return formatDurationRu(durationRent.value);
 });
 </script>
 
@@ -31,7 +39,7 @@ defineProps({
         <span v-if="pointTitle"> Пункт проката: {{ pointTitle }} </span>
         <span>
             Длительность аренды:
-            {{ humanizeDurationMillis(differenceDatesJs(startDate, endDate)) }}
+            {{ humanizedDuration }}
         </span>
         <span> Итого: {{ sumRent }} руб. </span>
     </div>

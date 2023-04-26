@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 import { BaseButton } from "@uikit";
 import { filterProps } from "@stores";
@@ -23,12 +23,19 @@ const emitReload = () => {
 const { hideFilterCategory, hideFilterDate, hideFilterPoint, hideFilters } =
     filterProps;
 
+const isTwoHidden = computed(() => {
+    return (hideFilterCategory && hideFilterPoint) || hideFilterDate;
+});
+
 // import { isPastDate, isFutureDate } from "../HeaderDatePick/methods";
 </script>
 
 <template>
     <header class="header" v-if="!hideFilters">
-        <div class="header__filters">
+        <div
+            class="header__filters"
+            :class="{ 'header__filters--two': isTwoHidden }"
+        >
             <FilterCategory
                 v-if="!hideFilterCategory"
                 v-model="filter.categoryIds"
@@ -41,8 +48,8 @@ const { hideFilterCategory, hideFilterDate, hideFilterPoint, hideFilters } =
                 Дата конца
             </FilterDate>
         </div>
-        <BaseButton class="header__show-btn" @click="emitReload"
-            >Показать</BaseButton
-        >
+        <BaseButton class="header__show-btn" @click="emitReload">
+            Показать
+        </BaseButton>
     </header>
 </template>
