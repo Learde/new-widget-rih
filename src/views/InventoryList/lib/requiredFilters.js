@@ -26,7 +26,7 @@ export const getRequiredText = (filter, requiredFilters) => {
     if (!Array.isArray(requiredFilters) || requiredFilters.length === 0)
         return "";
 
-    let str = "Выберите";
+    let str = "";
 
     if (
         requiredFilters.includes("point") &&

@@ -21,7 +21,11 @@ const stringLength = 20;
 </script>
 
 <template>
-    <VueTreeSelect v-model="nodes" v-bind="props">
+    <VueTreeSelect
+        v-model="nodes"
+        v-bind="props"
+        :class="{ 'vue-treeselect--error': hasError }"
+    >
         <template #option-label="{ node, shouldShowCount, count }">
             <slot
                 name="option-label"

@@ -21,7 +21,11 @@ const stringLength = 20;
 </script>
 
 <template>
-    <vue-select v-bind="props" v-model="values">
+    <vue-select
+        v-bind="props"
+        v-model="values"
+        :class="{ 'vs--error': hasError }"
+    >
         <template #open-indicator> &#160; </template>
         <template #option="option">
             <slot name="option" :option="option">

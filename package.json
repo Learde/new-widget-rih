@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@bosquig/vue3-treeselect": "^0.1.4",
+    "@bosquig/vue3-treeselect": "^0.1.5",
     "@vuepic/vue-datepicker": "^4.5.1",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",

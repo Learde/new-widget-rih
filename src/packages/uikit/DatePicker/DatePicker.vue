@@ -31,6 +31,7 @@ onMounted(() => {
 <template>
     <VueDatepicker
         class="datepicker"
+        :class="{ 'datepicker--error': hasError }"
         :teleport="teleportElement"
         v-bind="props"
         v-model="date"

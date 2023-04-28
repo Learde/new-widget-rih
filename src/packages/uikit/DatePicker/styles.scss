@@ -1,4 +1,9 @@
 .datepicker {
+
+  &--error &__input {
+    box-shadow: 0 0 0 1.5px rgba(var(--widget-danger-rgb),.7);
+  }
+
   .dp__icon {
     box-sizing: content-box;
   }

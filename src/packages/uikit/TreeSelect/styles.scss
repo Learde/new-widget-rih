@@ -1,4 +1,8 @@
 .vue-treeselect {
+  &--error > &__control {
+    box-shadow: 0 0 0 1.5px rgba(var(--widget-danger-rgb),.7);
+  }
+
   &__control-arrow-container {
     display: none !important;
   }

@@ -83,7 +83,8 @@ onMounted(() => {
         <TheHeader @reload="reloadInventories" />
         <div class="inv-list__list">
             <div v-if="shouldFillFilters" class="inv-list__required">
-                {{ requiredFiltersText }}
+                Выберите
+                <span style="font-weight: bold">{{ requiredFiltersText }}</span>
             </div>
             <BaseLoading v-else-if="loading" />
             <template v-else>

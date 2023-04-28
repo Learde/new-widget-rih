@@ -47,4 +47,8 @@ export default {
         type: Function,
         default: normalizer,
     },
+    hasError: {
+        type: Boolean,
+        default: false,
+    },
 };

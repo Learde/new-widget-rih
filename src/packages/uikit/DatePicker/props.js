@@ -44,4 +44,8 @@ export default {
         type: String,
         default: "Выберите дату",
     },
+    hasError: {
+        type: Boolean,
+        default: false,
+    },
 };

@@ -41,10 +41,18 @@ const isTwoHidden = computed(() => {
                 v-model="filter.categoryIds"
             />
             <FilterPoint v-if="!hideFilterPoint" v-model="filter.pointIds" />
-            <FilterDate v-if="!hideFilterDate" v-model="filter.dateStart">
+            <FilterDate
+                v-if="!hideFilterDate"
+                v-model="filter.dateStart"
+                type="dateStart"
+            >
                 Дата начала
             </FilterDate>
-            <FilterDate v-if="!hideFilterDate" v-model="filter.dateEnd">
+            <FilterDate
+                v-if="!hideFilterDate"
+                v-model="filter.dateEnd"
+                type="dateEnd"
+            >
                 Дата конца
             </FilterDate>
         </div>

@@ -32,4 +32,8 @@ export default {
         type: String,
         default: "Выберите из списка",
     },
+    hasError: {
+        type: Boolean,
+        default: false,
+    },
 };

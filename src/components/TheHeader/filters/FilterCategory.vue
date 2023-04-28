@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { HeaderFormGroup, TreeSelect } from "@uikit";
 import { getCategories } from "@api";
-import { generalProps } from "@stores";
+import { filterProps, generalProps } from "@stores";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -35,13 +35,25 @@ onMounted(async () => {
         );
     else categoriesOptions.value = categoriesFromServer;
 });
+
+const { requiredFilters } = filterProps;
+const hasError = computed(() => {
+    return (
+        requiredFilters.includes("category") &&
+        (!Array.isArray(categories.value) || categories.value.length === 0)
+    );
+});
 </script>
 
 <template>
     <HeaderFormGroup>
         <template #labelText> Категория </template>
         <template #input>
-            <TreeSelect v-model="categories" :options="categoriesOptions" />
+            <TreeSelect
+                v-model="categories"
+                :options="categoriesOptions"
+                :has-error="hasError"
+            />
         </template>
     </HeaderFormGroup>
 </template>
