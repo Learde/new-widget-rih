@@ -10,6 +10,9 @@ export { useRouterStore } from "@stores/router/router";
 //urls.js
 export { MEDIA, setMedia } from "@stores/urls/urls";
 
+//rent.js
+export { useRentStore } from "@stores/rent/rentStore";
+
 //inventoryConfig.js
 export {
     imageSize,

@@ -7,6 +7,7 @@ import {
     bookingProps,
     useCartStore,
     useClientStore,
+    useRentStore,
 } from "@stores";
 import RentDatetimePicker111 from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import RentDatetimePickerRange from "./components/RentDatetimePicker/RentDatetimePickerRange.vue";
@@ -22,15 +23,22 @@ const props = defineProps({
     inventory: Object,
 });
 
+const rentStore = useRentStore();
+const { minRent } = storeToRefs(rentStore);
+
 const limitDays = bookingProps.limitDays;
 const hasRange = limitDays === null || Number(limitDays) >= 0;
 
-const datetime = ref([
-    new Date(),
-    new Date(
-        new Date().setUTCDate(new Date().getUTCDate() + (hasRange ? 1 : 0))
-    ),
-]);
+var currentDate = new Date();
+
+var futureDate = new Date(
+    currentDate.getTime() +
+        (minRent.value !== null && minRent.value !== undefined
+            ? minRent.value
+            : 0)
+);
+
+const datetime = ref([currentDate, futureDate]);
 
 const limitTimeStart = parseTimeString(bookingProps.limitTimeStart);
 const limitTimeEnd = parseTimeString(bookingProps.limitTimeEnd);

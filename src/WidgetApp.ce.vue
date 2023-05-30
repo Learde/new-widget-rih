@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { setBaseUrl, setToken } from "@api";
+import { setBaseUrl, setToken, getMinRent } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
 import {
@@ -12,6 +12,7 @@ import {
     setMedia,
     useClientStore,
     generalProps,
+    useRentStore,
 } from "@stores";
 import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
@@ -44,10 +45,12 @@ if (authorization && localStorage.getItem("client")) {
     setClient(JSON.parse(localStorage.getItem("client")));
 }
 
+const rentStore = useRentStore();
+
 const modalAuth = ref(null);
 const modalSuccess = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
     setAuthModal(modalAuth.value);
     initColorsPropsStore(props);
 
@@ -63,6 +66,8 @@ onMounted(() => {
             router.changeRoute(routeAfterPay);
         }
     }
+
+    rentStore.setMinRent(await getMinRent());
 });
 
 // Добавление шрифта Manrope к странице

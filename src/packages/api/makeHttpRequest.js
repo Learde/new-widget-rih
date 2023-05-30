@@ -7,8 +7,13 @@ const makeHttpRequest = ({
     params = {},
     data = {},
     headers = {},
+    options = {},
 }) => {
-    if (token) params.token = token;
+    if (token) {
+        if (options.shouldSetTokenInHeaders)
+            headers.authorization = "Bearer " + token;
+        else params.token = token;
+    }
 
     return httpInstance.request({
         url,

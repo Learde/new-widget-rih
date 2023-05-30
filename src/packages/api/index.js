@@ -43,3 +43,6 @@ export {
     restoreCode,
     restoreChange,
 } from "./endpoints/restore.js";
+
+// Rent
+export { getMinRent } from "./endpoints/settings";
