@@ -26,6 +26,16 @@ onMounted(() => {
         .getElementById("rih-widget")
         .shadowRoot.getElementById("rih-widget");
 });
+
+const format = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return `${day < 10 ? "0" : ""}${day}.${
+        month < 10 ? "0" : ""
+    }${month}.${year}`;
+};
 </script>
 
 <template>
@@ -33,6 +43,7 @@ onMounted(() => {
         class="datepicker"
         :class="{ 'datepicker--error': hasError }"
         :teleport="teleportElement"
+        :format="format"
         v-bind="props"
         v-model="date"
     ></VueDatepicker>
