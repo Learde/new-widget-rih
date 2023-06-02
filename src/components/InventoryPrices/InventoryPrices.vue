@@ -1,9 +1,21 @@
 <script setup>
-import { humanizeDurationISO } from "@helpers";
+import { formatDurationRu, formatDistanceRu, parseISODuration } from "@helpers";
 import { currencyIcon } from "@stores";
 defineProps({
     prices: Array,
 });
+
+const humanizeDuration = (duration) => {
+    if (!duration) return null;
+
+    return formatDurationRu(parseISODuration(duration));
+};
+
+const humanizeDistance = (duration) => {
+    if (!duration) return null;
+
+    return formatDistanceRu(parseISODuration(duration));
+};
 </script>
 
 <template>
@@ -27,9 +39,12 @@ defineProps({
                 class="inventory-price__item"
                 :key="index"
             >
-                {{ humanizeDurationISO(valuePrice.period) }} -
+                {{ humanizeDuration(valuePrice.period) }} -
                 {{ valuePrice.value }}
                 <component :is="currencyIcon" class="inv-card__icon" />
+                <template v-if="valuePrice.more_then !== 'PT0S'">
+                    (от {{ humanizeDistance(valuePrice.more_then) }})
+                </template>
             </li>
         </ul>
     </div>
