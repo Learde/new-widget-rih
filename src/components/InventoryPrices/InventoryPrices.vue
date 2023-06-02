@@ -1,5 +1,6 @@
 <script setup>
 import { humanizeDurationISO } from "@helpers";
+import { currencyIcon } from "@stores";
 defineProps({
     prices: Array,
 });
@@ -27,7 +28,8 @@ defineProps({
                 :key="index"
             >
                 {{ humanizeDurationISO(valuePrice.period) }} -
-                {{ valuePrice.value }} руб.
+                {{ valuePrice.value }}
+                <component :is="currencyIcon" class="inv-card__icon" />
             </li>
         </ul>
     </div>

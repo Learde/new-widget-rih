@@ -1,6 +1,6 @@
 <script setup>
 import { BaseLoading, BaseButton } from "@uikit";
-import { MEDIA, generalProps, bookingProps } from "@stores";
+import { MEDIA, generalProps, bookingProps, currencyIcon } from "@stores";
 import { stringEscape } from "@helpers";
 
 defineEmits(["open-modal", "add"]);
@@ -80,11 +80,13 @@ const { paymentCoefficient } = bookingProps;
         </div>
         <span v-if="!noPrice" class="booking-badge__total">
             <template v-if="!paymentCoefficient || +paymentCoefficient === 1">
-                К оплате: {{ sumRent }} руб.
+                К оплате: {{ sumRent }}
+                <component :is="currencyIcon" class="inv-card__icon" />
             </template>
             <template v-else>
                 Предоплата {{ paymentCoefficient * 100 }}%:
-                {{ sumRent * paymentCoefficient }} руб.
+                {{ sumRent * paymentCoefficient }}
+                <component :is="currencyIcon" class="inv-card__icon" />
             </template>
         </span>
         <slot name="button">

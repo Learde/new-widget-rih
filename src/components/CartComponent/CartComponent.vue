@@ -2,7 +2,12 @@
 import { ref, onMounted } from "vue";
 import { BaseButton, BaseLoading } from "@uikit";
 import { formatDateJs } from "@helpers";
-import { generalProps, useCartStore, useClientStore } from "@stores";
+import {
+    currencyIcon,
+    generalProps,
+    useCartStore,
+    useClientStore,
+} from "@stores";
 import InventoryBookingBadge from "@/components/InventoryBooking/components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import ModalBooking from "@/components/InventoryBooking/components/ModalBooking/ModalBooking.vue";
 import ModalSuccess from "@/components/ModalSuccess/ModalSuccess.vue";
@@ -136,7 +141,8 @@ onMounted(() => {
                     <template #button> &#160; </template>
                 </InventoryBookingBadge>
                 <span class="cart-item__total">
-                    Цена: {{ inv.sumRent }} руб.
+                    Цена: {{ inv.sumRent }}
+                    <component :is="currencyIcon" class="inv-card__icon" />
                 </span>
                 <BaseButton variant="danger" @click="deleteFromCart(inv)">
                     Удалить
@@ -152,8 +158,9 @@ onMounted(() => {
 
             <div class="cart-component__footer-row">
                 <span class="cart-component__total"
-                    >Итого: {{ price }} руб.</span
-                >
+                    >Итого: {{ price }}
+                    <component :is="currencyIcon" class="inv-card__icon" />
+                </span>
                 <BaseButton @click="handleBook"> Забронировать </BaseButton>
             </div>
         </div>

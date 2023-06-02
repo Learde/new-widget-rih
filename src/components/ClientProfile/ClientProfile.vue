@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
-import { useClientStore, MEDIA, generalProps } from "@stores";
+import { useClientStore, MEDIA, generalProps, currencyIcon } from "@stores";
 import { IconPencil } from "@icons";
 import { formatDateISO } from "@helpers";
 import { BaseLoading } from "@uikit";
@@ -152,7 +152,11 @@ const defaultEmail = computed(() => {
                                         {{ formatDateISO(rent.time_end) }}
                                     </span>
                                     <span class="cart-item__total">
-                                        {{ rent.sum }} руб.
+                                        {{ rent.sum }}
+                                        <component
+                                            :is="currencyIcon"
+                                            class="inv-card__icon"
+                                        />
                                     </span>
                                 </template>
                             </div>

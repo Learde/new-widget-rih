@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { formatDateJs, intervalToDuration, formatDurationRu } from "@helpers";
+import { currencyIcon } from "@stores";
 const props = defineProps({
     startDate: Date,
     endDate: Date,
@@ -41,6 +42,9 @@ const humanizedDuration = computed(() => {
             Длительность аренды:
             {{ humanizedDuration }}
         </span>
-        <span> Итого: {{ sumRent }} руб. </span>
+        <span>
+            Итого: {{ sumRent }}
+            <component :is="currencyIcon" class="inv-card__icon" />
+        </span>
     </div>
 </template>
