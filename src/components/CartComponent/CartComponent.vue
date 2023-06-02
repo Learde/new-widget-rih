@@ -62,7 +62,6 @@ const recalc = async () => {
         price.value = calculatedRent.value.sum_total;
     } catch (e) {
         //TODO: вывести ошибку
-        console.log(e);
     } finally {
         calculating.value = false;
     }

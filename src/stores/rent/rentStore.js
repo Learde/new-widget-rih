@@ -6,10 +6,6 @@ export const useRentStore = defineStore("rent", () => {
     const minRent = ref(null);
     function setMinRent(duration) {
         if (duration) {
-            console.log(
-                Duration.fromISO(duration),
-                Duration.fromISO(duration).toMillis()
-            );
             minRent.value = Duration.fromISO(duration).toMillis();
         }
     }

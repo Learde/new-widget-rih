@@ -163,7 +163,6 @@ const correctCurrentDates = () => {
 };
 
 watch(datetime, () => {
-    console.log(datetime);
     recalc();
     updateIncludes();
 });

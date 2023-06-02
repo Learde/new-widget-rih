@@ -8,7 +8,6 @@ const openRent = async (rentObject) => {
 
     if (generalProps.payable) {
         if (typeof bookingProps.paymentCoefficient === "number") {
-            console.log(rentObject);
             rentObject.sum_multiplier = bookingProps.paymentCoefficient;
         }
         const response = await openPayment(rentObject);
