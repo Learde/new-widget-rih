@@ -9,7 +9,7 @@ import {
     useClientStore,
     useRentStore,
 } from "@stores";
-import RentDatetimePicker111 from "./components/RentDatetimePicker/RentDatetimePicker.vue";
+import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import RentDatetimePickerRange from "./components/RentDatetimePicker/RentDatetimePickerRange.vue";
 import InventoryBookingBadge from "./components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import RentInformation from "./components/RentInformation/RentInformation.vue";
@@ -26,14 +26,12 @@ const props = defineProps({
 const rentStore = useRentStore();
 const { minRent } = storeToRefs(rentStore);
 
-console.log("MINIMAL RENT", minRent);
-
 const limitDays = bookingProps.limitDays;
-const hasRange = limitDays === null || Number(limitDays) >= 0;
+const hasRange = limitDays === null || Number(limitDays) > 0;
 
-var currentDate = new Date();
+let currentDate = new Date();
 
-var futureDate = new Date(
+let futureDate = new Date(
     currentDate.getTime() +
         (minRent.value !== null && minRent.value !== undefined
             ? minRent.value
@@ -232,7 +230,7 @@ const handleBooking = () => {
                 :inventory-id="inventory.id"
                 @disable-booking="(newValue) => (disableBooking = newValue)"
             />
-            <RentDatetimePicker111
+            <RentDatetimePicker
                 v-else
                 class="booking__time"
                 :key="datetimeKey"
