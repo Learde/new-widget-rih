@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { setBaseUrl, setToken, getMinRent } from "@api";
+import { setBaseUrl, setToken, getSettings } from "@api";
 import { pushFontToHead } from "@helpers";
 import { storeToRefs } from "pinia";
 import {
@@ -13,6 +13,7 @@ import {
     useClientStore,
     generalProps,
     useRentStore,
+    setCurrencyIcon,
 } from "@stores";
 import importedProps from "@/props";
 import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
@@ -67,7 +68,9 @@ onMounted(async () => {
         }
     }
 
-    rentStore.setMinRent((await getMinRent()) ?? "PT2H");
+    const settings = await getSettings();
+    rentStore.setMinRent(settings?.min_rent_time ?? "PT2H");
+    setCurrencyIcon(settings?.currency?.const);
 });
 
 // Добавление шрифта Manrope к странице

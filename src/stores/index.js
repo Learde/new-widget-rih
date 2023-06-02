@@ -16,7 +16,9 @@ export { useRentStore } from "@stores/rent/rentStore";
 //inventoryConfig.js
 export {
     imageSize,
+    currencyIcon,
     setImageCover,
+    setCurrencyIcon,
 } from "@stores/inventoryConfig/inventoryConfig";
 
 //cart.js

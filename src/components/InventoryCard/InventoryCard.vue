@@ -3,6 +3,7 @@ import {
     MEDIA,
     imageSize,
     setImageCover,
+    currencyIcon,
     useRouterStore,
     generalProps,
 } from "@stores";
@@ -11,7 +12,7 @@ import {
     humanizeDurationISO,
     stringEscape,
 } from "@helpers";
-import { IconAngleRight, IconRubleSign } from "@icons";
+import { IconAngleRight } from "@icons";
 
 const props = defineProps({
     id: [String, Number],
@@ -61,8 +62,10 @@ if (roundedCardAvatar) {
         </h3>
         <div class="inv-card__info">
             <span class="inv-card__price" v-if="prices">
-                от {{ price
-                }}<icon-ruble-sign
+                от {{ price }}
+                <component
+                    v-if="currencyIcon"
+                    :is="currencyIcon"
                     class="inv-card__icon"
                     color="#a7a7a7"
                     width="0.9em"

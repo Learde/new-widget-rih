@@ -1,4 +1,9 @@
+import { IconRubleSign } from "@icons";
+import { currencies } from "./currencyMeta";
+
 let imageSize = "contain";
+
+let currencyIcon = IconRubleSign;
 
 /**
  * Sets the mode of stretching the image of cards
@@ -8,4 +13,10 @@ const setImageCover = (mode) => {
     imageSize = mode;
 };
 
-export { imageSize, setImageCover };
+const setCurrencyIcon = (iconConst) => {
+    currencyIcon =
+        currencies.find((currency) => currency.const === iconConst)?.icon ??
+        IconRubleSign;
+};
+
+export { imageSize, currencyIcon, setImageCover, setCurrencyIcon };

@@ -44,5 +44,5 @@ export {
     restoreChange,
 } from "./endpoints/restore.js";
 
-// Rent
-export { getMinRent } from "./endpoints/settings";
+// Settings
+export { getSettings } from "./endpoints/settings";
