@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { Duration } from "luxon";
 
 export const useRentStore = defineStore("rent", () => {
-    const minRent = ref("P2H");
+    const minRent = ref(null);
     function setMinRent(duration) {
         if (duration) {
             console.log(

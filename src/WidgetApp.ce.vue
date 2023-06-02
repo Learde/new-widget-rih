@@ -67,7 +67,7 @@ onMounted(async () => {
         }
     }
 
-    rentStore.setMinRent(await getMinRent());
+    rentStore.setMinRent((await getMinRent()) ?? "PT2H");
 });
 
 // Добавление шрифта Manrope к странице

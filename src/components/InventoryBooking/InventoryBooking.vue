@@ -26,6 +26,8 @@ const props = defineProps({
 const rentStore = useRentStore();
 const { minRent } = storeToRefs(rentStore);
 
+console.log("MINIMAL RENT", minRent);
+
 const limitDays = bookingProps.limitDays;
 const hasRange = limitDays === null || Number(limitDays) >= 0;
 
