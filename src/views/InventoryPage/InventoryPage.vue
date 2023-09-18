@@ -45,7 +45,7 @@ onMounted(() => {
             :media="inventory.media"
         />
     </div>
-    <div class="booking-page" id="booking-page" v-if="!loading">
-        <InventoryBooking :inventory="inventory" />
-    </div>
+    <!--    <div class="booking-page" id="booking-page" v-if="!loading">-->
+    <!--        <InventoryBooking :inventory="inventory" />-->
+    <!--    </div>-->
 </template>
