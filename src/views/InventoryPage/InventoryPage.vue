@@ -18,9 +18,7 @@ const loading = ref(true);
 const loadInventory = async () => {
     try {
         loading.value = true;
-        inventory.value = (
-            await getInventory({ id: props.inventoryId })
-        )?.data.array?.[0];
+        inventory.value = (await getInventory({ id: props.inventoryId }))?.data;
     } catch (e) {
         // TODO: вывести ошибку
         console.log(e);
