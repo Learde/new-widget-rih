@@ -2,7 +2,7 @@ import { makeHttpRequest } from "..";
 
 const restorePassword = ({ phone, email }) => {
     return makeHttpRequest({
-        url: "/v2/widget/client/restore/code/send",
+        url: "/widget/client/restore/code/send",
         method: "PUT",
         data: {
             phone,
@@ -13,7 +13,7 @@ const restorePassword = ({ phone, email }) => {
 
 const restoreCode = ({ code }) => {
     return makeHttpRequest({
-        url: "/v2/widget/client/restore/code/check",
+        url: "/widget/client/restore/code/check",
         method: "GET",
         params: {
             restore_code: code,
@@ -23,7 +23,7 @@ const restoreCode = ({ code }) => {
 
 const restoreChange = ({ password, passwordConfirm, clientId }) => {
     return makeHttpRequest({
-        url: "/v2/widget/client/restore",
+        url: "/widget/client/restore",
         method: "PUT",
         data: {
             password,

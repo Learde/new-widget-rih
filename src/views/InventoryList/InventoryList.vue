@@ -58,8 +58,8 @@ const reloadInventories = async (filter = {}) => {
                 limit: limit.value,
             })
         ).data;
-        inventories.value = inventoriesResponse.array;
-        total.value = inventoriesResponse.option.total;
+        inventories.value = inventoriesResponse.data;
+        total.value = inventoriesResponse.meta.total;
     } catch (e) {
         // TODO: сообщение об ошибке
         console.log(e.message);

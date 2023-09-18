@@ -25,10 +25,10 @@ const props = defineProps({ ...importedProps });
 
 setToken(props.token);
 if (props.devServer) {
-    setBaseUrl("https://api-dev.rentinhand.ru/");
+    setBaseUrl("https://api-dev.rentinhand.ru/v2");
     setMedia("https://media-dev.rentinhand.ru");
 } else {
-    setBaseUrl("https://api.rentinhand.ru/");
+    setBaseUrl("https://api.rentinhand.ru/v2");
     setMedia("https://media.rentinhand.ru");
 }
 initGeneralPropsStore(props);

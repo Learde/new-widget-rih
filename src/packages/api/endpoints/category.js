@@ -8,10 +8,11 @@ const DEFAULT_PARAMS = {
 
 const getCategories = ({ include } = DEFAULT_PARAMS) => {
     return makeHttpRequest({
-        url: "/v1/category/inventory/items",
-        method: "POST",
-        data: {
-            include,
+        url: "/category/inventory",
+        method: "GET",
+        params: {
+            page: 1,
+            per_page: 9999,
         },
     });
 };

@@ -2,7 +2,7 @@ import { makeHttpRequest } from "..";
 
 const searchDiscount = ({ checkPromocode }) => {
     return makeHttpRequest({
-        url: "v1/my/settings/discount/items",
+        url: "/discount",
         method: "POST",
         data: {
             check_promocode: checkPromocode,

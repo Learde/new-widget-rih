@@ -20,7 +20,7 @@ const registerClient = ({
     if (rest.passport_take) additionFields.passport_take = rest.passport_take;
 
     return makeHttpRequest({
-        url: "/v2/widget/client/register",
+        url: "/widget/client/register",
         method: "POST",
         data: {
             phone,

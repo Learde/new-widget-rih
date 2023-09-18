@@ -11,14 +11,17 @@ const getInventories = ({
     include,
     free_period,
 }) => {
+    const page = offset + 1;
+    const perPage = limit;
+
     return makeHttpRequest({
-        url: "v1/inventory/items",
-        method: "POST",
-        data: {
+        url: "/inventory",
+        method: "GET",
+        params: {
             category_id,
             point_id,
-            limit,
-            offset,
+            page,
+            per_page: perPage,
             include,
             free_period,
         },
@@ -29,11 +32,8 @@ const DEFAULT_INVENTORY_INCLUDE = "media,buy_date,buy_price,option";
 
 const getInventory = ({ id, include = DEFAULT_INVENTORY_INCLUDE }) => {
     return makeHttpRequest({
-        url: `v1/inventory/item/${id}`,
-        method: "POST",
-        data: {
-            include,
-        },
+        url: `/inventory/${id}`,
+        method: "GET",
     });
 };
 

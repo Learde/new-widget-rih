@@ -22,7 +22,7 @@ const openRent = async (rentObject) => {
 
 const createRent = (rentObject) => {
     return makeHttpRequest({
-        url: "v1/rent/edit",
+        url: "/rent/edit",
         method: "PUT",
         data: rentObject,
     });
@@ -30,7 +30,7 @@ const createRent = (rentObject) => {
 
 const openPayment = (rentObject) => {
     return makeHttpRequest({
-        url: "v2/widget/payment/new",
+        url: "/widget/payment/new",
         method: "POST",
         data: rentObject,
     });

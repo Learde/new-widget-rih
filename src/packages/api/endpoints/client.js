@@ -11,7 +11,7 @@ const checkOrCreateClient = ({
     passportTakeDate,
 }) => {
     return makeHttpRequest({
-        url: "/v1/h/client/phone",
+        url: "/h/client/phone",
         method: "POST",
         data: {
             name,
@@ -28,7 +28,7 @@ const checkOrCreateClient = ({
 
 const getClientRents = ({ clientId }) => {
     return makeHttpRequest({
-        url: "/v2/widget/client/rents",
+        url: "/widget/client/rents",
         method: "GET",
         params: {
             client_id: clientId,
@@ -38,7 +38,7 @@ const getClientRents = ({ clientId }) => {
 
 const editClient = (clientData, clientId) => {
     return makeHttpRequest({
-        url: "/v1/h/client/edit/" + clientId,
+        url: "/client/" + clientId,
         method: "PUT",
         data: clientData,
     });
@@ -49,12 +49,8 @@ const DEFAULT_WITH = "balance,companies";
 
 const getClient = (clientId) => {
     return makeHttpRequest({
-        url: "/v1/h/client/item/" + clientId,
-        method: "POST",
-        data: {
-            include: DEFAULT_INCLUDE,
-            with: DEFAULT_WITH,
-        },
+        url: "/client/" + clientId,
+        method: "GET",
     });
 };
 

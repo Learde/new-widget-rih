@@ -8,10 +8,11 @@ const DEFAULT_PARAMS = {
 
 const getPoints = ({ include } = DEFAULT_PARAMS) => {
     return makeHttpRequest({
-        url: "/v1/point/items",
-        method: "POST",
+        url: "/point",
+        method: "GET",
         data: {
-            include,
+            page: 1,
+            per_page: 9999,
         },
     });
 };

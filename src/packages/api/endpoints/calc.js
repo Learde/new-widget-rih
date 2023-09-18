@@ -88,7 +88,7 @@ const calculateRent = ({
     }
 
     return makeHttpRequest({
-        url: "/v1/rent/recalc",
+        url: "/rent/recalc",
         method: "POST",
         data: payload,
     });
@@ -137,7 +137,7 @@ const calculateRents = ({
     }
 
     return makeHttpRequest({
-        url: "/v1/rent/recalc",
+        url: "/rent/recalc",
         method: "POST",
         data: payload,
     });

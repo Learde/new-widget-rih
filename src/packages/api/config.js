@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = window.BASE_URL ?? "https://api.rentinhand.ru/";
+const BASE_URL = window.BASE_URL ?? "https://api.rentinhand.ru/v2";
 let token = null;
 
 const httpInstance = axios.create({
