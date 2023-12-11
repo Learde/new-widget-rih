@@ -24,7 +24,7 @@ const categories = computed({
 const categoriesOptions = ref([]);
 
 onMounted(async () => {
-    const categoriesFromServer = (await getCategories()).data?.array;
+    const categoriesFromServer = (await getCategories()).data?.data;
     if (
         Array.isArray(hiddenCategories) &&
         hiddenCategories.length > 0 &&

@@ -22,7 +22,7 @@ const points = computed({
 const pointsOptions = ref([]);
 
 onMounted(async () => {
-    pointsOptions.value = (await getPoints()).data?.array;
+    pointsOptions.value = (await getPoints()).data?.data;
 });
 
 const { requiredFilters } = filterProps;

@@ -11,7 +11,7 @@ const getInventories = ({
     include,
     free_period,
 }) => {
-    const page = offset + 1;
+    const page = offset / limit;
     const perPage = limit;
 
     return makeHttpRequest({

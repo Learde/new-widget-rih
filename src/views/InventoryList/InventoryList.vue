@@ -40,7 +40,7 @@ const reloadInventories = async (filter = {}) => {
             (!Array.isArray(filter.categoryIds) ||
                 filter.categoryIds.length === 0)
         ) {
-            const categories = (await getCategories()).data?.array;
+            const categories = (await getCategories()).data?.data;
             const filteredCategories = categories.filter(
                 (category) => !hiddenCategories.includes(String(category.id))
             );

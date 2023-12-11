@@ -12,7 +12,7 @@ const makeHttpRequest = ({
     if (token) {
         if (options.shouldSetTokenInHeaders)
             headers.authorization = "Bearer " + token;
-        else params.token = token;
+        else params.get_token = token;
     }
 
     return httpInstance.request({

@@ -10,10 +10,10 @@ const getCategories = ({ include } = DEFAULT_PARAMS) => {
     return makeHttpRequest({
         url: "/category/inventory",
         method: "GET",
-        params: {
-            page: 1,
-            per_page: 9999,
-        },
+        // params: {
+        //     page: 1,
+        //     per_page: 9999,
+        // },
     });
 };
 

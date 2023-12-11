@@ -10,7 +10,7 @@ const getPoints = ({ include } = DEFAULT_PARAMS) => {
     return makeHttpRequest({
         url: "/point",
         method: "GET",
-        data: {
+        params: {
             page: 1,
             per_page: 9999,
         },
