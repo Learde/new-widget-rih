@@ -148,15 +148,15 @@ const getDayClass = (date) => {
 const changeMonthYear = async ({ month, year }) => {
     try {
         if (month && year) {
-            bookedDays.value = (
-                await getRentsOfInventory({
-                    inventory_id: props.inventoryId,
-                    month: month,
-                    year: +year % 2000,
-                })
-            ).data?.cur;
+            // bookedDays.value = (
+            //     await getRentsOfInventory({
+            //         inventory_id: props.inventoryId,
+            //         month: month,
+            //         year: +year % 2000,
+            //     })
+            // ).data?.cur;
 
-            disabledDays.value = disableDates(month);
+            disabledDays.value = [];
         }
     } catch (e) {
         console.log(e);
@@ -542,5 +542,3 @@ watchEffect(() => {
         </div>
     </div>
 </template>
-
-<style scoped></style>

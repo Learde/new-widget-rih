@@ -20,10 +20,17 @@ export {
     getClientRents,
     editClient,
     getClient,
+    getClients,
+    createClient,
 } from "./endpoints/client.js";
 
 // Rent
 export { openRent } from "./endpoints/rent.js";
+export { prepareRent } from "./endpoints/rent/prepare.js";
+export { addInventoryToRent } from "./endpoints/rent/addInventoryToRent.js";
+export { setRentTime } from "./endpoints/rent/setRentTime.js";
+export { saveRent } from "./endpoints/rent/saveRent.js";
+export { addClientToRent } from "./endpoints/rent/addClientToRent.js";
 
 // InventoryDates
 export { getRentsOfInventory } from "./endpoints/inventoryDates.js";

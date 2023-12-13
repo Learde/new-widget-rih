@@ -2,6 +2,8 @@
 import { BaseModal, BaseButton } from "@uikit";
 import { ref } from "vue";
 
+const emit = defineEmits(["close"]);
+
 const modal = ref(null);
 const successText = ref("");
 const show = (text = "Спасибо, мы свяжемся с вами в ближайшее время!") => {
@@ -10,6 +12,7 @@ const show = (text = "Спасибо, мы свяжемся с вами в бл�
 };
 const hide = () => {
     modal.value.hide();
+    emit("close");
 };
 const toggle = () => {
     modal.value.toggle();

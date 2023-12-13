@@ -3,7 +3,7 @@ import { getInventory } from "@api";
 import { BaseLoading } from "@uikit";
 import { onMounted, ref } from "vue";
 import InventoryInfo from "@/components/InventoryInfo/InventoryInfo.vue";
-// import InventoryBooking from "@/components/InventoryBooking/InventoryBooking.vue";
+import InventoryBooking from "@/components/InventoryBooking/InventoryBooking.vue";
 
 const props = defineProps({
     inventoryId: [String, Number],
@@ -47,7 +47,7 @@ onMounted(() => {
             :media="inventory.media"
         />
     </div>
-    <!--    <div class="booking-page" id="booking-page" v-if="!loading">-->
-    <!--        <InventoryBooking :inventory="inventory" />-->
-    <!--    </div>-->
+    <div class="booking-page" id="booking-page" v-if="!loading">
+        <InventoryBooking :inventory="inventory" />
+    </div>
 </template>

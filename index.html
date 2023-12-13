@@ -7,154 +7,230 @@
     <title>Vite App</title>
   </head>
   <body>
-<!--    <rih-widget-->
-<!--      id="rih-widget"-->
-<!--      token="px6eqi9yUgfXFmt2xWfONQbX52FKzSIN"-->
-<!--      gallery-->
-<!--      authorization-->
-<!--      dev-server-->
-<!--      payable-->
-<!--      passport-->
-<!--      rounded-card-avatar-->
-<!--      limit-time-start="8:00"-->
-<!--      limit-time-end="21:00"-->
-<!--      payment-coefficient="0.5"-->
-<!--      limit-days="1"-->
-<!--      hidden-categories="199046"-->
-<!--      route-after-pay="personalProfile"-->
-<!--      show-modal-after-pay-->
-<!--    ></rih-widget>-->
+    <!--    <rih-widget-->
+    <!--      id="rih-widget"-->
+    <!--      token="px6eqi9yUgfXFmt2xWfONQbX52FKzSIN"-->
+    <!--      gallery-->
+    <!--      authorization-->
+    <!--      dev-server-->
+    <!--      payable-->
+    <!--      passport-->
+    <!--      rounded-card-avatar-->
+    <!--      limit-time-start="8:00"-->
+    <!--      limit-time-end="21:00"-->
+    <!--      payment-coefficient="0.5"-->
+    <!--      limit-days="1"-->
+    <!--      hidden-categories="199046"-->
+    <!--      route-after-pay="personalProfile"-->
+    <!--      show-modal-after-pay-->
+    <!--    ></rih-widget>-->
 
-    <div style="max-width: 500px; display: flex; flex-direction: column; gap: 20px; font-family: Arial;">
-      <button id="update2" style="height: 50px; cursor: pointer;">СОЗДАТЬ ВИДЖЕТ</button>
-      <div style="display: flex; gap: 10px; width: 100%;">
+    <div
+      style="
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-family: Arial;
+      "
+    >
+      <button id="update2" style="height: 50px; cursor: pointer">
+        СОЗДАТЬ ВИДЖЕТ
+      </button>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Токен: </label>
-        <input type="text" id="token" value="oFydZpjyTYlzTK8M8ZVDDENlCNLCxxy7" style="width: 100%">
+        <input
+          type="text"
+          id="token"
+          value="oFydZpjyTYlzTK8M8ZVDDENlCNLCxxy7"
+          style="width: 100%"
+        />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Сервер: </label>
-        <label><input type="radio" name="server" id="dev">Дев</label>
-        <label><input type="radio" name="server" id="prod" checked>Прод</label>
+        <label><input type="radio" name="server" id="dev" />Дев</label>
+        <label
+          ><input type="radio" name="server" id="prod" checked />Прод</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Авторизация и профиль: </label>
-        <label><input type="radio" name="auth" id="auth" checked>Вкл.</label>
-        <label><input type="radio" name="auth" id="unauth">Выкл.</label>
+        <label><input type="radio" name="auth" id="auth" />Вкл.</label>
+        <label
+          ><input type="radio" name="auth" id="unauth" checked />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Паспортные данные: </label>
-        <label><input type="radio" name="passport" id="passport">Вкл.</label>
-        <label><input type="radio" name="passport" id="unpassport" checked>Выкл.</label>
+        <label><input type="radio" name="passport" id="passport" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="passport"
+            id="unpassport"
+            checked
+          />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Робокасса: </label>
-        <label><input type="radio" name="pay" id="pay" checked>Вкл.</label>
-        <label><input type="radio" name="pay" id="unpay">Выкл.</label>
+        <label><input type="radio" name="pay" id="pay" />Вкл.</label>
+        <label><input type="radio" name="pay" id="unpay" checked />Выкл.</label>
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Корзина: </label>
-        <label><input type="radio" name="cart" id="cart">Вкл.</label>
-        <label><input type="radio" name="cart" id="uncart" checked>Выкл.</label>
+        <label><input type="radio" name="cart" id="cart" />Вкл.</label>
+        <label
+          ><input type="radio" name="cart" id="uncart" checked />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Промокоды: </label>
-        <label><input type="radio" name="promo" id="promo">Вкл.</label>
-        <label><input type="radio" name="promo" id="unpromo" checked>Выкл.</label>
+        <label><input type="radio" name="promo" id="promo" />Вкл.</label>
+        <label
+          ><input type="radio" name="promo" id="unpromo" checked />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Уведомления на почту: </label>
-        <label><input type="radio" name="mail" id="mail">Вкл.</label>
-        <label><input type="radio" name="mail" id="unmail" checked>Выкл.</label>
+        <label><input type="radio" name="mail" id="mail" />Вкл.</label>
+        <label
+          ><input type="radio" name="mail" id="unmail" checked />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Сортировка(?): </label>
-        <label><input type="radio" name="sorting" id="sorting">Вкл.</label>
-        <label><input type="radio" name="sorting" id="unsorting" checked>Выкл.</label>
+        <label><input type="radio" name="sorting" id="sorting" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="sorting"
+            id="unsorting"
+            checked
+          />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Галерея на странице инвентаря: </label>
-        <label><input type="radio" name="gallery" id="gallery" checked>Вкл.</label>
-        <label><input type="radio" name="gallery" id="ungallery">Выкл.</label>
+        <label
+          ><input type="radio" name="gallery" id="gallery" checked />Вкл.</label
+        >
+        <label><input type="radio" name="gallery" id="ungallery" />Выкл.</label>
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скругленные края у фоток: </label>
-        <label><input type="radio" name="rounded" id="rounded" checked>Вкл.</label>
-        <label><input type="radio" name="rounded" id="unrounded">Выкл.</label>
+        <label
+          ><input type="radio" name="rounded" id="rounded" checked />Вкл.</label
+        >
+        <label><input type="radio" name="rounded" id="unrounded" />Выкл.</label>
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скрытые категории (id ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА): </label>
-        <input type="text" value="199046" id="category" style="width: 100%">
+        <input type="text" value="199046" id="category" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Какая страница после оплаты: </label>
-        <label><input type="radio" name="route" id="route" checked>Профиль</label>
-        <label><input type="radio" name="route" id="unroute">Список инвентаря</label>
+        <label
+          ><input type="radio" name="route" id="route" checked />Профиль</label
+        >
+        <label
+          ><input type="radio" name="route" id="unroute" />Список
+          инвентаря</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Модальное окно с галочкой после оплаты: </label>
-        <label><input type="radio" name="modal" id="modal" checked>Вкл.</label>
-        <label><input type="radio" name="modal" id="unmodal">Выкл.</label>
+        <label
+          ><input type="radio" name="modal" id="modal" checked />Вкл.</label
+        >
+        <label><input type="radio" name="modal" id="unmodal" />Выкл.</label>
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Ограничение даты начала аренды: </label>
-        <input type="text" value="8:00" id="timestart" style="width: 100%">
+        <input type="text" value="0:00" id="timestart" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Ограничение даты конца аренды: </label>
-        <input type="text" value="21:00" id="timeend" style="width: 100%">
+        <input type="text" value="23:59" id="timeend" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Максимальный промежуток аренды в днях: </label>
-        <input type="text" value="1" id="limit" style="width: 100%">
+        <input type="text" value="5" id="limit" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Коэффициент для оплаты (от 0 до 1, 0.5 = 50%): </label>
-        <input type="text" value="0.5" id="coeff" style="width: 100%">
+        <input type="text" value="1" id="coeff" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скрыть фильтр по категории: </label>
-        <label><input type="radio" name="f-cat" id="f-cat">Вкл.</label>
-        <label><input type="radio" name="f-cat" id="unf-cat" checked>Выкл.</label>
+        <label><input type="radio" name="f-cat" id="f-cat" />Вкл.</label>
+        <label
+          ><input type="radio" name="f-cat" id="unf-cat" checked />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скрыть фильтр по точке проката: </label>
-        <label><input type="radio" name="f-point" id="f-point">Вкл.</label>
-        <label><input type="radio" name="f-point" id="unf-point" checked>Выкл.</label>
+        <label><input type="radio" name="f-point" id="f-point" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="f-point"
+            id="unf-point"
+            checked
+          />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скрыть фильтр по датам: </label>
-        <label><input type="radio" name="f-dat" id="f-dat">Вкл.</label>
-        <label><input type="radio" name="f-dat" id="unf-dat" checked>Выкл.</label>
+        <label><input type="radio" name="f-dat" id="f-dat" />Вкл.</label>
+        <label
+          ><input type="radio" name="f-dat" id="unf-dat" checked />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скрыть все фильтры: </label>
-        <label><input type="radio" name="f-hide" id="f-hide">Вкл.</label>
-        <label><input type="radio" name="f-hide" id="unf-hide" checked>Выкл.</label>
+        <label><input type="radio" name="f-hide" id="f-hide" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="f-hide"
+            id="unf-hide"
+            checked
+          />Выкл.</label
+        >
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
-        <label>Обязательные фильтры ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА (значения: point category dateStart dateEnd): </label>
-        <input type="text" value="point" id="require" style="width: 100%">
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label
+          >Обязательные фильтры ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА (значения: point
+          category dateStart dateEnd):
+        </label>
+        <input type="text" value="" id="require" style="width: 100%" />
       </div>
-      <div style="font-style:italic;">Ниже цвета в формате HEX (#чччччч, где ч - число в 16ричной системе)</div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="font-style: italic">
+        Ниже цвета в формате HEX (#чччччч, где ч - число в 16ричной системе)
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Главный цвет: </label>
-        <input type="text" value="#2e55b9" id="prim" style="width: 100%">
+        <input type="text" value="#2e55b9" id="prim" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Главный фоновый цвет: </label>
-        <input type="text" value="#fafafa" id="back" style="width: 100%">
+        <input type="text" value="#fafafa" id="back" style="width: 100%" />
       </div>
-      <div style="display: flex; gap: 10px; width: 100%;">
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Вторичный фоновый цвет: </label>
-        <input type="text" value="#ffffff" id="secondback" style="width: 100%">
+        <input
+          type="text"
+          value="#ffffff"
+          id="secondback"
+          style="width: 100%"
+        />
       </div>
-      <button id="update" style="height: 50px; cursor: pointer;">СОЗДАТЬ ВИДЖЕТ</button>
-      <div>
-        Сгенерированный код для виджета:
-      </div>
-      <div id="code">
-
-      </div>
+      <button id="update" style="height: 50px; cursor: pointer">
+        СОЗДАТЬ ВИДЖЕТ
+      </button>
+      <div>Сгенерированный код для виджета:</div>
+      <div id="code"></div>
     </div>
 
     <script>
@@ -239,8 +315,7 @@
           elem.setAttribute("limit-time-end", timeEnd);
 
         const limit = document.querySelector("#limit").value;
-        if (Boolean(limit?.trim()))
-          elem.setAttribute("limit-days", limit);
+        if (Boolean(limit?.trim())) elem.setAttribute("limit-days", limit);
 
         const coeff = document.querySelector("#coeff").value;
         if (Boolean(coeff?.trim()))
@@ -271,12 +346,10 @@
           elem.setAttribute("required-filters", require);
 
         const prim = document.querySelector("#prim").value;
-        if (Boolean(prim?.trim()))
-          elem.setAttribute("primary-color", prim);
+        if (Boolean(prim?.trim())) elem.setAttribute("primary-color", prim);
 
         const back = document.querySelector("#back").value;
-        if (Boolean(back?.trim()))
-          elem.setAttribute("background-color", back);
+        if (Boolean(back?.trim())) elem.setAttribute("background-color", back);
 
         const secondBack = document.querySelector("#secondback").value;
         if (Boolean(secondBack?.trim()))
@@ -295,16 +368,15 @@
         const script = document.createElement("script");
         script.src = "https://api.rentinhand.ru/v2/widget/js/v2/app";
         code.innerHTML = "";
-        code.insertAdjacentText("beforeend",script.outerHTML + elem.outerHTML);
+        code.insertAdjacentText("beforeend", script.outerHTML + elem.outerHTML);
 
-        btn.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)"
-        btn2.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)"
-
-
-      }
+        btn.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)";
+        btn2.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)";
+      };
 
       btn.onclick = reloadWidget;
       btn2.onclick = reloadWidget;
+      reloadWidget();
     </script>
     <script id="rih-script" type="module" src="/src/main.js" nonce="1"></script>
   </body>

@@ -1,13 +1,22 @@
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from "vue";
-import { calculateRent, openRent } from "@api";
-import { formatDateJs, parseTimeString } from "@helpers";
+import {
+    calculateRent,
+    openRent,
+    prepareRent,
+    addInventoryToRent,
+    setRentTime,
+    saveRent,
+    addClientToRent,
+} from "@api";
+import { formatDateJs, parseTimeString, dateJsToISO } from "@helpers";
 import {
     generalProps,
     bookingProps,
     useCartStore,
     useClientStore,
     useRentStore,
+    useRouterStore,
 } from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import RentDatetimePickerRange from "./components/RentDatetimePicker/RentDatetimePickerRange.vue";
@@ -22,6 +31,8 @@ import { storeToRefs } from "pinia";
 const props = defineProps({
     inventory: Object,
 });
+
+const sessionKey = ref(null);
 
 const rentStore = useRentStore();
 const { minRent } = storeToRefs(rentStore);
@@ -59,46 +70,54 @@ const datetimeKey = ref(42);
 
 const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 
-const recalc = async () => {
-    try {
-        calculating.value = true;
-        calculatedRent.value = (
-            await calculateRent({
-                inventory: props.inventory,
-                inventoryId: props.inventory.id,
-                price: props.inventory.prices[0],
-                priceId: props.inventory.prices[0].id,
-                timeStart: formatDateJs(startDate.value, format),
-                timeEnd: formatDateJs(endDate.value, format),
-                closePoint: props.inventory?.point,
-                closePointId: props.inventory?.point?.id,
-                openPoint: props.inventory?.point,
-                openPointId: props.inventory?.point?.id,
-                discount: selectedPromo.value,
-                discountId: selectedPromo.value?.id,
-            })
-        )?.data.array?.[0];
-        sumRent.value = calculatedRent.value.sum_total;
-    } catch (e) {
-        //TODO: вывести ошибку
-        console.log(e);
-    } finally {
-        calculating.value = false;
-    }
-};
+// const recalc = async () => {
+//     try {
+//         calculating.value = true;
+//         calculatedRent.value = (
+//             await calculateRent({
+//                 inventory: props.inventory,
+//                 inventoryId: props.inventory.id,
+//                 price: props.inventory.prices[0],
+//                 priceId: props.inventory.prices[0].id,
+//                 timeStart: formatDateJs(startDate.value, format),
+//                 timeEnd: formatDateJs(endDate.value, format),
+//                 closePoint: props.inventory?.point,
+//                 closePointId: props.inventory?.point?.id,
+//                 openPoint: props.inventory?.point,
+//                 openPointId: props.inventory?.point?.id,
+//                 discount: selectedPromo.value,
+//                 discountId: selectedPromo.value?.id,
+//             })
+//         )?.data.array?.[0];
+//         sumRent.value = calculatedRent.value.sum_total;
+//     } catch (e) {
+//         //TODO: вывести ошибку
+//         console.log(e);
+//     } finally {
+//         calculating.value = false;
+//     }
+// };
 
 const tryCreateRent = async (client) => {
     try {
-        if (calculatedRent.value) {
-            calculatedRent.value.client = client;
-            calculatedRent.value.human_id = client.id;
-            const payload = (await openRent(calculatedRent.value)).data;
-            if (payload.error !== undefined) {
-                modalError.value.show(payload.error);
-            }
-            modal.value.hide();
-            modalSuccess.value.show();
+        // if (calculatedRent.value) {
+        //     calculatedRent.value.client = client;
+        //     calculatedRent.value.human_id = client.id;
+        //     const payload = (await openRent(calculatedRent.value)).data;
+        //     if (payload.error !== undefined) {
+        //         modalError.value.show(payload.error);
+        //     }
+        //     modal.value.hide();
+        //     modalSuccess.value.show();
+        // }
+
+        if (client?.human?.id) {
+            await addClientToRent(client.human.id, sessionKey.value);
         }
+
+        await saveRent(sessionKey.value);
+        modal.value.hide();
+        modalSuccess.value.show();
     } catch (e) {
         modalError.value.show(e?.response?.data?.error);
     }
@@ -162,22 +181,45 @@ const correctCurrentDates = () => {
     });
 };
 
-watch(datetime, () => {
-    recalc();
+watch(datetime, async () => {
+    calculating.value = true;
+
+    calculateRent.value = await setRentTime(
+        dateJsToISO(datetime.value[0]),
+        dateJsToISO(datetime.value[1]),
+        sessionKey.value
+    );
+    sumRent.value = calculateRent.value.sum;
+
+    calculating.value = false;
     updateIncludes();
 });
 
-onMounted(() => {
-    recalc();
+onMounted(async () => {
+    calculating.value = true;
+
+    const response = await prepareRent(
+        dateJsToISO(datetime.value[0]),
+        dateJsToISO(datetime.value[1])
+    );
+    sessionKey.value = response.data.rentSessionKey;
+
+    calculateRent.value = await addInventoryToRent(
+        props.inventory,
+        sessionKey.value
+    );
+    sumRent.value = calculateRent.value.sum;
+
+    calculating.value = false;
+
     updateIncludes();
-    //correctCurrentDates();
 });
 
 const disableBooking = ref(false);
 
 const changePromo = (promo) => {
     selectedPromo.value = promo;
-    recalc();
+    // recalc();
 };
 
 const cartStore = useCartStore();
@@ -214,6 +256,13 @@ const handleBooking = () => {
             authModal.value.show();
         }
     }
+};
+
+const router = useRouterStore();
+const { changeRoute } = router;
+
+const goToList = () => {
+    changeRoute("inventoryList");
 };
 </script>
 
@@ -276,7 +325,7 @@ const handleBooking = () => {
             @error="(error) => modalError.show(error)"
             @create-rent="tryCreateRent"
         />
-        <ModalSuccess ref="modalSuccess" />
+        <ModalSuccess ref="modalSuccess" @close="goToList" />
         <ModalError ref="modalError" />
     </div>
 </template>

@@ -6,7 +6,7 @@ import {
     PhoneNumberInput,
     DatePicker,
 } from "@uikit";
-import { checkOrCreateClient } from "@api";
+import { checkOrCreateClient, getClients, createClient } from "@api";
 import InventoryBookingBadge from "../InventoryBookingBadge/InventoryBookingBadge.vue";
 import { generalProps, useClientStore } from "@stores";
 import { formatDateJs } from "@helpers";
@@ -67,30 +67,67 @@ const disableButton = computed(() => {
 const getClient = async () => {
     try {
         saving.value = true;
-        let client = (
-            await checkOrCreateClient({
-                name: name.value,
-                surname: surname.value,
-                phone: phone.value,
-                passportCode: passportCode.value,
-                passportNumber: passportNumber.value,
-                passportSerial: passportSeries.value,
-                passportTake: passportTake.value,
-                passportTakeDate: passportTakeDate.value
-                    ? formatDateJs(passportTakeDate.value, "yyyy-MM-dd")
-                    : null,
-            })
-        ).data;
 
-        if (client.error !== undefined) {
-            emit("error", client.error);
-            hide();
-        }
+        const clients = await getClients(phone.value);
+        let client = null;
 
-        if (client) {
-            client = { ...client, ...client.human };
-            emit("create-rent", client);
+        if (!clients || !clients[0]) {
+            client = await createClient({
+                contacts: [
+                    {
+                        confirmed: null,
+                        contact_type_id: 1,
+                        id: null,
+                        value: phone.value,
+                    },
+                ],
+                address: null,
+                black_list: false,
+                comment: null,
+                company: null,
+                created_at: null,
+                debts: null,
+                discounts: [],
+                has_contract: true,
+                has_deposit: true,
+                human: {
+                    avatar: null,
+                    avatar_fio: null,
+                    birthday: null,
+                    fio: null,
+                    guid: null,
+                    id: null,
+                    is_admin: null,
+                    is_client: null,
+                    is_director: null,
+                    is_employee: null,
+                    male: null,
+                    name: name.value,
+                    number: null,
+                    passport_code: passportCode.value,
+                    passport_number: passportNumber.value,
+                    passport_serial: passportSeries.value,
+                    passport_take: passportTake.value,
+                    passport_take_date: passportTakeDate.value
+                        ? formatDateJs(passportTakeDate.value, "yyyy-MM-dd")
+                        : null,
+                    patro: null,
+                    short_fio: null,
+                    surname: surname.value,
+                    user_id: null,
+                    vatin: null,
+                },
+                id: null,
+                is_legal_entity: false,
+                media: [],
+                number: null,
+                source_attraction_id: null,
+                updated_at: null,
+            });
+        } else {
+            client = clients[0];
         }
+        emit("create-rent", client);
     } catch (e) {
         emit("error", e);
         hide();
