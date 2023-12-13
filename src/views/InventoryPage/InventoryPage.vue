@@ -3,7 +3,7 @@ import { getInventory } from "@api";
 import { BaseLoading } from "@uikit";
 import { onMounted, ref } from "vue";
 import InventoryInfo from "@/components/InventoryInfo/InventoryInfo.vue";
-import InventoryBooking from "@/components/InventoryBooking/InventoryBooking.vue";
+// import InventoryBooking from "@/components/InventoryBooking/InventoryBooking.vue";
 
 const props = defineProps({
     inventoryId: [String, Number],
@@ -18,7 +18,9 @@ const loading = ref(true);
 const loadInventory = async () => {
     try {
         loading.value = true;
-        inventory.value = (await getInventory({ id: props.inventoryId }))?.data;
+        inventory.value = (
+            await getInventory({ id: props.inventoryId })
+        )?.data.data;
     } catch (e) {
         // TODO: вывести ошибку
         console.log(e);

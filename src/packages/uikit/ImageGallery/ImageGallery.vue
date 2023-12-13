@@ -1,5 +1,4 @@
 <script setup>
-import { MEDIA } from "@stores";
 import { ref, computed } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 
@@ -17,6 +16,8 @@ const currentSlide = ref(0);
 const slideTo = (val) => {
     currentSlide.value = val;
 };
+
+const MEDIA = "https://media.rentinhand.ru";
 </script>
 
 <template>
