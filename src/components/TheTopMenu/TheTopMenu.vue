@@ -3,8 +3,11 @@ import { BaseButton } from "@uikit";
 import { IconArrowLeftLong } from "@icons";
 import { useClientStore, useRouterStore, generalProps } from "@stores";
 import { storeToRefs } from "pinia";
+import { useTrans } from "@packages/lang";
 
 defineEmits(["open-auth"]);
+
+const { trans } = useTrans();
 
 const router = useRouterStore();
 const { current } = storeToRefs(router);
@@ -35,7 +38,7 @@ const doLogout = () => {
             class="top-menu__back-btn"
             @click="rollbackRoute"
         >
-            <IconArrowLeftLong /> Назад
+            <IconArrowLeftLong /> {{ trans["back"] }}
         </BaseButton>
         <template v-if="authorization">
             <BaseButton
