@@ -1,6 +1,9 @@
 <script setup>
 import { BaseModal, BaseButton } from "@uikit";
 import { ref } from "vue";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const textError = ref(null);
 
@@ -41,7 +44,9 @@ defineExpose({ show, hide, toggle });
         </svg>
         <div style="text-align: center">
             <p>{{ textError }}</p>
-            <BaseButton style="margin-top: 30px" @click="hide"> Ок </BaseButton>
+            <BaseButton style="margin-top: 30px" @click="hide">
+                {{ trans["ok"] }}
+            </BaseButton>
         </div>
     </BaseModal>
 </template>

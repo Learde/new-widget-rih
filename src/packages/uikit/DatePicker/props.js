@@ -12,10 +12,6 @@ export default {
         type: Boolean,
         default: true,
     },
-    locale: {
-        type: String,
-        default: "ru",
-    },
     clearable: {
         type: Boolean,
         default: true,
@@ -27,22 +23,6 @@ export default {
     closeOnAutoApply: {
         type: Boolean,
         default: false,
-    },
-    selectText: {
-        type: String,
-        default: "Выбрать",
-    },
-    cancelText: {
-        type: String,
-        default: "Отменить",
-    },
-    nowButtonLabel: {
-        type: String,
-        default: "Сейчас",
-    },
-    placeholder: {
-        type: String,
-        default: "Выберите дату",
     },
     hasError: {
         type: Boolean,

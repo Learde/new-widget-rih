@@ -2,6 +2,9 @@
 import { BaseLoading, BaseButton } from "@uikit";
 import { MEDIA, generalProps, bookingProps, currencyIcon } from "@stores";
 import { stringEscape } from "@helpers";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 defineEmits(["open-modal", "add"]);
 
@@ -80,11 +83,11 @@ const { paymentCoefficient } = bookingProps;
         </div>
         <span v-if="!noPrice" class="booking-badge__total">
             <template v-if="!paymentCoefficient || +paymentCoefficient === 1">
-                К оплате: {{ sumRent }}
+                {{ trans["to_pay"] }}: {{ sumRent }}
                 <component :is="currencyIcon" class="inv-card__icon" />
             </template>
             <template v-else>
-                Предоплата {{ paymentCoefficient * 100 }}%:
+                {{ trans["prepayment"] }} {{ paymentCoefficient * 100 }}%:
                 {{ sumRent * paymentCoefficient }}
                 <component :is="currencyIcon" class="inv-card__icon" />
             </template>
@@ -95,14 +98,14 @@ const { paymentCoefficient } = bookingProps;
                 @click="$emit('add')"
                 :disabled="disableBooking"
             >
-                В корзину
+                {{ trans["to_cart"] }}
             </BaseButton>
             <BaseButton
                 v-else
                 @click="$emit('open-modal')"
                 :disabled="disableBooking"
             >
-                Забронировать
+                {{ trans["book"] }}
             </BaseButton>
         </slot>
         <BaseLoading v-if="loading" background little></BaseLoading>

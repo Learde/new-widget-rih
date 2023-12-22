@@ -9,10 +9,14 @@ let translations = {
 
 export const useTrans = () => {
     const trans = ref(ru);
+    const lang = ref("ru");
 
-    function setTranslations(lang) {
-        trans.value = translations[lang];
+    function setTranslations(l) {
+        trans.value = translations[l];
+        lang.value = l;
     }
 
-    return { trans, setTranslations };
+    setTranslations("en");
+
+    return { trans, lang, setTranslations };
 };

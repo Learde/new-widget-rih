@@ -16,6 +16,9 @@ import {
 import { InlineCalendar, TimePicker } from "@uikit";
 import { getRentsOfInventory } from "@api";
 import { bookingProps } from "@stores";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["update:modelValue", "disableBooking"]);
 const props = defineProps({
@@ -518,19 +521,21 @@ watchEffect(() => {
         <div class="rent-datetime__time-picker rih-time-picker">
             <div>
                 <span class="rent-datetime__label rih-time-picker__label">
-                    Время начала
+                    {{ trans["time_start"] }}
                 </span>
                 <TimePicker v-model="timeStart" :filters="timeStartFilter" />
             </div>
             <div>
                 <span class="rent-datetime__label rih-time-picker__label">
-                    Время конца
+                    {{ trans["time_end"] }}
                 </span>
                 <TimePicker v-model="timeEnd" :filters="timeEndFilter" />
             </div>
         </div>
         <div>
-            <span class="rent-datetime__label">Выберите срок аренды </span>
+            <span class="rent-datetime__label"
+                >{{ trans["pick_rent_range"] }}
+            </span>
             <InlineCalendar
                 v-model="currentDate"
                 :enable-time-picker="false"

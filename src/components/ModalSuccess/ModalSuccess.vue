@@ -1,12 +1,18 @@
 <script setup>
 import { BaseModal, BaseButton } from "@uikit";
 import { ref } from "vue";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["close"]);
 
 const modal = ref(null);
 const successText = ref("");
-const show = (text = "Спасибо, мы свяжемся с вами в ближайшее время!") => {
+const show = (text) => {
+    if (!text) {
+        text = trans.value["success_text"];
+    }
     successText.value = text;
     modal.value.show();
 };
@@ -38,7 +44,9 @@ defineExpose({ show, hide, toggle, open });
             <p>
                 <slot>{{ successText }}</slot>
             </p>
-            <BaseButton style="margin-top: 20px" @click="hide"> Ок </BaseButton>
+            <BaseButton style="margin-top: 20px" @click="hide">
+                {{ trans["ok"] }}
+            </BaseButton>
         </div>
     </BaseModal>
 </template>

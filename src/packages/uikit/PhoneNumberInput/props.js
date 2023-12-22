@@ -12,22 +12,6 @@ export default {
         type: String,
         default: "primary",
     },
-    translations: {
-        type: Object,
-        default() {
-            return {
-                phoneNumberLabel: "Телефон *",
-                countrySelector: {
-                    placeholder: "Код страны",
-                    error: "Выберите код страны",
-                },
-                phoneInput: {
-                    placeholder: "Телефон *",
-                    example: "Пример:",
-                },
-            };
-        },
-    },
     preferredCountries: {
         type: Array,
         default: [

@@ -46,7 +46,7 @@ const doLogout = () => {
                 class="top-menu__auth-btn"
                 @click="$emit('open-auth')"
             >
-                Войти
+                {{ trans["sign_in"] }}
             </BaseButton>
             <template v-else>
                 <BaseButton
@@ -55,10 +55,10 @@ const doLogout = () => {
                     long
                     @click="changeRoute('personalProfile')"
                 >
-                    Личный кабинет
+                    {{ trans["personal_profile"] }}
                 </BaseButton>
                 <BaseButton v-else class="top-menu__auth-btn" @click="doLogout">
-                    Выйти
+                    {{ trans["sign_out"] }}
                 </BaseButton>
             </template>
         </template>

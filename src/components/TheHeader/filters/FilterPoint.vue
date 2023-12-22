@@ -3,6 +3,9 @@ import { computed, onMounted, ref } from "vue";
 import { HeaderFormGroup, InputSelect } from "@uikit";
 import { getPoints } from "@api";
 import { filterProps } from "@stores";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -36,7 +39,7 @@ const hasError = computed(() => {
 
 <template>
     <HeaderFormGroup>
-        <template #labelText> Пункт проката </template>
+        <template #labelText> {{ trans["point_label"] }} </template>
         <template #input>
             <InputSelect
                 v-model="points"

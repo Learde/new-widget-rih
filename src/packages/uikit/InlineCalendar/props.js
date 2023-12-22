@@ -32,10 +32,6 @@ export default {
         default: "inline-calendar__cell",
     },
     modelValue: [String, Date, Array, Object, Number],
-    locale: {
-        type: String,
-        default: "ru",
-    },
     clearable: {
         type: Boolean,
         default: true,

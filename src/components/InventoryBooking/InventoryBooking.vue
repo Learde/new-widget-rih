@@ -27,6 +27,9 @@ import ModalSuccess from "../ModalSuccess/ModalSuccess.vue";
 import ModalError from "../ModalError/ModalError.vue";
 import PromocodeInput from "../PromocodeInput/PromocodeInput.vue";
 import { storeToRefs } from "pinia";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const props = defineProps({
     inventory: Object,
@@ -268,7 +271,7 @@ const goToList = () => {
 
 <template>
     <div class="booking container" id="booking">
-        <h2 class="booking__heading">Расчет аренды</h2>
+        <h2 class="booking__heading">{{ trans["calc_rent"] }}</h2>
         <div class="booking__wrapper">
             <RentDatetimePickerRange
                 v-if="hasRange"
@@ -310,8 +313,8 @@ const goToList = () => {
                 />
                 <div class="booking__error-wrapper" v-if="disableBooking">
                     <span class="booking__error">
-                        *Выбранный промежуток недоступен для аренды<br />
-                        Выберите другие даты
+                        *{{ trans["booking_disabled"] }}<br />
+                        {{ trans["change_dates"] }}
                     </span>
                 </div>
             </div>

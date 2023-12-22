@@ -28,10 +28,6 @@ export default {
         type: Boolean,
         default: true,
     },
-    placeholder: {
-        type: String,
-        default: "Выберите из списка",
-    },
     hasError: {
         type: Boolean,
         default: false,

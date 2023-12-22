@@ -7,6 +7,9 @@ import InventoryCard from "@/components/InventoryCard/InventoryCard.vue";
 import TheHeader from "@/components/TheHeader/TheHeader.vue";
 import { BaseLoading, BasePagination } from "@uikit";
 import { checkRequiredFilters, getRequiredText } from "./lib/requiredFilters";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const inventories = ref([]);
 const loading = ref(true);
@@ -26,7 +29,8 @@ const reloadInventories = async (filter = {}) => {
             shouldFillFilters.value = true;
             requiredFiltersText.value = getRequiredText(
                 filter,
-                requiredFilters
+                requiredFilters,
+                trans.value
             );
             return;
         } else {
@@ -83,7 +87,7 @@ onMounted(() => {
         <TheHeader @reload="reloadInventories" />
         <div class="inv-list__list">
             <div v-if="shouldFillFilters" class="inv-list__required">
-                Выберите
+                {{ trans["please_select"] }}
                 <span style="font-weight: bold">{{ requiredFiltersText }}</span>
             </div>
             <BaseLoading v-else-if="loading" />

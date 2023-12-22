@@ -1,6 +1,9 @@
 <script setup>
 import { formatDurationRu, formatDistanceRu, parseISODuration } from "@helpers";
 import { currencyIcon } from "@stores";
+import { useTrans } from "@packages/lang";
+
+const { trans, lang } = useTrans();
 defineProps({
     prices: Array,
 });
@@ -8,13 +11,13 @@ defineProps({
 const humanizeDuration = (duration) => {
     if (!duration) return null;
 
-    return formatDurationRu(parseISODuration(duration));
+    return formatDurationRu(parseISODuration(duration), {}, lang.value);
 };
 
 const humanizeDistance = (duration) => {
     if (!duration) return null;
 
-    return formatDistanceRu(parseISODuration(duration));
+    return formatDistanceRu(parseISODuration(duration), {}, lang.value);
 };
 </script>
 
@@ -28,9 +31,9 @@ const humanizeDistance = (duration) => {
         }"
     >
         <h5 class="inventory-price__heading">
-            Расценки
+            {{ trans["prices"] }}
             <template v-if="prices.length > 1">
-                (Тариф &#171;{{ price.title }}&#187;)
+                ({{ trans["tariff"] }} &#171;{{ price.title }}&#187;)
             </template>
         </h5>
         <ul class="inventory-price__list">
@@ -43,7 +46,8 @@ const humanizeDistance = (duration) => {
                 {{ valuePrice.value }}
                 <component :is="currencyIcon" class="inv-card__icon" />
                 <template v-if="valuePrice.more_then !== 'PT0S'">
-                    (от {{ humanizeDistance(valuePrice.more_then) }})
+                    ({{ trans["from"] }}
+                    {{ humanizeDistance(valuePrice.more_then) }})
                 </template>
             </li>
         </ul>

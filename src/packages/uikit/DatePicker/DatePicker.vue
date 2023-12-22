@@ -3,6 +3,9 @@
 import { computed, onMounted, ref } from "vue";
 import VueDatepicker from "@vuepic/vue-datepicker";
 import importedProps from "./props.js";
+import { useTrans } from "@packages/lang";
+
+const { trans, lang } = useTrans();
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -44,6 +47,11 @@ const format = (date) => {
         :class="{ 'datepicker--error': hasError }"
         :teleport="teleportElement"
         :format="format"
+        :select-text="trans['select']"
+        :cancel-text="trans['cancel']"
+        :now-button-label="trans['now']"
+        :placeholder="trans['date_placeholder']"
+        :locale="lang"
         v-bind="props"
         v-model="date"
     ></VueDatepicker>

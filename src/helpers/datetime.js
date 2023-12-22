@@ -15,26 +15,32 @@ import humanizeDuration from "humanize-duration";
 export { parse as parseISODuration } from "iso8601-duration";
 
 const humanizeSettings = {
-    language: "ru",
-    languages: {
-        ru: {
-            w: () => "неделя",
-            d: () => "сутки",
-            h: () => "часов",
-            m: () => "минут",
+    ru: {
+        language: "ru",
+        languages: {
+            ru: {
+                w: () => "неделя",
+                d: () => "сутки",
+                h: () => "часов",
+                m: () => "минут",
+            },
         },
+        delimiter: " ",
+        units: ["w", "d", "h", "m"],
     },
-    delimiter: " ",
-    units: ["w", "d", "h", "m"],
+    en: {
+        delimiter: " ",
+        units: ["w", "d", "h", "m"],
+    },
 };
 
-const humanizeDurationISO = (isoDuration) => {
+const humanizeDurationISO = (isoDuration, lang = "ru") => {
     const millis = Duration.fromISO(isoDuration).toMillis();
-    return humanizeDuration(millis, humanizeSettings);
+    return humanizeDuration(millis, humanizeSettings[lang]);
 };
 
-const humanizeDurationMillis = (millisDuration) => {
-    return humanizeDuration(millisDuration, humanizeSettings);
+const humanizeDurationMillis = (millisDuration, lang = "ru") => {
+    return humanizeDuration(millisDuration, humanizeSettings[lang]);
 };
 
 const ISOtoMillis = (date) => {
@@ -96,18 +102,22 @@ export const compareDatesWithYearPrecision = (date1, date2, compareDates) => {
     return compareDatesWithPrecision(date1, date2, startOfYear, compareDates);
 };
 
-export const formatDurationRu = (duration, options) => {
-    return formatDuration(duration, { locale: ruLocale, ...options });
+export const formatDurationRu = (duration, options, lang = "ru") => {
+    if (lang === "ru") {
+        options = { locale: ruLocale, ...options };
+    }
+    return formatDuration(duration, options);
 };
 
-export const formatDistanceRu = (duration, options) => {
+export const formatDistanceRu = (duration, options, lang = "ru") => {
     const startDate = new Date();
     const endDate = add(new Date(), duration);
 
-    return formatDistance(startDate, endDate, {
-        locale: ruLocale,
-        ...options,
-    });
+    if (lang === "ru") {
+        options = { locale: ruLocale, ...options };
+    }
+
+    return formatDistance(startDate, endDate, options);
 };
 
 export {

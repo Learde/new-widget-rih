@@ -4,6 +4,9 @@ import VueSelect from "vue-select";
 import importedProps from "./props.js";
 import { stringEscape } from "@helpers";
 import { computed } from "vue";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -24,6 +27,7 @@ const stringLength = 20;
     <vue-select
         v-bind="props"
         v-model="values"
+        :placeholder="trans['select_placeholder']"
         :class="{ 'vs--error': hasError }"
     >
         <template #open-indicator> &#160; </template>

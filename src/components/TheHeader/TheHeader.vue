@@ -3,9 +3,12 @@ import { ref, computed } from "vue";
 
 import { BaseButton } from "@uikit";
 import { filterProps } from "@stores";
+import { useTrans } from "@packages/lang";
 import FilterCategory from "./filters/FilterCategory.vue";
 import FilterPoint from "./filters/FilterPoint.vue";
 import FilterDate from "./filters/FilterDate.vue";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["reload"]);
 
@@ -46,18 +49,18 @@ const isTwoHidden = computed(() => {
                 v-model="filter.dateStart"
                 type="dateStart"
             >
-                Дата начала
+                {{ trans["date_start"] }}
             </FilterDate>
             <FilterDate
                 v-if="!hideFilterDate"
                 v-model="filter.dateEnd"
                 type="dateEnd"
             >
-                Дата конца
+                {{ trans["date_end"] }}
             </FilterDate>
         </div>
         <BaseButton class="header__show-btn" @click="emitReload">
-            Показать
+            {{ trans["show"] }}
         </BaseButton>
     </header>
 </template>

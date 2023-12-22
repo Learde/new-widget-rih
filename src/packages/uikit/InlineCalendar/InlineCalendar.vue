@@ -3,6 +3,9 @@
 import { computed } from "vue";
 import VueDatepicker from "@vuepic/vue-datepicker";
 import importedProps from "./props.js";
+import { useTrans } from "@packages/lang";
+
+const { lang } = useTrans();
 
 const emit = defineEmits(["update:modelValue", "update-month-year"]);
 
@@ -25,6 +28,7 @@ const date = computed({
         class="inline-calendar"
         v-bind="props"
         v-model="date"
+        :locale="lang"
         @update-month-year="(param) => emit('update-month-year', param)"
     ></VueDatepicker>
 </template>

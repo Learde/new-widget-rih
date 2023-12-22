@@ -3,6 +3,9 @@ import { ref } from "vue";
 import { BaseButton } from "@uikit";
 import { searchDiscount } from "@api";
 import { IconRubleSign } from "@icons";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["input"]);
 
@@ -25,7 +28,7 @@ const checkPromocode = async () => {
         } else if (promocodeResponse.error) {
             promocodeError.value = promocodeResponse.error;
         } else {
-            promocodeError.value = "Промокод не найден";
+            promocodeError.value = trans.value["promocode_not_found"];
         }
     } catch (error) {
         promocodeError.value = error?.response?.data?.error;
@@ -51,20 +54,22 @@ const deletePromo = () => {
                 :disabled="promocodeSubmitted"
             />
             <BaseButton v-if="!promocodeSubmitted" @click="checkPromocode">
-                Применить
+                {{ trans["apply"] }}
             </BaseButton>
-            <BaseButton v-else @click="deletePromo"> Отменить </BaseButton>
+            <BaseButton v-else @click="deletePromo">
+                {{ trans["cancel"] }}
+            </BaseButton>
         </div>
         <p class="promo-input__error" v-if="promocodeError">
             {{ promocodeError }}
         </p>
         <p class="promo-input__success" v-if="promocodeSubmitted">
-            Промокод на скидку в {{ foundPromocode.value }}
+            {{ trans["promo_result"] }} {{ foundPromocode.value }}
             <span v-if="foundPromocode.discount_type_id === 1"
                 ><IconRubleSign
             /></span>
             <span v-else-if="foundPromocode.discount_type_id === 2">%</span>
-            применен
+            {{ trans["applied"] }}
         </p>
     </div>
 </template>

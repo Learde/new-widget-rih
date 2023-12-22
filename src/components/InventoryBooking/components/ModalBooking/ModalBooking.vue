@@ -13,6 +13,9 @@ import { formatDateJs } from "@helpers";
 import { ref, computed } from "vue";
 import { storeToRefs } from "pinia";
 import BaseLoading from "@uikit/BaseLoading/BaseLoading.vue";
+import { useTrans } from "@packages/lang";
+
+const { trans } = useTrans();
 
 const emit = defineEmits(["create-rent", "error"]);
 
@@ -140,7 +143,7 @@ defineExpose({ show, hide, toggle });
 <template>
     <BaseModal ref="modal">
         <div class="modal-booking">
-            <h3 class="modal-booking__heading">Забронировать</h3>
+            <h3 class="modal-booking__heading">{{ trans["booking"] }}</h3>
             <form
                 class="modal-booking__form"
                 :class="{
@@ -153,7 +156,7 @@ defineExpose({ show, hide, toggle });
                         <input
                             class="modal-booking__input"
                             type="text"
-                            placeholder="Имя *"
+                            :placeholder="`${trans['name']} *`"
                             v-model="name"
                         />
                     </div>
@@ -161,7 +164,7 @@ defineExpose({ show, hide, toggle });
                         <input
                             class="modal-booking__input"
                             type="text"
-                            placeholder="Фамилия *"
+                            :placeholder="`${trans['surname']} *`"
                             v-model="surname"
                         />
                     </div>
@@ -172,7 +175,7 @@ defineExpose({ show, hide, toggle });
                         <input
                             class="modal-booking__input"
                             type="text"
-                            placeholder="Серия паспорта *"
+                            :placeholder="`${trans['passport_serial']} *`"
                             v-model="passportSeries"
                         />
                     </div>
@@ -182,7 +185,7 @@ defineExpose({ show, hide, toggle });
                         <input
                             class="modal-booking__input"
                             type="text"
-                            placeholder="Номер паспорта *"
+                            :placeholder="`${trans['passport_number']} *`"
                             v-model="passportNumber"
                         />
                     </div>
@@ -190,14 +193,14 @@ defineExpose({ show, hide, toggle });
                         <input
                             class="modal-booking__input"
                             type="text"
-                            placeholder="Кем выдан паспорт *"
+                            :placeholder="`${trans['passport_issued_by']} *`"
                             v-model="passportTake"
                         />
                     </div>
                     <div class="modal-booking__form-group">
                         <DatePicker
                             v-model="passportTakeDate"
-                            placeholder="Дата получения паспорта *"
+                            :placeholder="`${trans['passport_date']} *`"
                             :enable-time-picker="false"
                             :close-on-auto-apply="true"
                         />
@@ -207,7 +210,7 @@ defineExpose({ show, hide, toggle });
                         <input
                             class="modal-booking__input"
                             type="text"
-                            placeholder="Код подразделения"
+                            :placeholder="trans['passport_code']"
                             v-model="passportCode"
                         />
                     </div>
@@ -215,15 +218,16 @@ defineExpose({ show, hide, toggle });
             </form>
             <div class="modal-booking__rent">
                 <span>
-                    Аренда с
-                    <b>{{ formatDateJs(startDate, "dd.MM.yyyy T") }}</b> по
+                    {{ trans["rent"] }} {{ trans["with"] }}
+                    <b>{{ formatDateJs(startDate, "dd.MM.yyyy T") }}</b>
+                    {{ trans["to"] }}
                     <b>{{ formatDateJs(endDate, "dd.MM.yyyy T") }}</b>
                 </span>
             </div>
 
             <div class="modal-booking__personal-data">
                 <BaseCheckbox v-model="agreePersonalData">
-                    Согласие на обработку персональных данных
+                    {{ trans["agreement"] }}
                 </BaseCheckbox>
             </div>
 
@@ -246,16 +250,16 @@ defineExpose({ show, hide, toggle });
                             :disabled="disableButton"
                             @click="getClient"
                         >
-                            {{ payable ? "Оплатить" : "Забронировать" }}
+                            {{ payable ? trans["pay"] : trans["book"] }}
                         </BaseButton>
                     </template>
                 </InventoryBookingBadge>
                 <BaseButton v-else :disabled="disableButton" @click="getClient">
-                    {{ payable ? "Оплатить" : "Забронировать" }}
+                    {{ payable ? trans["pay"] : trans["book"] }}
                 </BaseButton>
             </div>
             <div class="modal-booking__error" v-if="disableButton">
-                <span>*Заполните все обязательные поля</span>
+                <span>* {{ trans["fill_required"] }}</span>
             </div>
         </div>
         <BaseLoading v-if="saving" background />

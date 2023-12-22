@@ -3,12 +3,15 @@ import { computed, onMounted, ref } from "vue";
 import { HeaderFormGroup, TreeSelect } from "@uikit";
 import { getCategories } from "@api";
 import { filterProps, generalProps } from "@stores";
+import { useTrans } from "@packages/lang";
 
 const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({
     modelValue: Object,
 });
+
+const { trans } = useTrans();
 
 const { hiddenCategories } = generalProps;
 
@@ -47,7 +50,7 @@ const hasError = computed(() => {
 
 <template>
     <HeaderFormGroup>
-        <template #labelText> Категория </template>
+        <template #labelText> {{ trans["category_label"] }} </template>
         <template #input>
             <TreeSelect
                 v-model="categories"

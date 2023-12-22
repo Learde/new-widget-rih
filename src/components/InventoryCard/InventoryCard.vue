@@ -13,6 +13,8 @@ import {
     stringEscape,
 } from "@helpers";
 import { IconAngleRight } from "@icons";
+import { useTrans } from "@packages/lang";
+const { trans, lang } = useTrans();
 
 const props = defineProps({
     id: [String, Number],
@@ -62,7 +64,7 @@ if (roundedCardAvatar) {
         </h3>
         <div class="inv-card__info">
             <span class="inv-card__price" v-if="prices">
-                от {{ price }}
+                {{ trans["from"] }} {{ price }}
                 <component
                     v-if="currencyIcon"
                     :is="currencyIcon"
@@ -72,14 +74,14 @@ if (roundedCardAvatar) {
                     height="0.9em"
                 />
                 /
-                {{ humanizeDurationISO(period) }}
+                {{ humanizeDurationISO(period, lang) }}
             </span>
         </div>
         <div
             class="inv-card__more"
             @click="changeRoute('inventoryPage', { inventoryId: id })"
         >
-            <span class="inv-card__more-text">Подробнее</span>
+            <span class="inv-card__more-text">{{ trans["more"] }}</span>
             <icon-angle-right width="10" height="12" style="color: #666" />
         </div>
         <div
@@ -91,7 +93,7 @@ if (roundedCardAvatar) {
                 })
             "
         >
-            <span class="inv-card__book-text">Забронировать</span>
+            <span class="inv-card__book-text">{{ trans["book"] }}</span>
             <icon-angle-right
                 width="8"
                 height="14"

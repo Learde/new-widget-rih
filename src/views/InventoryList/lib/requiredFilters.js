@@ -22,7 +22,7 @@ export const checkRequiredFilters = (filter, requiredFilters) => {
     return true;
 };
 
-export const getRequiredText = (filter, requiredFilters) => {
+export const getRequiredText = (filter, requiredFilters, trans) => {
     if (!Array.isArray(requiredFilters) || requiredFilters.length === 0)
         return "";
 
@@ -32,16 +32,16 @@ export const getRequiredText = (filter, requiredFilters) => {
         requiredFilters.includes("point") &&
         (isNil(filter.pointIds) || filter.pointIds?.length === 0)
     )
-        str += " пункт проката,";
+        str += ` ${trans["point_label_2"]},`;
     if (
         requiredFilters.includes("category") &&
         (isNil(filter.categoryIds) || filter.categoryIds?.length === 0)
     )
-        str += " категорию,";
+        str += ` ${trans["category_2"]},`;
     if (requiredFilters.includes("dateStart") && isNil(filter.dateStart))
-        str += " дату начала,";
+        str += ` ${trans["date_start_2"]},`;
     if (requiredFilters.includes("dateEnd") && isNil(filter.dateEnd))
-        str += " дату конца,";
+        str += ` ${trans["date_end_2"]},`;
 
     return str.slice(0, -1);
 };

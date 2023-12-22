@@ -2,6 +2,9 @@
 import { computed } from "vue";
 import { formatDateJs, intervalToDuration, formatDurationRu } from "@helpers";
 import { currencyIcon } from "@stores";
+import { useTrans } from "@packages/lang";
+
+const { trans, lang } = useTrans();
 const props = defineProps({
     startDate: Date,
     endDate: Date,
@@ -23,27 +26,29 @@ const durationRent = computed(() => {
 });
 
 const humanizedDuration = computed(() => {
-    return formatDurationRu(durationRent.value);
+    return formatDurationRu(durationRent.value, {}, lang.value);
 });
 </script>
 
 <template>
     <div class="rent-range">
-        с&nbsp;
+        {{ trans["with"] }}&nbsp;
         <span class="rent-range__badge rent-range__badge--mr">
             {{ formatDateJs(startDate) }}
         </span>
-        по&nbsp;
+        {{ trans["to"] }}&nbsp;
         <span class="rent-range__badge">{{ formatDateJs(endDate) }}</span>
     </div>
     <div class="rent-range__total">
-        <span v-if="pointTitle"> Пункт проката: {{ pointTitle }} </span>
+        <span v-if="pointTitle">
+            {{ trans["point_label"] }}: {{ pointTitle }}
+        </span>
         <span>
-            Длительность аренды:
+            {{ trans["rent_duration"] }}:
             {{ humanizedDuration }}
         </span>
         <span>
-            Итого: {{ sumRent }}
+            {{ trans["total"] }}: {{ sumRent }}
             <component :is="currencyIcon" class="inv-card__icon" />
         </span>
     </div>
