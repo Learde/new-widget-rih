@@ -54,6 +54,10 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Локаль (ru, en): </label>
+        <input type="text" id="locale" value="ru" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Авторизация и профиль: </label>
         <label><input type="radio" name="auth" id="auth" />Вкл.</label>
         <label
@@ -241,6 +245,9 @@
 
         const token = document.querySelector("#token").value;
         elem.setAttribute("token", token);
+
+        const locale = document.querySelector("#locale").value;
+        elem.setAttribute("locale", locale);
 
         const hasDev = document.querySelector("#dev").checked;
         if (hasDev) {

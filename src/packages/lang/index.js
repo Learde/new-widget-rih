@@ -7,16 +7,17 @@ let translations = {
     en,
 };
 
+let selectedLang = "ru";
+
 export const useTrans = () => {
-    const trans = ref(ru);
-    const lang = ref("ru");
+    const trans = ref(translations[selectedLang]);
+    const lang = ref(selectedLang);
 
     function setTranslations(l) {
+        selectedLang = l;
         trans.value = translations[l];
         lang.value = l;
     }
-
-    setTranslations("en");
 
     return { trans, lang, setTranslations };
 };

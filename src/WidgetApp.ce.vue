@@ -20,8 +20,13 @@ import TheTopMenu from "@/components/TheTopMenu/TheTopMenu.vue";
 import TheFixedCart from "@/components/TheCartFixed/TheCartFixed.vue";
 import ModalAuth from "@/components/ModalAuth/ModalAuth.vue";
 import ModalSuccess from "@/components/ModalSuccess/ModalSuccess.vue";
+import { useTrans } from "@packages/lang";
+
+const { setTranslations } = useTrans();
 
 const props = defineProps({ ...importedProps });
+
+setTranslations(props.locale);
 
 setToken(props.token);
 if (props.devServer) {

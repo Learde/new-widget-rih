@@ -52,4 +52,8 @@ export default {
         type: Boolean,
         default: false,
     },
+    locale: {
+        type: String,
+        default: "ru",
+    },
 };
