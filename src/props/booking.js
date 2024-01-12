@@ -15,4 +15,16 @@ export default {
         type: Number,
         default: null,
     },
+    defaultDays: {
+        type: Number,
+        default: null,
+    },
+    defaultHours: {
+        type: Number,
+        default: null,
+    },
+    defaultMinutes: {
+        type: Number,
+        default: null,
+    },
 };

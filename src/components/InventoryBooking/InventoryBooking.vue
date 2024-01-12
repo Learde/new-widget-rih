@@ -37,20 +37,16 @@ const props = defineProps({
 
 const sessionKey = ref(null);
 
-const rentStore = useRentStore();
-const { minRent } = storeToRefs(rentStore);
-
 const limitDays = bookingProps.limitDays;
 const hasRange = limitDays === null || Number(limitDays) > 0;
 
 let currentDate = new Date();
 
-let futureDate = new Date(
-    currentDate.getTime() +
-        (minRent.value !== null && minRent.value !== undefined
-            ? minRent.value
-            : 0)
-);
+let futureDate = new Date();
+
+futureDate.setDate(futureDate.getDate() + bookingProps.defaultDays);
+futureDate.setHours(futureDate.getHours() + bookingProps.defaultHours);
+futureDate.setMinutes(futureDate.getMinutes() + bookingProps.defaultMinutes);
 
 const datetime = ref([currentDate, futureDate]);
 

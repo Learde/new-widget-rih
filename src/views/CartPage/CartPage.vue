@@ -5,6 +5,8 @@ import { storeToRefs } from "pinia";
 
 const cartStore = useCartStore();
 const { cart } = storeToRefs(cartStore);
+
+console.log(cart);
 </script>
 
 <template>

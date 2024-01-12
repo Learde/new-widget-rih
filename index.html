@@ -77,16 +77,26 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Длительность аренды по умолчанию: </label>
+        <label
+          >Дней: <input type="number" name="min-days" id="min-days" value="0"
+        /></label>
+        <label
+          >Часов: <input type="number" name="min-hours" id="min-hours" value="1"
+        /></label>
+        <label
+          >Минут: <input type="number" name="min-minutes" id="min-minutes" value="30"
+        /></label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Робокасса: </label>
         <label><input type="radio" name="pay" id="pay" />Вкл.</label>
         <label><input type="radio" name="pay" id="unpay" checked />Выкл.</label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Корзина: </label>
-        <label><input type="radio" name="cart" id="cart" />Вкл.</label>
-        <label
-          ><input type="radio" name="cart" id="uncart" checked />Выкл.</label
-        >
+        <label><input type="radio" name="cart" id="cart" checked />Вкл.</label>
+        <label><input type="radio" name="cart" id="uncart" />Выкл.</label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Промокоды: </label>
@@ -320,6 +330,17 @@
         const timeEnd = document.querySelector("#timeend").value;
         if (Boolean(timeEnd?.trim()))
           elem.setAttribute("limit-time-end", timeEnd);
+
+        const minDays = document.querySelector("#min-days").value;
+        const minHours = document.querySelector("#min-hours").value;
+        const minMinutes = document.querySelector("#min-minutes").value;
+
+        if (Boolean(minDays?.trim()))
+          elem.setAttribute("default-days", minDays);
+        if (Boolean(minHours?.trim()))
+          elem.setAttribute("default-hours", minHours);
+        if (Boolean(minMinutes?.trim()))
+          elem.setAttribute("default-minutes", minMinutes);
 
         const limit = document.querySelector("#limit").value;
         if (Boolean(limit?.trim())) elem.setAttribute("limit-days", limit);

@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useCartStore = defineStore("cart", () => {
+    const delim = "___";
+
     const cart = ref({});
 
     function getKey(startDateMillis, endDateMillis) {
@@ -12,7 +14,7 @@ export const useCartStore = defineStore("cart", () => {
 
         return (
             startDateMillisSubM.toString() +
-            "_____" +
+            delim +
             endDateMillisSubM.toString()
         );
     }
@@ -26,8 +28,8 @@ export const useCartStore = defineStore("cart", () => {
         }
 
         this.cart[key] = {
-            startDate: new Date(key.split("_____")[0]),
-            endDate: new Date(key.split("_____")[1]),
+            startDate: new Date(key.split(delim)[0]),
+            endDate: new Date(key.split(delim)[1]),
             inventories: [inventoryCopy],
         };
     }

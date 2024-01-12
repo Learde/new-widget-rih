@@ -3,4 +3,7 @@ export const bookingProps = {
     limitTimeEnd: null,
     limitDays: null,
     paymentCoefficient: null,
+    defaultDays: null,
+    defaultHours: null,
+    defaultMinutes: null,
 };
