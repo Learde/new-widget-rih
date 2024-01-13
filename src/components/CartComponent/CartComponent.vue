@@ -1,19 +1,25 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { BaseButton, BaseLoading } from "@uikit";
-import { formatDateJs } from "@helpers";
+import { formatDateJs, dateJsToISO } from "@helpers";
 import {
     currencyIcon,
     generalProps,
     useCartStore,
     useClientStore,
+    useRouterStore,
 } from "@stores";
 import InventoryBookingBadge from "@/components/InventoryBooking/components/InventoryBookingBadge/InventoryBookingBadge.vue";
 import ModalBooking from "@/components/InventoryBooking/components/ModalBooking/ModalBooking.vue";
 import ModalSuccess from "@/components/ModalSuccess/ModalSuccess.vue";
 import ModalError from "@/components/ModalError/ModalError.vue";
 import PromocodeInput from "@/components/PromocodeInput/PromocodeInput.vue";
-import { calculateRents, openRent } from "@api";
+import {
+    prepareRent,
+    addInventoryToRent,
+    saveRent,
+    addClientToRent,
+} from "@api";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({
@@ -39,27 +45,27 @@ const deleteFromCart = (inv) => {
 
 const calculating = ref(false);
 const calculatedRent = ref(null);
+const sessionKey = ref(null);
 const selectedPromo = ref(null);
 const price = ref(null);
-const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
 
 const recalc = async () => {
     try {
         calculating.value = true;
-        calculatedRent.value = (
-            await calculateRents({
-                inventories: props.inventories,
-                timeStart: formatDateJs(new Date(props.startDate), format),
-                timeEnd: formatDateJs(new Date(props.endDate), format),
-                closePoint: props.inventories[0]?.point,
-                closePointId: props.inventories[0]?.point?.id,
-                openPoint: props.inventories[0]?.point,
-                openPointId: props.inventories[0]?.point?.id,
-                discount: selectedPromo.value,
-                discountId: selectedPromo.value?.id,
-            })
-        )?.data.array?.[0];
-        price.value = calculatedRent.value.sum_total;
+
+        const response = await prepareRent(
+            dateJsToISO(props.startDate),
+            dateJsToISO(props.endDate)
+        );
+        sessionKey.value = response.data.rentSessionKey;
+
+        for (let inventory of props.inventories) {
+            calculatedRent.value = await addInventoryToRent(
+                inventory,
+                sessionKey.value
+            );
+        }
+        price.value = calculatedRent.value.sum;
     } catch (e) {
         //TODO: вывести ошибку
     } finally {
@@ -74,22 +80,13 @@ const changePromo = (promo) => {
 
 const tryCreateRent = async (client) => {
     try {
-        if (calculatedRent.value) {
-            calculatedRent.value.client = client;
-            calculatedRent.value.human_id = client.id;
-            const payload = (await openRent(calculatedRent.value)).data;
-            if (payload.error !== undefined) {
-                modalError.value.show(payload.error);
-            }
-            modal.value.hide();
-            modalSuccess.value.show();
-
-            setTimeout(() => {
-                props.inventories.forEach((inv) => {
-                    deleteFromCart(inv);
-                });
-            }, 3000);
+        if (client?.human?.id) {
+            await addClientToRent(client.human.id, sessionKey.value);
         }
+
+        await saveRent(sessionKey.value);
+        modal.value.hide();
+        modalSuccess.value.show();
     } catch (e) {
         modalError.value.show(e?.response?.data?.error);
     }
@@ -107,6 +104,16 @@ const handleBook = () => {
             authModal.value.show();
         }
     }
+};
+
+const router = useRouterStore();
+const { changeRoute } = router;
+
+const goToList = () => {
+    props.inventories.forEach((inv) => {
+        deleteFromCart(inv);
+    });
+    changeRoute("inventoryList");
 };
 
 onMounted(() => {
@@ -172,7 +179,7 @@ onMounted(() => {
             @error="(error) => modalError.show(error)"
             @create-rent="tryCreateRent"
         />
-        <ModalSuccess ref="modalSuccess" />
+        <ModalSuccess ref="modalSuccess" @close="goToList" />
         <ModalError ref="modalError" />
     </div>
 </template>

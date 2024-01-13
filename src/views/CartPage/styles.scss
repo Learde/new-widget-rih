@@ -1,10 +1,16 @@
 .cart-page {
-  background-color: var(--widget-background);
+      background-color: var(--widget-background);
 
-  &__void {
-    font-size: 28px;
-    text-align: center;
-    font-weight: bold;
-    padding: 40px 0;
-  }
+      &__void {
+        font-size: 28px;
+        text-align: center;
+        font-weight: bold;
+        padding: 40px 0;
+      }
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
 }
