@@ -1,21 +1,18 @@
 <script setup>
-import { ref, computed, watch, onMounted, nextTick } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import {
-    calculateRent,
-    openRent,
     prepareRent,
     addInventoryToRent,
     setRentTime,
     saveRent,
     addClientToRent,
 } from "@api";
-import { formatDateJs, parseTimeString, dateJsToISO } from "@helpers";
+import { dateJsToISO } from "@helpers";
 import {
     generalProps,
     bookingProps,
     useCartStore,
     useClientStore,
-    useRentStore,
     useRouterStore,
 } from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
@@ -50,9 +47,6 @@ futureDate.setMinutes(futureDate.getMinutes() + bookingProps.defaultMinutes);
 
 const datetime = ref([currentDate, futureDate]);
 
-const limitTimeStart = parseTimeString(bookingProps.limitTimeStart);
-const limitTimeEnd = parseTimeString(bookingProps.limitTimeEnd);
-
 const { promocode, cart, authorization } = generalProps;
 
 const startDate = computed(() => datetime.value[0]);
@@ -67,49 +61,8 @@ const modalError = ref(null);
 const selectedPromo = ref(null);
 const datetimeKey = ref(42);
 
-const format = "yyyy-MM-dd'T'HH:mm:00ZZZ";
-
-// const recalc = async () => {
-//     try {
-//         calculating.value = true;
-//         calculatedRent.value = (
-//             await calculateRent({
-//                 inventory: props.inventory,
-//                 inventoryId: props.inventory.id,
-//                 price: props.inventory.prices[0],
-//                 priceId: props.inventory.prices[0].id,
-//                 timeStart: formatDateJs(startDate.value, format),
-//                 timeEnd: formatDateJs(endDate.value, format),
-//                 closePoint: props.inventory?.point,
-//                 closePointId: props.inventory?.point?.id,
-//                 openPoint: props.inventory?.point,
-//                 openPointId: props.inventory?.point?.id,
-//                 discount: selectedPromo.value,
-//                 discountId: selectedPromo.value?.id,
-//             })
-//         )?.data.array?.[0];
-//         sumRent.value = calculatedRent.value.sum_total;
-//     } catch (e) {
-//         //TODO: вывести ошибку
-//         console.log(e);
-//     } finally {
-//         calculating.value = false;
-//     }
-// };
-
 const tryCreateRent = async (client) => {
     try {
-        // if (calculatedRent.value) {
-        //     calculatedRent.value.client = client;
-        //     calculatedRent.value.human_id = client.id;
-        //     const payload = (await openRent(calculatedRent.value)).data;
-        //     if (payload.error !== undefined) {
-        //         modalError.value.show(payload.error);
-        //     }
-        //     modal.value.hide();
-        //     modalSuccess.value.show();
-        // }
-
         if (client?.human?.id) {
             await addClientToRent(client.human.id, sessionKey.value);
         }
@@ -122,73 +75,15 @@ const tryCreateRent = async (client) => {
     }
 };
 
-const correctLower = (limit, date, index) => {
-    if (
-        limit &&
-        typeof limit.hours === "number" &&
-        typeof limit.minutes === "number"
-    ) {
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-
-        if (
-            limit.hours > hours ||
-            (limit.hours === hours && limit.minutes > minutes)
-        ) {
-            datetime.value[index].setHours(limit.hours, limit.minutes, 0);
-        }
-    }
-};
-
-const correctUpper = () => {
-    if (
-        limitTimeEnd &&
-        typeof limitTimeEnd.hours === "number" &&
-        typeof limitTimeEnd.minutes === "number"
-    ) {
-        const hours = startDate.value.getHours();
-        const minutes = startDate.value.getMinutes();
-
-        if (
-            hours > limitTimeEnd.hours ||
-            (limitTimeEnd.hours === hours && minutes > limitTimeEnd.minutes)
-        ) {
-            datetime.value[0].setUTCDate(datetime.value[0].getUTCDate() + 1);
-            datetime.value[0].setHours(
-                limitTimeStart.hours,
-                limitTimeStart.minutes,
-                0
-            );
-            datetime.value[1].setUTCDate(datetime.value[1].getUTCDate() + 1);
-            datetime.value[1].setHours(
-                limitTimeEnd.hours,
-                limitTimeEnd.minutes,
-                0
-            );
-        }
-    }
-};
-
-const correctCurrentDates = () => {
-    correctLower(limitTimeStart, startDate.value, 0);
-    correctLower(limitTimeStart, endDate.value, 1);
-
-    correctUpper();
-
-    nextTick().then(() => {
-        datetimeKey.value++;
-    });
-};
-
 watch(datetime, async () => {
     calculating.value = true;
 
-    calculateRent.value = await setRentTime(
+    calculatedRent.value = await setRentTime(
         dateJsToISO(datetime.value[0]),
         dateJsToISO(datetime.value[1]),
         sessionKey.value
     );
-    sumRent.value = calculateRent.value.sum;
+    sumRent.value = calculatedRent.value.sum;
 
     calculating.value = false;
     updateIncludes();
@@ -203,11 +98,11 @@ onMounted(async () => {
     );
     sessionKey.value = response.data.rentSessionKey;
 
-    calculateRent.value = await addInventoryToRent(
+    calculatedRent.value = await addInventoryToRent(
         props.inventory,
         sessionKey.value
     );
-    sumRent.value = calculateRent.value.sum;
+    sumRent.value = calculatedRent.value.sum;
 
     calculating.value = false;
 
