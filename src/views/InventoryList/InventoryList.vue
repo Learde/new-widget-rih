@@ -83,33 +83,37 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="inv-list container">
+    <div class="inv-list container" :class="filterProps.filtersPosition">
         <TheHeader @reload="reloadInventories" />
-        <div class="inv-list__list">
-            <div v-if="shouldFillFilters" class="inv-list__required">
-                {{ trans["please_select"] }}
-                <span style="font-weight: bold">{{ requiredFiltersText }}</span>
+        <div class="inv-list__container">
+            <div class="inv-list__list">
+                <div v-if="shouldFillFilters" class="inv-list__required">
+                    {{ trans["please_select"] }}
+                    <span style="font-weight: bold">{{
+                        requiredFiltersText
+                    }}</span>
+                </div>
+                <BaseLoading v-else-if="loading" />
+                <template v-else>
+                    <InventoryCard
+                        v-for="inv in inventories"
+                        :key="inv.id"
+                        :title="inv.title"
+                        :id="inv.id"
+                        :category="inv?.category?.title"
+                        :prices="inv.prices"
+                        :image="inv.avatar"
+                    />
+                </template>
             </div>
-            <BaseLoading v-else-if="loading" />
-            <template v-else>
-                <InventoryCard
-                    v-for="inv in inventories"
-                    :key="inv.id"
-                    :title="inv.title"
-                    :id="inv.id"
-                    :category="inv?.category?.title"
-                    :prices="inv.prices"
-                    :image="inv.avatar"
+            <div class="inv-list__pagination">
+                <BasePagination
+                    :page-count="totalPages"
+                    :click-handler="changePage"
+                    prev-text="<"
+                    next-text=">"
                 />
-            </template>
-        </div>
-        <div class="inv-list__pagination">
-            <BasePagination
-                :page-count="totalPages"
-                :click-handler="changePage"
-                prev-text="<"
-                next-text=">"
-            />
+            </div>
         </div>
     </div>
 </template>

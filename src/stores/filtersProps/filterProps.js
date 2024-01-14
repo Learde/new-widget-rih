@@ -4,6 +4,7 @@ const filterProps = {
     hideFilterDate: null,
     hideFilters: null,
     requiredFilters: null,
+    filtersPosition: null,
 };
 
 export { filterProps };

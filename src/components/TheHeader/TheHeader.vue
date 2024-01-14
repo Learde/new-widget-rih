@@ -34,7 +34,11 @@ const isTwoHidden = computed(() => {
 </script>
 
 <template>
-    <header class="header" v-if="!hideFilters">
+    <header
+        class="header"
+        :class="filterProps.filtersPosition"
+        v-if="!hideFilters"
+    >
         <div
             class="header__filters"
             :class="{ 'header__filters--two': isTwoHidden }"

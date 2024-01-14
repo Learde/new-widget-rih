@@ -19,4 +19,8 @@ export default {
         type: String,
         default: null,
     },
+    filtersPosition: {
+        type: String,
+        default: "top",
+    },
 };

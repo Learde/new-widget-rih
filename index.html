@@ -65,6 +65,13 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Расположение фильтров: </label>
+        <label><input type="radio" name="filters-position" id="pos-up" />Сверху</label>
+        <label
+          ><input type="radio" name="filters-position" id="pos-left" checked />Слева</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Паспортные данные: </label>
         <label><input type="radio" name="passport" id="passport" />Вкл.</label>
         <label
@@ -267,6 +274,16 @@
         const hasAuth = document.querySelector("#auth").checked;
         if (hasAuth) {
           elem.setAttribute("authorization", "");
+        }
+
+        const isPosLeft = document.querySelector("#pos-left").checked;
+        if (isPosLeft) {
+          elem.setAttribute("filters-position", "left");
+        }
+
+        const isPosUp = document.querySelector("#pos-up").checked;
+        if (isPosUp) {
+          elem.setAttribute("filters-position", "top");
         }
 
         const hasPassport = document.querySelector("#passport").checked;
