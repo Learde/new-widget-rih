@@ -76,8 +76,6 @@
     }
 
     &__item {
-        cursor: pointer;
-
         &--no-children {
             margin-left: 21px;
         }
@@ -87,6 +85,7 @@
         margin-right: 8px;
         transition: all 0.2s;
         transform: rotate(0);
+        cursor: pointer;
 
         &.active {
             transform: rotate(180deg);
