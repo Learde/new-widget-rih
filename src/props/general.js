@@ -56,4 +56,8 @@ export default {
         type: String,
         default: "ru",
     },
+    shouldUseImgTag: {
+        type: Boolean,
+        default: false,
+    }
 };

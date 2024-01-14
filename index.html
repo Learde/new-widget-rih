@@ -65,6 +65,13 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Использовать img (то есть картинка в ее реальных размерах без обрезания): </label>
+        <label><input type="radio" name="use-img" id="use-img" checked />Да</label>
+        <label
+          ><input type="radio" name="use-img" id="dont-use-img" />Нет</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Расположение фильтров: </label>
         <label
           ><input
@@ -363,6 +370,11 @@
         const hasRounded = document.querySelector("#rounded").checked;
         if (hasRounded) {
           elem.setAttribute("rounded-card-avatar", "");
+        }
+
+        const shouldUseImgTag = document.querySelector("#use-img").checked;
+        if (shouldUseImgTag) {
+          elem.setAttribute("should-use-img-tag", "");
         }
 
         const category = document.querySelector("#category").value;

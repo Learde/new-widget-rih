@@ -13,6 +13,7 @@ const generalProps = {
     hiddenCategories: null,
     routeAfterPay: null,
     showModalAfterPay: null,
+    shouldUseImgTag: null,
 };
 
 export { generalProps };

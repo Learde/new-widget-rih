@@ -36,7 +36,7 @@ const [price, period] = getMinimumPriceFromArray(props.prices);
 const categoryLength = 25;
 const titleLength = 35;
 
-const { roundedCardAvatar } = generalProps;
+const { roundedCardAvatar, shouldUseImgTag } = generalProps;
 if (roundedCardAvatar) {
     setImageCover("cover");
 }
@@ -47,7 +47,17 @@ if (roundedCardAvatar) {
         <span v-if="category" class="inv-card__category">
             {{ stringEscape(category, categoryLength) }}
         </span>
+        <img
+            v-if="shouldUseImgTag"
+            class="inv-card__image inv-card__image--real"
+            :class="{
+                'inv-card__image--mt': !category,
+                'inv-card__image--rounded': roundedCardAvatar,
+            }"
+            :src="MEDIA + image"
+        />
         <div
+            v-else
             class="inv-card__image"
             :class="{
                 'inv-card__image--mt': !category,
@@ -59,10 +69,16 @@ if (roundedCardAvatar) {
             }"
             @click="changeRoute('inventoryPage', { inventoryId: id })"
         ></div>
-        <h3 class="inv-card__heading">
+        <h3
+            class="inv-card__heading"
+            :class="{ 'inv-card__heading--real-img': shouldUseImgTag }"
+        >
             {{ stringEscape(title, titleLength) }}
         </h3>
-        <div class="inv-card__info">
+        <div
+            class="inv-card__info"
+            :class="{ 'inv-card__info--real-img': shouldUseImgTag }"
+        >
             <span class="inv-card__price" v-if="prices">
                 {{ trans["from"] }} {{ price }}
                 <component
