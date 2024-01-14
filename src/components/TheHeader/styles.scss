@@ -65,3 +65,31 @@
         width: 100%;
     }
 }
+
+.filter-category-item {
+    font-size: 14px;
+    margin-top: 8px;
+
+    &__children {
+        margin-left: 20px;
+        margin-top: 8px;
+    }
+
+    &__item {
+        cursor: pointer;
+
+        &--no-children {
+            margin-left: 21px;
+        }
+    }
+
+    &__toggle {
+        margin-right: 8px;
+        transition: all 0.2s;
+        transform: rotate(0);
+
+        &.active {
+            transform: rotate(180deg);
+        }
+    }
+}

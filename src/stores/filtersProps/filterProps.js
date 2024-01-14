@@ -5,6 +5,7 @@ const filterProps = {
     hideFilters: null,
     requiredFilters: null,
     filtersPosition: null,
+    categoryFilterType: null,
 };
 
 export { filterProps };

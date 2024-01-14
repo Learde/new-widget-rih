@@ -1,5 +1,6 @@
 export {
     IconAngleRight,
+    IconAngleDown,
     IconRubleSign,
     IconShekelSign,
     IconLariSign,

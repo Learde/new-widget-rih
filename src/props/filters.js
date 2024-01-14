@@ -23,4 +23,8 @@ export default {
         type: String,
         default: "top",
     },
+    categoryFilterType: {
+        type: String,
+        default: "default",
+    },
 };

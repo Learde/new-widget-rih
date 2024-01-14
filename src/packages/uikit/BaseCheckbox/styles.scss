@@ -4,6 +4,12 @@
   column-gap: 8px;
   align-items: center;
 
+    &.primary {
+        & svg {
+            color: var(--widget-primary) !important;
+        }
+    }
+
   &__field {
     cursor: pointer;
     width: 18px;

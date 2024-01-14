@@ -5,6 +5,7 @@ import { BaseButton } from "@uikit";
 import { filterProps } from "@stores";
 import { useTrans } from "@packages/lang";
 import FilterCategory from "./filters/FilterCategory.vue";
+import FilterCategoryInline from "./filters/FilterCategoryInline.vue";
 import FilterPoint from "./filters/FilterPoint.vue";
 import FilterDate from "./filters/FilterDate.vue";
 
@@ -23,8 +24,13 @@ const emitReload = () => {
     emit("reload", filter.value);
 };
 
-const { hideFilterCategory, hideFilterDate, hideFilterPoint, hideFilters } =
-    filterProps;
+const {
+    hideFilterCategory,
+    hideFilterDate,
+    hideFilterPoint,
+    hideFilters,
+    categoryFilterType,
+} = filterProps;
 
 const isTwoHidden = computed(() => {
     return (hideFilterCategory && hideFilterPoint) || hideFilterDate;
@@ -44,7 +50,7 @@ const isTwoHidden = computed(() => {
             :class="{ 'header__filters--two': isTwoHidden }"
         >
             <FilterCategory
-                v-if="!hideFilterCategory"
+                v-if="!hideFilterCategory && categoryFilterType === 'default'"
                 v-model="filter.categoryIds"
             />
             <FilterPoint v-if="!hideFilterPoint" v-model="filter.pointIds" />
@@ -62,6 +68,10 @@ const isTwoHidden = computed(() => {
             >
                 {{ trans["date_end"] }}
             </FilterDate>
+            <FilterCategoryInline
+                v-if="!hideFilterCategory && categoryFilterType === 'inline'"
+                v-model="filter.categoryIds"
+            />
         </div>
         <BaseButton class="header__show-btn" @click="emitReload">
             {{ trans["show"] }}

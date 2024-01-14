@@ -66,9 +66,38 @@
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Расположение фильтров: </label>
-        <label><input type="radio" name="filters-position" id="pos-up" />Сверху</label>
         <label
-          ><input type="radio" name="filters-position" id="pos-left" checked />Слева</label
+          ><input
+            type="radio"
+            name="filters-position"
+            id="pos-up"
+          />Сверху</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="filters-position"
+            id="pos-left"
+            checked
+          />Слева</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Фильтр по категориям: </label>
+        <label
+          ><input
+            type="radio"
+            name="category-filter-type"
+            id="category-select"
+          />Выпадающий список</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="category-filter-type"
+            id="category-inline"
+            checked
+          />Встроенный список</label
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
@@ -89,10 +118,12 @@
           >Дней: <input type="number" name="min-days" id="min-days" value="0"
         /></label>
         <label
-          >Часов: <input type="number" name="min-hours" id="min-hours" value="1"
+          >Часов:
+          <input type="number" name="min-hours" id="min-hours" value="1"
         /></label>
         <label
-          >Минут: <input type="number" name="min-minutes" id="min-minutes" value="30"
+          >Минут:
+          <input type="number" name="min-minutes" id="min-minutes" value="30"
         /></label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
@@ -284,6 +315,14 @@
         const isPosUp = document.querySelector("#pos-up").checked;
         if (isPosUp) {
           elem.setAttribute("filters-position", "top");
+        }
+
+        const isCategoryInline =
+          document.querySelector("#category-inline").checked;
+        if (isCategoryInline) {
+          elem.setAttribute("category-filter-type", "inline");
+        } else {
+          elem.setAttribute("category-filter-type", "default");
         }
 
         const hasPassport = document.querySelector("#passport").checked;

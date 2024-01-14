@@ -10,6 +10,10 @@ const props = defineProps({
         default: null,
     },
     modelValue: Boolean,
+    primaryColor: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const checked = computed({
@@ -23,7 +27,11 @@ const checked = computed({
 </script>
 
 <template>
-    <div class="base-checkbox" @click="checked = !checked">
+    <div
+        class="base-checkbox"
+        :class="{ primary: primaryColor }"
+        @click="checked = !checked"
+    >
         <div
             class="base-checkbox__field"
             :class="{ 'base-checkbox__field--checked': checked }"
