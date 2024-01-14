@@ -8,6 +8,7 @@ import TheHeader from "@/components/TheHeader/TheHeader.vue";
 import { BaseLoading, BasePagination } from "@uikit";
 import { checkRequiredFilters, getRequiredText } from "./lib/requiredFilters";
 import { useTrans } from "@packages/lang";
+import { debounce } from "lodash";
 
 const { trans } = useTrans();
 
@@ -64,6 +65,7 @@ const reloadInventories = async (filter = {}) => {
         ).data;
         inventories.value = inventoriesResponse.data;
         total.value = inventoriesResponse.meta.total;
+        handleResizing();
     } catch (e) {
         // TODO: сообщение об ошибке
         console.log(e.message);
@@ -77,6 +79,38 @@ const changePage = (page) => {
     reloadInventories();
 };
 
+const listContainer = ref(null);
+
+const handleResizing = () => {
+    // const listContainer = document.querySelector(".inv-list__container");
+    listContainer.value.classList.add("inv-list__container--xs");
+
+    if (listContainer.value.clientWidth < 700) {
+        listContainer.value.classList.remove(
+            "inv-list__container--md",
+            "inv-list__container--xs"
+        );
+        listContainer.value.classList.add("inv-list__container--sm");
+    } else if (listContainer.value.clientWidth <= 1045) {
+        listContainer.value.classList.remove(
+            "inv-list__container--sm",
+            "inv-list__container--xs"
+        );
+        listContainer.value.classList.add("inv-list__container--md");
+    } else {
+        listContainer.value.classList.remove(
+            "inv-list__container--sm",
+            "inv-list__container--md",
+            "inv-list__container--xs"
+        );
+    }
+};
+const handleResizingDebounced = debounce(handleResizing, 300, {
+    maxWait: 1000,
+});
+
+window.addEventListener("resize", handleResizingDebounced);
+
 onMounted(() => {
     reloadInventories();
 });
@@ -85,7 +119,7 @@ onMounted(() => {
 <template>
     <div class="inv-list container" :class="filterProps.filtersPosition">
         <TheHeader @reload="reloadInventories" />
-        <div class="inv-list__container">
+        <div class="inv-list__container" ref="listContainer">
             <div class="inv-list__list">
                 <div v-if="shouldFillFilters" class="inv-list__required">
                     {{ trans["please_select"] }}
