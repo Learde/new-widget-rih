@@ -5,7 +5,7 @@
     <link rel="icon" href="/new-widget-rih/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <script type="module" crossorigin src="/new-widget-rih/assets/index.49bc7155.js"></script>
+    <script type="module" crossorigin src="/new-widget-rih/assets/index.3e4f296f.js"></script>
   </head>
   <body>
     <!--    <rih-widget-->
@@ -66,6 +66,49 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Использовать img (то есть картинка в ее реальных размерах без обрезания): </label>
+        <label><input type="radio" name="use-img" id="use-img" checked />Да</label>
+        <label
+          ><input type="radio" name="use-img" id="dont-use-img" />Нет</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Расположение фильтров: </label>
+        <label
+          ><input
+            type="radio"
+            name="filters-position"
+            id="pos-up"
+          />Сверху</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="filters-position"
+            id="pos-left"
+            checked
+          />Слева</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Фильтр по категориям: </label>
+        <label
+          ><input
+            type="radio"
+            name="category-filter-type"
+            id="category-select"
+          />Выпадающий список</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="category-filter-type"
+            id="category-inline"
+            checked
+          />Встроенный список</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Паспортные данные: </label>
         <label><input type="radio" name="passport" id="passport" />Вкл.</label>
         <label
@@ -78,16 +121,28 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Длительность аренды по умолчанию: </label>
+        <label
+          >Дней: <input type="number" name="min-days" id="min-days" value="0"
+        /></label>
+        <label
+          >Часов:
+          <input type="number" name="min-hours" id="min-hours" value="1"
+        /></label>
+        <label
+          >Минут:
+          <input type="number" name="min-minutes" id="min-minutes" value="30"
+        /></label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Робокасса: </label>
         <label><input type="radio" name="pay" id="pay" />Вкл.</label>
         <label><input type="radio" name="pay" id="unpay" checked />Выкл.</label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Корзина: </label>
-        <label><input type="radio" name="cart" id="cart" />Вкл.</label>
-        <label
-          ><input type="radio" name="cart" id="uncart" checked />Выкл.</label
-        >
+        <label><input type="radio" name="cart" id="cart" checked />Вкл.</label>
+        <label><input type="radio" name="cart" id="uncart" />Выкл.</label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Промокоды: </label>
@@ -260,6 +315,24 @@
           elem.setAttribute("authorization", "");
         }
 
+        const isPosLeft = document.querySelector("#pos-left").checked;
+        if (isPosLeft) {
+          elem.setAttribute("filters-position", "left");
+        }
+
+        const isPosUp = document.querySelector("#pos-up").checked;
+        if (isPosUp) {
+          elem.setAttribute("filters-position", "top");
+        }
+
+        const isCategoryInline =
+          document.querySelector("#category-inline").checked;
+        if (isCategoryInline) {
+          elem.setAttribute("category-filter-type", "inline");
+        } else {
+          elem.setAttribute("category-filter-type", "default");
+        }
+
         const hasPassport = document.querySelector("#passport").checked;
         if (hasPassport) {
           elem.setAttribute("passport", "");
@@ -300,6 +373,11 @@
           elem.setAttribute("rounded-card-avatar", "");
         }
 
+        const shouldUseImgTag = document.querySelector("#use-img").checked;
+        if (shouldUseImgTag) {
+          elem.setAttribute("should-use-img-tag", "");
+        }
+
         const category = document.querySelector("#category").value;
         if (Boolean(category?.trim()))
           elem.setAttribute("hidden-categories", category);
@@ -321,6 +399,17 @@
         const timeEnd = document.querySelector("#timeend").value;
         if (Boolean(timeEnd?.trim()))
           elem.setAttribute("limit-time-end", timeEnd);
+
+        const minDays = document.querySelector("#min-days").value;
+        const minHours = document.querySelector("#min-hours").value;
+        const minMinutes = document.querySelector("#min-minutes").value;
+
+        if (Boolean(minDays?.trim()))
+          elem.setAttribute("default-days", minDays);
+        if (Boolean(minHours?.trim()))
+          elem.setAttribute("default-hours", minHours);
+        if (Boolean(minMinutes?.trim()))
+          elem.setAttribute("default-minutes", minMinutes);
 
         const limit = document.querySelector("#limit").value;
         if (Boolean(limit?.trim())) elem.setAttribute("limit-days", limit);
