@@ -1,9 +1,12 @@
 <script setup>
-import { ref, computed } from "vue";
+import { debounce } from "lodash";
+import { ref, computed, onMounted } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 
 const props = defineProps({
     images: Array,
+    height: Number,
+    heightMobile: Number,
 });
 
 const count = computed(() => {
@@ -17,7 +20,19 @@ const slideTo = (val) => {
     currentSlide.value = val;
 };
 
+const actualHeight = ref(props.height);
+const checkWidth = () => {
+    if (window.innerWidth < 500) {
+        actualHeight.value = props.heightMobile;
+    } else {
+        actualHeight.value = props.height;
+    }
+};
+const debouncedCheckWidth = debounce(checkWidth, 300);
 const MEDIA = "https://media.rentinhand.ru";
+
+window.addEventListener("resize", debouncedCheckWidth);
+onMounted(checkWidth);
 </script>
 
 <template>
@@ -32,7 +47,10 @@ const MEDIA = "https://media.rentinhand.ru";
             <Slide v-for="image in images" :key="image.media_id">
                 <div
                     class="carousel__item"
-                    :style="{ 'background-image': `url(${MEDIA + image.src})` }"
+                    :style="{
+                        'background-image': `url(${MEDIA + image.src})`,
+                        height: actualHeight + 'px',
+                    }"
                 ></div>
             </Slide>
         </Carousel>

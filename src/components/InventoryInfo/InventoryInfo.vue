@@ -3,7 +3,7 @@ import { generalProps, MEDIA } from "@stores";
 import InventoryPrices from "@/components/InventoryPrices/InventoryPrices.vue";
 import { ImageGallery } from "@uikit";
 
-const { gallery } = generalProps;
+const { gallery, galleryHeight } = generalProps;
 
 defineProps({
     title: String,
@@ -31,6 +31,8 @@ defineProps({
     <div class="inventory-info container">
         <ImageGallery
             class="inventory-info__gallery"
+            :height="galleryHeight"
+            :height-mobile="(galleryHeight * 2) / 3"
             :images="media"
             v-if="gallery"
         />

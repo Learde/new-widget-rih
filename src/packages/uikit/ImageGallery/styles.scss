@@ -46,14 +46,9 @@
 
   &__main {
     .carousel__item {
-      min-height: 300px;
       width: 100%;
       border-radius: 8px;
       margin-bottom: 15px;
-
-      @media (max-width: 500px) {
-        min-height: 200px;
-      }
     }
   }
 }

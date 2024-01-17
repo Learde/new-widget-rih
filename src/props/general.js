@@ -36,6 +36,10 @@ export default {
         type: Boolean,
         default: false,
     },
+    galleryHeight: {
+        type: Number,
+        default: 300,
+    },
     roundedCardAvatar: {
         type: Boolean,
         default: false,
@@ -59,5 +63,5 @@ export default {
     shouldUseImgTag: {
         type: Boolean,
         default: false,
-    }
+    },
 };

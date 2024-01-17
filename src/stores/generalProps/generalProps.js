@@ -9,6 +9,7 @@ const generalProps = {
     mail: null,
     sorting: null,
     gallery: null,
+    galleryHeight: null,
     roundedCardAvatar: null,
     hiddenCategories: null,
     routeAfterPay: null,
