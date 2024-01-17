@@ -51,7 +51,7 @@ if (roundedCardAvatar) {
             v-if="shouldUseImgTag"
             class="inv-card__image inv-card__image--real"
             :class="{
-                'inv-card__image--mt': !category,
+                'inv-card__image--mt': category,
                 'inv-card__image--rounded': roundedCardAvatar,
             }"
             :src="MEDIA + image"
@@ -60,7 +60,7 @@ if (roundedCardAvatar) {
             v-else
             class="inv-card__image"
             :class="{
-                'inv-card__image--mt': !category,
+                'inv-card__image--mt': category,
                 'inv-card__image--rounded': roundedCardAvatar,
             }"
             :style="{
