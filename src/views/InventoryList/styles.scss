@@ -4,7 +4,9 @@
     flex-direction: column;
 
     &.left {
-        flex-direction: row;
+        @media (min-width: 850px) {
+            flex-direction: row;
+        }
     }
 
     &__container {

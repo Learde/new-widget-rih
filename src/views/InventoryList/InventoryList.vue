@@ -84,7 +84,6 @@ const listContainer = ref(null);
 const handleResizing = () => {
     // const listContainer = document.querySelector(".inv-list__container");
     listContainer.value.classList.add("inv-list__container--xs");
-
     if (listContainer.value.clientWidth < 700) {
         listContainer.value.classList.remove(
             "inv-list__container--md",
