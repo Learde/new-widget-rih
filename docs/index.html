@@ -5,7 +5,7 @@
     <link rel="icon" href="/new-widget-rih/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <script type="module" crossorigin src="/new-widget-rih/assets/index.3e4f296f.js"></script>
+    <script type="module" crossorigin src="/new-widget-rih/assets/index.f80b07dc.js"></script>
   </head>
   <body>
     <!--    <rih-widget-->
@@ -66,8 +66,13 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
-        <label>Использовать img (то есть картинка в ее реальных размерах без обрезания): </label>
-        <label><input type="radio" name="use-img" id="use-img" checked />Да</label>
+        <label
+          >Использовать img (то есть картинка в ее реальных размерах без
+          обрезания):
+        </label>
+        <label
+          ><input type="radio" name="use-img" id="use-img" checked />Да</label
+        >
         <label
           ><input type="radio" name="use-img" id="dont-use-img" />Нет</label
         >
@@ -178,6 +183,16 @@
         <label><input type="radio" name="gallery" id="ungallery" />Выкл.</label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label
+          >Высота галереи:
+          <input
+            type="number"
+            name="gallery-height"
+            id="gallery-height"
+            value="300"
+        /></label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label>Скругленные края у фоток: </label>
         <label
           ><input type="radio" name="rounded" id="rounded" checked />Вкл.</label
@@ -186,7 +201,7 @@
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Скрытые категории (id ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА): </label>
-        <input type="text" value="199046" id="category" style="width: 100%" />
+        <input type="text" value="" id="category" style="width: 100%" />
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Какая страница после оплаты: </label>
@@ -410,6 +425,10 @@
           elem.setAttribute("default-hours", minHours);
         if (Boolean(minMinutes?.trim()))
           elem.setAttribute("default-minutes", minMinutes);
+
+        const galleryHeight = document.querySelector("#gallery-height").value;
+        if (Boolean(galleryHeight?.trim()))
+          elem.setAttribute("gallery-height", galleryHeight);
 
         const limit = document.querySelector("#limit").value;
         if (Boolean(limit?.trim())) elem.setAttribute("limit-days", limit);
