@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from "node:url";
+import { resolve } from "path";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -28,6 +29,12 @@ export default defineConfig({
     },
     build: {
         rollupOptions: {
+            input: {
+                main: resolve(__dirname, "index.html"),
+                prod: resolve(__dirname, "prod/index.html"),
+                staging: resolve(__dirname, "staging/index.html"),
+                local: resolve(__dirname, "local/index.html"),
+            },
             output: {
                 manualChunks: undefined,
             },
