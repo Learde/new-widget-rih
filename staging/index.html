@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(staging) RIH Widget</title>
+  </head>
+  <body>
+    <div
+      style="
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-family: Arial;
+      "
+    >
+      <button id="update2" style="height: 50px; cursor: pointer">
+        СОЗДАТЬ ВИДЖЕТ
+      </button>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Токен: </label>
+        <input
+          type="text"
+          id="token"
+          value="oFydZpjyTYlzTK8M8ZVDDENlCNLCxxy7"
+          style="width: 100%"
+        />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Сервер: </label>
+        <label><input type="radio" name="server" id="dev" />Дев</label>
+        <label
+          ><input type="radio" name="server" id="prod" checked />Прод</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Локаль (ru, en): </label>
+        <input type="text" id="locale" value="ru" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Авторизация и профиль: </label>
+        <label><input type="radio" name="auth" id="auth" />Вкл.</label>
+        <label
+          ><input type="radio" name="auth" id="unauth" checked />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label
+          >Использовать img (то есть картинка в ее реальных размерах без
+          обрезания):
+        </label>
+        <label
+          ><input type="radio" name="use-img" id="use-img" checked />Да</label
+        >
+        <label
+          ><input type="radio" name="use-img" id="dont-use-img" />Нет</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Расположение фильтров: </label>
+        <label
+          ><input
+            type="radio"
+            name="filters-position"
+            id="pos-up"
+          />Сверху</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="filters-position"
+            id="pos-left"
+            checked
+          />Слева</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Фильтр по категориям: </label>
+        <label
+          ><input
+            type="radio"
+            name="category-filter-type"
+            id="category-select"
+          />Выпадающий список</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="category-filter-type"
+            id="category-inline"
+            checked
+          />Встроенный список</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Паспортные данные: </label>
+        <label><input type="radio" name="passport" id="passport" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="passport"
+            id="unpassport"
+            checked
+          />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Длительность аренды по умолчанию: </label>
+        <label
+          >Дней: <input type="number" name="min-days" id="min-days" value="0"
+        /></label>
+        <label
+          >Часов:
+          <input type="number" name="min-hours" id="min-hours" value="1"
+        /></label>
+        <label
+          >Минут:
+          <input type="number" name="min-minutes" id="min-minutes" value="30"
+        /></label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Робокасса: </label>
+        <label><input type="radio" name="pay" id="pay" />Вкл.</label>
+        <label><input type="radio" name="pay" id="unpay" checked />Выкл.</label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Корзина: </label>
+        <label><input type="radio" name="cart" id="cart" checked />Вкл.</label>
+        <label><input type="radio" name="cart" id="uncart" />Выкл.</label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Промокоды: </label>
+        <label><input type="radio" name="promo" id="promo" />Вкл.</label>
+        <label
+          ><input type="radio" name="promo" id="unpromo" checked />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Уведомления на почту: </label>
+        <label><input type="radio" name="mail" id="mail" />Вкл.</label>
+        <label
+          ><input type="radio" name="mail" id="unmail" checked />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Сортировка(?): </label>
+        <label><input type="radio" name="sorting" id="sorting" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="sorting"
+            id="unsorting"
+            checked
+          />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Галерея на странице инвентаря: </label>
+        <label
+          ><input type="radio" name="gallery" id="gallery" checked />Вкл.</label
+        >
+        <label><input type="radio" name="gallery" id="ungallery" />Выкл.</label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label
+          >Высота галереи:
+          <input
+            type="number"
+            name="gallery-height"
+            id="gallery-height"
+            value="300"
+        /></label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Скругленные края у фоток: </label>
+        <label
+          ><input type="radio" name="rounded" id="rounded" checked />Вкл.</label
+        >
+        <label><input type="radio" name="rounded" id="unrounded" />Выкл.</label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Скрытые категории (id ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА): </label>
+        <input type="text" value="" id="category" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Какая страница после оплаты: </label>
+        <label
+          ><input type="radio" name="route" id="route" checked />Профиль</label
+        >
+        <label
+          ><input type="radio" name="route" id="unroute" />Список
+          инвентаря</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Модальное окно с галочкой после оплаты: </label>
+        <label
+          ><input type="radio" name="modal" id="modal" checked />Вкл.</label
+        >
+        <label><input type="radio" name="modal" id="unmodal" />Выкл.</label>
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Ограничение даты начала аренды: </label>
+        <input type="text" value="0:00" id="timestart" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Ограничение даты конца аренды: </label>
+        <input type="text" value="23:59" id="timeend" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Максимальный промежуток аренды в днях: </label>
+        <input type="text" value="5" id="limit" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Коэффициент для оплаты (от 0 до 1, 0.5 = 50%): </label>
+        <input type="text" value="1" id="coeff" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Скрыть фильтр по категории: </label>
+        <label><input type="radio" name="f-cat" id="f-cat" />Вкл.</label>
+        <label
+          ><input type="radio" name="f-cat" id="unf-cat" checked />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Скрыть фильтр по точке проката: </label>
+        <label><input type="radio" name="f-point" id="f-point" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="f-point"
+            id="unf-point"
+            checked
+          />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Скрыть фильтр по датам: </label>
+        <label><input type="radio" name="f-dat" id="f-dat" />Вкл.</label>
+        <label
+          ><input type="radio" name="f-dat" id="unf-dat" checked />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Скрыть все фильтры: </label>
+        <label><input type="radio" name="f-hide" id="f-hide" />Вкл.</label>
+        <label
+          ><input
+            type="radio"
+            name="f-hide"
+            id="unf-hide"
+            checked
+          />Выкл.</label
+        >
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label
+          >Обязательные фильтры ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА (значения: point
+          category dateStart dateEnd):
+        </label>
+        <input type="text" value="" id="require" style="width: 100%" />
+      </div>
+      <div style="font-style: italic">
+        Ниже цвета в формате HEX (#чччччч, где ч - число в 16ричной системе)
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Главный цвет: </label>
+        <input type="text" value="#2e55b9" id="prim" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Главный фоновый цвет: </label>
+        <input type="text" value="#fafafa" id="back" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Вторичный фоновый цвет: </label>
+        <input
+          type="text"
+          value="#ffffff"
+          id="secondback"
+          style="width: 100%"
+        />
+      </div>
+      <button id="update" style="height: 50px; cursor: pointer">
+        СОЗДАТЬ ВИДЖЕТ
+      </button>
+      <div>Сгенерированный код для виджета:</div>
+      <div id="code"></div>
+    </div>
+
+    <script>
+      const btn = document.querySelector("#update");
+      const btn2 = document.querySelector("#update2");
+      const reloadWidget = () => {
+        const elem = document.createElement("rih-widget");
+
+        const token = document.querySelector("#token").value;
+        elem.setAttribute("token", token);
+
+        const locale = document.querySelector("#locale").value;
+        elem.setAttribute("locale", locale);
+
+        const hasDev = document.querySelector("#dev").checked;
+        if (hasDev) {
+          elem.setAttribute("dev-server", "");
+        }
+
+        const hasAuth = document.querySelector("#auth").checked;
+        if (hasAuth) {
+          elem.setAttribute("authorization", "");
+        }
+
+        const isPosLeft = document.querySelector("#pos-left").checked;
+        if (isPosLeft) {
+          elem.setAttribute("filters-position", "left");
+        }
+
+        const isPosUp = document.querySelector("#pos-up").checked;
+        if (isPosUp) {
+          elem.setAttribute("filters-position", "top");
+        }
+
+        const isCategoryInline =
+          document.querySelector("#category-inline").checked;
+        if (isCategoryInline) {
+          elem.setAttribute("category-filter-type", "inline");
+        } else {
+          elem.setAttribute("category-filter-type", "default");
+        }
+
+        const hasPassport = document.querySelector("#passport").checked;
+        if (hasPassport) {
+          elem.setAttribute("passport", "");
+        }
+
+        const hasPay = document.querySelector("#pay").checked;
+        if (hasPay) {
+          elem.setAttribute("payable", "");
+        }
+
+        const hasCart = document.querySelector("#cart").checked;
+        if (hasCart) {
+          elem.setAttribute("cart", "");
+        }
+
+        const hasPromo = document.querySelector("#promo").checked;
+        if (hasPromo) {
+          elem.setAttribute("promocode", "");
+        }
+
+        const hasMail = document.querySelector("#mail").checked;
+        if (hasMail) {
+          elem.setAttribute("mail", "");
+        }
+
+        const hasSorting = document.querySelector("#sorting").checked;
+        if (hasSorting) {
+          elem.setAttribute("sorting", "");
+        }
+
+        const hasGallery = document.querySelector("#gallery").checked;
+        if (hasGallery) {
+          elem.setAttribute("gallery", "");
+        }
+
+        const hasRounded = document.querySelector("#rounded").checked;
+        if (hasRounded) {
+          elem.setAttribute("rounded-card-avatar", "");
+        }
+
+        const shouldUseImgTag = document.querySelector("#use-img").checked;
+        if (shouldUseImgTag) {
+          elem.setAttribute("should-use-img-tag", "");
+        }
+
+        const category = document.querySelector("#category").value;
+        if (Boolean(category?.trim()))
+          elem.setAttribute("hidden-categories", category);
+
+        const hasRoute = document.querySelector("#route").checked;
+        if (hasRoute) {
+          elem.setAttribute("route-after-pay", "personalProfile");
+        }
+
+        const hasModal = document.querySelector("#modal").checked;
+        if (hasModal) {
+          elem.setAttribute("show-modal-after-pay", "");
+        }
+
+        const timeStart = document.querySelector("#timestart").value;
+        if (Boolean(timeStart?.trim()))
+          elem.setAttribute("limit-time-start", timeStart);
+
+        const timeEnd = document.querySelector("#timeend").value;
+        if (Boolean(timeEnd?.trim()))
+          elem.setAttribute("limit-time-end", timeEnd);
+
+        const minDays = document.querySelector("#min-days").value;
+        const minHours = document.querySelector("#min-hours").value;
+        const minMinutes = document.querySelector("#min-minutes").value;
+
+        if (Boolean(minDays?.trim()))
+          elem.setAttribute("default-days", minDays);
+        if (Boolean(minHours?.trim()))
+          elem.setAttribute("default-hours", minHours);
+        if (Boolean(minMinutes?.trim()))
+          elem.setAttribute("default-minutes", minMinutes);
+
+        const galleryHeight = document.querySelector("#gallery-height").value;
+        if (Boolean(galleryHeight?.trim()))
+          elem.setAttribute("gallery-height", galleryHeight);
+
+        const limit = document.querySelector("#limit").value;
+        if (Boolean(limit?.trim())) elem.setAttribute("limit-days", limit);
+
+        const coeff = document.querySelector("#coeff").value;
+        if (Boolean(coeff?.trim()))
+          elem.setAttribute("payment-coefficient", coeff);
+
+        const hideCategoryFilter = document.querySelector("#f-cat").checked;
+        if (hideCategoryFilter) {
+          elem.setAttribute("hide-filter-category", "");
+        }
+
+        const hidePointFilter = document.querySelector("#f-point").checked;
+        if (hidePointFilter) {
+          elem.setAttribute("hide-filter-point", "");
+        }
+
+        const hideDateFilter = document.querySelector("#f-dat").checked;
+        if (hideDateFilter) {
+          elem.setAttribute("hide-filter-date", "");
+        }
+
+        const hideFilters = document.querySelector("#f-hide").checked;
+        if (hideFilters) {
+          elem.setAttribute("hide-filters", "");
+        }
+
+        const require = document.querySelector("#require").value;
+        if (Boolean(require?.trim()))
+          elem.setAttribute("required-filters", require);
+
+        const prim = document.querySelector("#prim").value;
+        if (Boolean(prim?.trim())) elem.setAttribute("primary-color", prim);
+
+        const back = document.querySelector("#back").value;
+        if (Boolean(back?.trim())) elem.setAttribute("background-color", back);
+
+        const secondBack = document.querySelector("#secondback").value;
+        if (Boolean(secondBack?.trim()))
+          elem.setAttribute("background-second-color", secondBack);
+
+        elem.setAttribute("id", "rih-widget");
+
+        const rihWidget = document.querySelector("#rih-widget");
+        if (rihWidget) {
+          location.reload();
+        }
+
+        document.body.prepend(elem);
+
+        const code = document.querySelector("#code");
+        const script = document.createElement("script");
+        script.src = "https://cdn.rentinhand.ru/widgets/js/2.0/js.js";
+        code.innerHTML = "";
+        code.insertAdjacentText("beforeend", script.outerHTML + elem.outerHTML);
+
+        btn.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)";
+        btn2.innerHTML = "ОБНОВИТЬ СТРАНИЦУ (НАСТРОЙКИ СОХРАНЯТСЯ)";
+      };
+
+      btn.onclick = reloadWidget;
+      btn2.onclick = reloadWidget;
+    </script>
+   <script src="https://cdn.rentinhand.ru/widgets/js/2.0/staging.js"></script>
+  </body>
+</html>
+
+
