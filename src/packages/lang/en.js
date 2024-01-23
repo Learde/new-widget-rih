@@ -59,4 +59,6 @@ export default {
     fill_required: "Fill in all required fields",
     success_text: "Thank you, we will contact you shortly!",
     ok: "Ok",
+    reg_error: "Mail and/or phone are already busy",
+    auth_error: "Wrong phone number or password",
 };

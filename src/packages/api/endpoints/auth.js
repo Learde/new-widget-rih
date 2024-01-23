@@ -1,14 +1,18 @@
 import { makeHttpRequest } from "..";
 
-const authClient = ({ phone, password }) => {
-    return makeHttpRequest({
-        url: "/widget/client/auth",
-        method: "POST",
-        data: {
-            phone,
-            password,
-        },
-    });
+const authClient = async ({ phone, password }) => {
+    const response = (
+        await makeHttpRequest({
+            url: "/widget/auth",
+            method: "POST",
+            data: {
+                contact: phone,
+                password,
+            },
+        })
+    ).data;
+
+    return response.data;
 };
 
 export { authClient };

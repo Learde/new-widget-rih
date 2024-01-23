@@ -44,11 +44,10 @@ const router = useRouterStore();
 const { current } = storeToRefs(router);
 
 const clientStore = useClientStore();
-const { setClient, setAuthModal } = clientStore;
 
 const { authorization, routeAfterPay, showModalAfterPay } = generalProps;
-if (authorization && localStorage.getItem("client")) {
-    setClient(JSON.parse(localStorage.getItem("client")));
+if (authorization && localStorage.getItem("authData")) {
+    clientStore.tryAuth(JSON.parse(localStorage.getItem("authData")));
 }
 
 const rentStore = useRentStore();
@@ -57,7 +56,7 @@ const modalAuth = ref(null);
 const modalSuccess = ref(null);
 
 onMounted(async () => {
-    setAuthModal(modalAuth.value);
+    clientStore.setAuthModal(modalAuth.value);
     initColorsPropsStore(props);
 
     let url = new URL(window.location.href);

@@ -1,10 +1,12 @@
 <script setup>
-import { PhoneNumberInput, BaseButton, DatePicker } from "@uikit";
+import { PhoneNumberInput, BaseButton, DatePicker, BaseLoading } from "@uikit";
 import { registerClient } from "@api";
 import { useClientStore, generalProps } from "@stores";
 import { ref } from "vue";
 import { formatDateJs } from "@helpers";
+import { useTrans } from "@packages/lang";
 
+const { trans } = useTrans();
 const emit = defineEmits(["change-type", "close"]);
 
 const name = ref(null);
@@ -21,6 +23,7 @@ const passportCode = ref(null);
 const errorFull = ref(false);
 const errorAuth = ref(false);
 const errorPasswords = ref(false);
+const isLoading = ref(false);
 
 const clientStore = useClientStore();
 const { setClient } = clientStore;
@@ -61,26 +64,31 @@ const doReg = async () => {
     errorAuth.value = null;
 
     try {
-        const client = (
-            await registerClient({
+        isLoading.value = true;
+
+        await clientStore.register({
+            phone: phone.value,
+            password: password.value,
+            passwordConfirm: passwordConfirm.value,
+            surname: surname.value,
+            name: name.value,
+            email: email.value,
+            ...passportData,
+        });
+
+        localStorage.setItem(
+            "authData",
+            JSON.stringify({
                 phone: phone.value,
                 password: password.value,
-                passwordConfirm: passwordConfirm.value,
-                surname: surname.value,
-                name: name.value,
-                email: email.value,
-                ...passportData,
             })
-        ).data;
-        if (client && client.error === undefined) {
-            localStorage.setItem("client", JSON.stringify(client));
-            setClient(client);
-            emit("close");
-        } else if (client.error) {
-            errorAuth.value = client.error;
-        }
+        );
+
+        emit("close");
     } catch (error) {
-        errorAuth.value = error?.response?.data?.error ?? "Ошибка регистрации";
+        errorAuth.value = trans.value["reg_error"]; //error?.response?.data?.error;
+    } finally {
+        isLoading.value = false;
     }
 };
 </script>
@@ -189,5 +197,6 @@ const doReg = async () => {
                 >Войти</span
             >
         </p>
+        <BaseLoading v-if="isLoading" background />
     </div>
 </template>

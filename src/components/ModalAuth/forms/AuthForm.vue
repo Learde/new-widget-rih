@@ -1,7 +1,7 @@
 <script setup>
-import { PhoneNumberInput, BaseButton } from "@uikit";
-import { authClient } from "@api";
+import { PhoneNumberInput, BaseButton, BaseLoading } from "@uikit";
 import { useClientStore } from "@stores";
+import { useTrans } from "@packages/lang";
 import { ref } from "vue";
 
 const emit = defineEmits(["change-type", "close"]);
@@ -10,9 +10,10 @@ const phone = ref(null);
 const password = ref(null);
 const errorFull = ref(false);
 const errorAuth = ref(false);
+const isLoading = ref(false);
 
+const { trans } = useTrans();
 const clientStore = useClientStore();
-const { setClient } = clientStore;
 
 const doAuth = async () => {
     errorFull.value = !phone.value || !password.value;
@@ -21,21 +22,22 @@ const doAuth = async () => {
     errorAuth.value = null;
 
     try {
-        const client = (
-            await authClient({
-                phone: phone.value,
-                password: password.value,
-            })
-        ).data;
-        if (client && client.error === undefined) {
-            localStorage.setItem("client", JSON.stringify(client));
-            setClient(client);
-            emit("close");
-        } else if (client.error) {
-            errorAuth.value = client.error;
-        }
+        isLoading.value = true;
+
+        const data = {
+            phone: phone.value,
+            password: password.value,
+        };
+
+        await clientStore.tryAuth(data);
+
+        localStorage.setItem("authData", JSON.stringify(data));
+
+        emit("close");
     } catch (error) {
-        errorAuth.value = error?.response?.data?.error ?? "Ошибка авторизации";
+        errorAuth.value = trans["auth_error"]; // error?.response?.data?.error ?? "Ошибка авторизации";
+    } finally {
+        isLoading.value = false;
     }
 };
 </script>
@@ -71,5 +73,6 @@ const doAuth = async () => {
                 >Зарегистрироваться</span
             >
         </p>
+        <BaseLoading v-if="isLoading" background />
     </div>
 </template>
