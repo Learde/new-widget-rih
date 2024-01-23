@@ -20,8 +20,8 @@ const { setClient } = clientStore;
 const { authorization } = generalProps;
 
 const doLogout = () => {
-    if (localStorage.getItem("client")) {
-        localStorage.removeItem("client");
+    if (localStorage.getItem("authData")) {
+        localStorage.removeItem("authData");
     }
     setClient(null);
     rollbackRoute();

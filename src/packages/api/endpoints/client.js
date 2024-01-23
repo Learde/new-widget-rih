@@ -26,22 +26,32 @@ const checkOrCreateClient = ({
     });
 };
 
-const getClientRents = ({ clientId }) => {
-    return makeHttpRequest({
-        url: "/widget/client/rents",
-        method: "GET",
-        params: {
-            client_id: clientId,
-        },
-    });
+const getClientRents = async (clientHumanId) => {
+    const response = (
+        await makeHttpRequest({
+            url: "/rent",
+            method: "GET",
+            params: {
+                page: 1,
+                per_page: 100,
+                client_human_id: clientHumanId,
+            },
+        })
+    ).data;
+
+    return response.data;
 };
 
-const editClient = (clientData, clientId) => {
-    return makeHttpRequest({
-        url: "/client/" + clientId,
-        method: "PUT",
-        data: clientData,
-    });
+const editClient = async (clientData, clientId) => {
+    const response = (
+        await makeHttpRequest({
+            url: `/human/client/${clientId}`,
+            method: "PUT",
+            data: clientData,
+        })
+    ).data;
+
+    return response.data;
 };
 
 export const getClients = async (phone) => {

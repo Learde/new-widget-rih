@@ -64,6 +64,8 @@ const toggle = () => {
     modal.value.toggle();
 };
 
+const clientStore = useClientStore();
+
 defineExpose({ show, hide, toggle });
 
 const name = ref(props.defaultName);
@@ -99,6 +101,7 @@ const clientData = computed(() => {
             name: name.value,
             ...passportData,
         },
+        id: props.id,
     };
 
     if (phone.value) {
@@ -124,21 +127,11 @@ const saving = ref(false);
 const doEdit = async () => {
     try {
         saving.value = true;
-        const payloadEdit = (await editClient(clientData.value, props.id)).data;
-        if (payloadEdit.error === undefined) {
-            const payloadGet = (await getClient(props.id)).data;
-            if (payloadGet.error === undefined) {
-                const client = payloadGet.array?.[0];
-                const clientStore = useClientStore();
-                const { setClient } = clientStore;
-                setClient(client);
-                modalSuccess.value.show("Успешное редактирование");
-            } else {
-                modalError.value.show(payloadGet.error);
-            }
-        } else {
-            modalError.value.show(payloadEdit.error);
-        }
+
+        const client = await editClient(clientData.value, props.id);
+        clientStore.setClient(client);
+        modalSuccess.value.show("Успешное редактирование");
+
         hide();
     } catch (e) {
         modalError.value.show(e?.response?.data?.error);

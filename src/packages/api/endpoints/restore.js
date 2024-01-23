@@ -1,14 +1,18 @@
 import { makeHttpRequest } from "..";
 
-const restorePassword = ({ phone, email }) => {
-    return makeHttpRequest({
-        url: "/widget/client/restore/code/send",
-        method: "PUT",
-        data: {
-            phone,
-            email,
-        },
-    });
+const restorePassword = async ({ phone, email }) => {
+    const response = (
+        await makeHttpRequest({
+            url: "/widget/send-code",
+            method: "POST",
+            data: {
+                phone,
+                email,
+            },
+        })
+    ).data;
+
+    return response;
 };
 
 const restoreCode = ({ code }) => {
@@ -21,16 +25,20 @@ const restoreCode = ({ code }) => {
     });
 };
 
-const restoreChange = ({ password, passwordConfirm, clientId }) => {
-    return makeHttpRequest({
-        url: "/widget/client/restore",
-        method: "PUT",
-        data: {
-            password,
-            password_confirmation: passwordConfirm,
-            client_id: clientId,
-        },
-    });
+const restoreChange = async ({ password, passwordConfirm, code }) => {
+    const response = (
+        await makeHttpRequest({
+            url: "/widget/restore-password",
+            method: "PUT",
+            data: {
+                password,
+                password_confirmation: passwordConfirm,
+                code,
+            },
+        })
+    ).data;
+
+    return response;
 };
 
 export { restorePassword, restoreCode, restoreChange };

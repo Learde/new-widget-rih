@@ -17,14 +17,12 @@ const doRestore = async () => {
     errorAuth.value = null;
 
     try {
-        const data = (
-            await restorePassword({
-                phone: phone.value,
-                email: email.value,
-            })
-        ).data;
+        const data = await restorePassword({
+            phone: phone.value,
+            email: email.value,
+        });
         if (data && data.error === undefined && data.status === "OK") {
-            emit("change-type", "restore-code");
+            emit("change-type", "restore-password");
         } else if (data.error) {
             errorAuth.value = data.error;
         }

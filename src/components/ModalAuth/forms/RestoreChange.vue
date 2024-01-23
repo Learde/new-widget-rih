@@ -12,6 +12,7 @@ const { client } = storeToRefs(clientStore);
 
 const password = ref(null);
 const passwordConfirm = ref(null);
+const code = ref(null);
 const errorFull = ref(false);
 const errorAuth = ref(false);
 
@@ -22,13 +23,11 @@ const doRestore = async () => {
     errorAuth.value = null;
 
     try {
-        const data = (
-            await restoreChange({
-                password: password.value,
-                passwordConfirm: passwordConfirm.value,
-                clientId: client.value.id,
-            })
-        ).data;
+        const data = await restoreChange({
+            password: password.value,
+            passwordConfirm: passwordConfirm.value,
+            code: code.value,
+        });
         if (data && data.error === undefined) {
             emit("change-type", "auth");
         } else if (data.error) {
@@ -46,6 +45,14 @@ const doRestore = async () => {
 <template>
     <div class="auth-form__form">
         <h2 class="auth-form__heading">Восстановление пароля</h2>
+        <div class="auth-form__form-group">
+            <input
+                class="auth-form__input"
+                type="text"
+                placeholder="Код из письма"
+                v-model="code"
+            />
+        </div>
         <div class="auth-form__form-group">
             <input
                 class="auth-form__input"

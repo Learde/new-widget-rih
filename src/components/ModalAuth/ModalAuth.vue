@@ -47,10 +47,6 @@ const { passport } = generalProps;
                     v-else-if="type === 'restore'"
                     @change-type="(t) => (type = t)"
                 />
-                <RestoreCode
-                    v-else-if="type === 'restore-code'"
-                    @change-type="(t) => (type = t)"
-                />
                 <RestoreChange
                     v-else-if="type === 'restore-password'"
                     @change-type="(t) => (type = t)"

@@ -19,9 +19,7 @@ const modal = ref(null);
 const loadClientRents = async () => {
     try {
         loading.value = true;
-        rents.value = (
-            await getClientRents({ clientId: client.value.id })
-        ).data?.reverse();
+        rents.value = (await getClientRents(client.value.human.id))?.reverse();
     } catch (e) {
         console.log(e);
     } finally {
@@ -64,7 +62,7 @@ const defaultEmail = computed(() => {
     <div class="client-lk container">
         <div class="client-lk__row">
             <div class="client-lk__heading">
-                <h2 class="client-lk__fio">{{ client.fio }}</h2>
+                <h2 class="client-lk__fio">{{ client.human.fio }}</h2>
                 <div class="client-lk__edit" @click="modal.show()">
                     <IconPencil />
                 </div>
