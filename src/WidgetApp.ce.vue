@@ -74,7 +74,7 @@ onMounted(async () => {
 
     const settings = await getSettings();
     rentStore.setMinRent(settings?.min_rent_time ?? "PT2H");
-    setCurrencyIcon(settings?.currency?.const);
+    setCurrencyIcon(props.currency ?? settings?.currency?.const);
 });
 
 // Добавление шрифта Manrope к странице

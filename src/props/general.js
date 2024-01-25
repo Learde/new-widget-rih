@@ -64,4 +64,8 @@ export default {
         type: Boolean,
         default: false,
     },
+    currency: {
+        type: String,
+        default: null,
+    },
 };

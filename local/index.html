@@ -60,9 +60,7 @@
       <div style="display: flex; gap: 10px; width: 100%">
         <label>Авторизация и профиль: </label>
         <label><input type="radio" name="auth" id="auth" checked />Вкл.</label>
-        <label
-          ><input type="radio" name="auth" id="unauth" />Выкл.</label
-        >
+        <label><input type="radio" name="auth" id="unauth" />Выкл.</label>
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
         <label
@@ -280,6 +278,10 @@
         </label>
         <input type="text" value="" id="require" style="width: 100%" />
       </div>
+      <div style="display: flex; gap: 10px; width: 100%">
+        <label>Валюта (RUB, USD, EUR, KZT и так далее): </label>
+        <input type="text" value="RUB" id="currency" style="width: 100%" />
+      </div>
       <div style="font-style: italic">
         Ниже цвета в формате HEX (#чччччч, где ч - число в 16ричной системе)
       </div>
@@ -459,6 +461,9 @@
         const require = document.querySelector("#require").value;
         if (Boolean(require?.trim()))
           elem.setAttribute("required-filters", require);
+
+        const currency = document.querySelector("#currency").value;
+        if (Boolean(currency?.trim())) elem.setAttribute("currency", currency);
 
         const prim = document.querySelector("#prim").value;
         if (Boolean(prim?.trim())) elem.setAttribute("primary-color", prim);
