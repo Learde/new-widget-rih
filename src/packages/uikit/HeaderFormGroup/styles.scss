@@ -12,9 +12,10 @@
     }
 
 
-    & label {
+    &__label {
         display: inline-block;
         font-size: 14px;
+        text-align: left !important;
         margin-bottom: 2px;
     }
 }
