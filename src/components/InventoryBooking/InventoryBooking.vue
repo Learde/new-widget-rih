@@ -14,6 +14,7 @@ import {
     useCartStore,
     useClientStore,
     useRouterStore,
+    useFiltersStore,
 } from "@stores";
 import RentDatetimePicker from "./components/RentDatetimePicker/RentDatetimePicker.vue";
 import RentDatetimePickerRange from "./components/RentDatetimePicker/RentDatetimePickerRange.vue";
@@ -27,6 +28,7 @@ import { storeToRefs } from "pinia";
 import { useTrans } from "@packages/lang";
 
 const { trans } = useTrans();
+const filtersStore = useFiltersStore();
 
 const props = defineProps({
     inventory: Object,
@@ -38,12 +40,20 @@ const limitDays = bookingProps.limitDays;
 const hasRange = limitDays === null || Number(limitDays) > 0;
 
 let currentDate = new Date();
+if (filtersStore.data.dateStart) {
+    currentDate = new Date(filtersStore.data.dateStart);
+}
 
 let futureDate = new Date();
-
-futureDate.setDate(futureDate.getDate() + bookingProps.defaultDays);
-futureDate.setHours(futureDate.getHours() + bookingProps.defaultHours);
-futureDate.setMinutes(futureDate.getMinutes() + bookingProps.defaultMinutes);
+if (filtersStore.data.dateEnd) {
+    futureDate = new Date(filtersStore.data.dateEnd);
+} else {
+    futureDate.setDate(futureDate.getDate() + bookingProps.defaultDays);
+    futureDate.setHours(futureDate.getHours() + bookingProps.defaultHours);
+    futureDate.setMinutes(
+        futureDate.getMinutes() + bookingProps.defaultMinutes
+    );
+}
 
 const datetime = ref([currentDate, futureDate]);
 

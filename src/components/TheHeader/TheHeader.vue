@@ -2,26 +2,20 @@
 import { ref, computed } from "vue";
 
 import { BaseButton } from "@uikit";
-import { filterProps } from "@stores";
+import { filterProps, useFiltersStore } from "@stores";
 import { useTrans } from "@packages/lang";
 import FilterCategory from "./filters/FilterCategory.vue";
 import FilterCategoryInline from "./filters/FilterCategoryInline.vue";
 import FilterPoint from "./filters/FilterPoint.vue";
 import FilterDate from "./filters/FilterDate.vue";
 
-const { trans } = useTrans();
-
 const emit = defineEmits(["reload"]);
 
-const filter = ref({
-    categoryIds: null,
-    pointIds: null,
-    dateStart: null,
-    dateEnd: null,
-});
+const { trans } = useTrans();
+const filtersStore = useFiltersStore();
 
 const emitReload = () => {
-    emit("reload", filter.value);
+    emit("reload", filtersStore.data);
 };
 
 const {
@@ -51,26 +45,29 @@ const isTwoHidden = computed(() => {
         >
             <FilterCategory
                 v-if="!hideFilterCategory && categoryFilterType === 'default'"
-                v-model="filter.categoryIds"
+                v-model="filtersStore.data.categoryIds"
             />
-            <FilterPoint v-if="!hideFilterPoint" v-model="filter.pointIds" />
+            <FilterPoint
+                v-if="!hideFilterPoint"
+                v-model="filtersStore.data.pointIds"
+            />
             <FilterDate
                 v-if="!hideFilterDate"
-                v-model="filter.dateStart"
+                v-model="filtersStore.data.dateStart"
                 type="dateStart"
             >
                 {{ trans["date_start"] }}
             </FilterDate>
             <FilterDate
                 v-if="!hideFilterDate"
-                v-model="filter.dateEnd"
+                v-model="filtersStore.data.dateEnd"
                 type="dateEnd"
             >
                 {{ trans["date_end"] }}
             </FilterDate>
             <FilterCategoryInline
                 v-if="!hideFilterCategory && categoryFilterType === 'inline'"
-                v-model="filter.categoryIds"
+                v-model="filtersStore.data.categoryIds"
             />
         </div>
         <BaseButton class="header__show-btn" @click="emitReload">

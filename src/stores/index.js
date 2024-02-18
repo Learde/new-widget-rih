@@ -27,6 +27,8 @@ export { useCartStore } from "./cart/cart.js";
 //client.js
 export { useClientStore } from "./client/client.js";
 
+export { useFiltersStore } from "./filtersProps/useFiltersStore.js";
+
 // Props
 
 //generalProps.js
