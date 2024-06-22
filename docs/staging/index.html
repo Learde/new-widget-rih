@@ -256,6 +256,10 @@
         >
       </div>
       <div style="display: flex; gap: 10px; width: 100%">
+        <label>Валюта (RUB, USD, EUR, KZT и так далее): </label>
+        <input type="text" value="RUB" id="currency" style="width: 100%" />
+      </div>
+      <div style="display: flex; gap: 10px; width: 100%">
         <label
           >Обязательные фильтры ЧЕРЕЗ ЗАПЯТУЮ БЕЗ ПРОБЕЛА (значения: point
           category dateStart dateEnd):
@@ -442,6 +446,9 @@
         if (Boolean(require?.trim()))
           elem.setAttribute("required-filters", require);
 
+        const currency = document.querySelector("#currency").value;
+        if (Boolean(currency?.trim())) elem.setAttribute("currency", currency);
+
         const prim = document.querySelector("#prim").value;
         if (Boolean(prim?.trim())) elem.setAttribute("primary-color", prim);
 
@@ -463,7 +470,7 @@
 
         const code = document.querySelector("#code");
         const script = document.createElement("script");
-        script.src = "https://cdn.rentinhand.ru/widgets/js/2.0/js.js";
+        script.src = "https://cdn.rentinhand.ru/widgets/js/2.0/staging.js";
         code.innerHTML = "";
         code.insertAdjacentText("beforeend", script.outerHTML + elem.outerHTML);
 
