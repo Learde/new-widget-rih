@@ -5,7 +5,7 @@
         <link rel="icon" href="/new-widget-rih/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>(local) RIH Widget</title>
-      <script type="module" crossorigin src="/new-widget-rih/assets/local.18cb30f9.js"></script>
+      <script type="module" crossorigin src="/new-widget-rih/assets/local.8859d2c4.js"></script>
     </head>
     <body>
         <!--    <rih-widget-->
@@ -70,7 +70,7 @@
                         type="radio"
                         name="phonelocale"
                         id="phoneserver"
-                    />Запрос на сервер</label
+                    />Запрос на сервер (не работает)</label
                 >
                 <label
                     ><input
@@ -80,6 +80,15 @@
                         checked
                     />Браузерная локаль</label
                 >
+            </div>
+            <div style="display: flex; gap: 10px; width: 100%">
+                <label
+                    >Стандартный код страны (RU, BY, KZ, GE и др. Пустое поле = автоопределение):
+                    <input
+                        type="text"
+                        name="defaultCountryCode"
+                        id="defaultCountryCode"
+                /></label>
             </div>
 
             <div style="display: flex; gap: 10px; width: 100%">
@@ -513,6 +522,13 @@
                 const fetchCountry = document.querySelector("#phoneserver").checked;
                 if (fetchCountry) {
                     elem.setAttribute("fetch-country", "");
+                }
+
+                const defaultCountryCode = document.querySelector(
+                    "#defaultCountryCode"
+                )
+                if (defaultCountryCode) {
+                    elem.setAttribute("default-country-code", defaultCountryCode.value);
                 }
 
                 const hasAuth = document.querySelector("#auth").checked;
